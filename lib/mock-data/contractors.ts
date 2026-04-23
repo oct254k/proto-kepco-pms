@@ -1,0 +1,48 @@
+import { Contractor } from '@/types';
+
+export const mockContractors: Contractor[] = [
+  {
+    id: 'EPC-001',
+    name: '(주)한빛전기',
+    businessNo: '123-45-67890',
+    representative: '이한빛',
+    address: '서울시 강남구 테헤란로 123',
+    creditGrade: 'A',
+    settlementDate: '2024-12-31',
+    validUntil: '2025-12-31',
+    registeredAt: '2020-03-15',
+  },
+  {
+    id: 'EPC-002',
+    name: '에너지솔루션(주)',
+    businessNo: '234-56-78901',
+    representative: '박에너지',
+    address: '경기도 성남시 분당구 판교로 456',
+    creditGrade: 'BB+',
+    settlementDate: '2024-12-31',
+    validUntil: '2025-09-30',
+    registeredAt: '2019-07-20',
+  },
+  {
+    id: 'EPC-003',
+    name: '(주)그린테크',
+    businessNo: '345-67-89012',
+    representative: '김그린',
+    address: '인천시 연수구 송도과학로 789',
+    creditGrade: 'BB-',
+    settlementDate: '2023-12-31',
+    validUntil: '2024-12-31',
+    registeredAt: '2021-01-10',
+  },
+  {
+    id: 'EPC-004',
+    name: '스마트이에스(주)',
+    businessNo: '456-78-90123',
+    representative: '최스마트',
+    address: '부산시 해운대구 센텀로 101',
+    creditGrade: 'A+',
+    settlementDate: '2024-12-31',
+    validUntil: '2025-12-31',
+    registeredAt: '2018-05-30',
+  },
+];

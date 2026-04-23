@@ -1,0 +1,851 @@
+{
+  "config": {
+    "configFile": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright.config.ts",
+    "rootDir": "/Users/gsitm/work/pms/workplace/pms-prototype",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/gsitm/work/pms/workplace/pms-prototype",
+        "testIgnore": [],
+        "testMatch": [
+          "playwright-verify.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-results/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 4,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "playwright-verify.spec.ts",
+      "file": "playwright-verify.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "SCR-P-01 대시보드",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1828,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:39.427Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-01-대시보드/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-d0cc6be17bca400a116b",
+          "file": "playwright-verify.spec.ts",
+          "line": 13,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-02 기회등록 (Stepper)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1211,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:41.567Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-02-기회등록-Stepper-/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-b341cac064c1917beb34",
+          "file": "playwright-verify.spec.ts",
+          "line": 48,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-03 기회 Funnel 현황",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1960,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:42.786Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-03-기회-Funnel-현황/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-fb4d8b62736483e92ee5",
+          "file": "playwright-verify.spec.ts",
+          "line": 77,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-04a 프로젝트 목록",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:44.752Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-04a-프로젝트-목록/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-5dcd5859281e7ecd213a",
+          "file": "playwright-verify.spec.ts",
+          "line": 118,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-04b 프로젝트 상세 — 탭 6개",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2423,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:46.238Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-04b-프로젝트-상세-—-탭-6개/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-da2c51b3033f3bb41003",
+          "file": "playwright-verify.spec.ts",
+          "line": 148,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-05 CP 목록",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1432,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:48.667Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-05-CP-목록/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-69fc89fcd2188fecae79",
+          "file": "playwright-verify.spec.ts",
+          "line": 183,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-06 CP 상세 — 차수 타임라인 + 탭 3개",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2315,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:50.107Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-06-CP-상세-—-차수-타임라인-탭-3개/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-e1121ced438913e8447c",
+          "file": "playwright-verify.spec.ts",
+          "line": 207,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-07 계약조회 — 수주/발주 탭",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1625,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:52.428Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-07-계약조회-—-수주-발주-탭/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-ad8843a9559a916e0200",
+          "file": "playwright-verify.spec.ts",
+          "line": 238,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-08 사업결산 — IRR 컬럼",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1346,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:54.059Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-08-사업결산-—-IRR-컬럼/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-08160cfd0c3a14c94923",
+          "file": "playwright-verify.spec.ts",
+          "line": 265,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-09 마이페이지 — 3개 섹션",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1269,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:55.410Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-09-마이페이지-—-3개-섹션/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-dea2182d2698192558bc",
+          "file": "playwright-verify.spec.ts",
+          "line": 289,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-10 사용자관리 — 탭 2개 + 테이블",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:56.684Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-10-사용자관리-—-탭-2개-테이블/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-93281163a4cedb88c644",
+          "file": "playwright-verify.spec.ts",
+          "line": 310,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-11 프로젝트정보관리 — 테이블",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1301,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:57.939Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-11-프로젝트정보관리-—-테이블/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-fbb80cb763d09a608491",
+          "file": "playwright-verify.spec.ts",
+          "line": 335,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-12 경영실적목표 — 연도 탭 + 인라인 편집",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1305,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:54:59.245Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-12-경영실적목표-—-연도-탭-인라인-편집/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-d29c37675824472a07e6",
+          "file": "playwright-verify.spec.ts",
+          "line": 356,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-13 협력업체 — 업체 목록 + 신용등급 배지",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:55:00.555Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-13-협력업체-—-업체-목록-신용등급-배지/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-698e975e72f8c39e6aa9",
+          "file": "playwright-verify.spec.ts",
+          "line": 380,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-14 시스템환경 — 탭 2개 + 차트",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:55:01.981Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-14-시스템환경-—-탭-2개-차트/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-2c20382fed978fc710b1",
+          "file": "playwright-verify.spec.ts",
+          "line": 406,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-15 Pipeline Kanban — 7컬럼",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1369,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:55:03.223Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-15-Pipeline-Kanban-—-7컬럼/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-a5fdb84515aa0234702c",
+          "file": "playwright-verify.spec.ts",
+          "line": 424,
+          "column": 5
+        },
+        {
+          "title": "SCR-P-17 CP 상세 — 헤더카드 + 타임라인 + 탭",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:55:04.597Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-SCR-P-17-CP-상세-—-헤더카드-타임라인-탭/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-6efacad541f13021785c",
+          "file": "playwright-verify.spec.ts",
+          "line": 459,
+          "column": 5
+        },
+        {
+          "title": "전체 라우트 404 없음 확인",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4576,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "\n=== 라우트 검증 결과 ===\n"
+                    },
+                    {
+                      "text": "✅ /dashboard → 정상\n"
+                    },
+                    {
+                      "text": "✅ /opportunity → 정상\n"
+                    },
+                    {
+                      "text": "✅ /opportunity/new → 정상\n"
+                    },
+                    {
+                      "text": "✅ /pipeline → 정상\n"
+                    },
+                    {
+                      "text": "✅ /projects → 정상\n"
+                    },
+                    {
+                      "text": "✅ /projects/PRJ-2024-001 → 정상\n"
+                    },
+                    {
+                      "text": "✅ /cp → 정상\n"
+                    },
+                    {
+                      "text": "✅ /cp/CP-2024-001 → 정상\n"
+                    },
+                    {
+                      "text": "✅ /contracts → 정상\n"
+                    },
+                    {
+                      "text": "✅ /settlement → 정상\n"
+                    },
+                    {
+                      "text": "✅ /mypage → 정상\n"
+                    },
+                    {
+                      "text": "✅ /admin/users → 정상\n"
+                    },
+                    {
+                      "text": "✅ /admin/projects → 정상\n"
+                    },
+                    {
+                      "text": "✅ /admin/targets → 정상\n"
+                    },
+                    {
+                      "text": "✅ /admin/contractors → 정상\n"
+                    },
+                    {
+                      "text": "✅ /admin/system → 정상\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-04-23T04:55:06.194Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gsitm/work/pms/workplace/pms-prototype/playwright-results/playwright-verify-전체-라우트-404-없음-확인/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7747211946fb84869b20-e7adc34e358e35163b38",
+          "file": "playwright-verify.spec.ts",
+          "line": 499,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-04-23T04:54:38.965Z",
+    "duration": 31854.620000000003,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
