@@ -10,7 +10,7 @@ import { mockContracts } from '@/lib/mock-data/contracts';
 import { mockRepayments } from '@/lib/mock-data/repayments';
 import { mockInvoices } from '@/lib/mock-data/invoices';
 import { mockUncollected } from '@/lib/mock-data/dashboard';
-import { mockCPs } from '@/lib/mock-data/cp';
+import { mockCpInvestments } from '@/lib/mock-data/cp';
 import { formatAmount, formatDate, formatDday } from '@/lib/utils';
 
 // Mock 투자비 데이터
@@ -56,7 +56,7 @@ export default function ProjectDetailClient({ id }: Props) {
     );
   }
 
-  const cpId = mockCPs.find((cp) => cp.projectId === id)?.id;
+  const cpId = mockCpInvestments.find((cp) => cp.projectId === id)?.id;
 
   const projectContracts = mockContracts.filter((c) => c.projectId === id);
   const projectRepayments = mockRepayments.filter((r) => r.projectId === id);
@@ -82,7 +82,7 @@ export default function ProjectDetailClient({ id }: Props) {
       <div className="breadcrumb-container">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">홈</li>
-          <li className="breadcrumb-item">CP/프로젝트 관리</li>
+          <li className="breadcrumb-item">투자/프로젝트 관리</li>
           <li className="breadcrumb-item" style={{ cursor: 'pointer', color: '#00a7ea' }} onClick={() => router.push('/projects')}>프로젝트 관리</li>
           <li className="breadcrumb-item active">{project.name}</li>
         </ol>
@@ -112,9 +112,9 @@ export default function ProjectDetailClient({ id }: Props) {
               <button className="btn type-02" onClick={() => setStatusModalOpen(true)}>상태변경</button>
               <button className="btn type-02">편집</button>
               {cpId ? (
-                <button className="btn type-03" onClick={() => router.push('/cp/' + cpId)}>CP 관리 →</button>
+                <button className="btn type-03" onClick={() => router.push('/cp/' + cpId)}>투자 관리 →</button>
               ) : (
-                <button className="btn type-03" disabled title="연결된 CP가 없습니다" style={{ opacity: 0.5, cursor: 'not-allowed' }}>CP 관리 →</button>
+                <button className="btn type-03" disabled title="연결된 투자 항목이 없습니다" style={{ opacity: 0.5, cursor: 'not-allowed' }}>투자 관리 →</button>
               )}
             </div>
           </div>

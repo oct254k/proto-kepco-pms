@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import DrawerPanel from '@/components/common/DrawerPanel';
 import StatusBadge from '@/components/common/StatusBadge';
 import Breadcrumb from '@/components/layout/Breadcrumb';
-import { mockCPs, mockCPRevisions } from '@/lib/mock-data/cp';
-import { CP } from '@/types';
+import { mockCpInvestments, mockCpInvestmentRevisions } from '@/lib/mock-data/cp';
+import { CpInvestment } from '@/types';
 import { formatDate, formatAmount } from '@/lib/utils';
 
 const REVISION_OPTIONS = ['전체', '0차', '1차 이상'];
@@ -18,7 +18,7 @@ const STATUS_OPTIONS = [
   { label: '완료',  value: 'CLOSED' },
 ];
 
-export default function CPListPage() {
+export default function CpInvestmentListPage() {
   const router = useRouter();
 
   const [filterProject, setFilterProject] = useState('');
@@ -26,12 +26,12 @@ export default function CPListPage() {
   const [filterRevision, setFilterRevision] = useState('전체');
   const [filterStatus, setFilterStatus] = useState('전체');
 
-  const [selectedCP, setSelectedCP] = useState<CP | null>(null);
+  const [selectedCpInvestment, setSelectedCpInvestment] = useState<CpInvestment | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // 필터
   const filtered = useMemo(() => {
-    return mockCPs.filter(cp => {
+    return mockCpInvestments.filter(cp => {
       const projOk = !filterProject || cp.projectName.includes(filterProject);
       const euOk = !filterEnergyUser || cp.energyUser.includes(filterEnergyUser);
       const revOk = filterRevision === '전체'
@@ -42,8 +42,8 @@ export default function CPListPage() {
     });
   }, [filterProject, filterEnergyUser, filterRevision, filterStatus]);
 
-  const handleRowClick = (cp: CP) => {
-    setSelectedCP(cp);
+  const handleRowClick = (cp: CpInvestment) => {
+    setSelectedCpInvestment(cp);
     setIsDrawerOpen(true);
   };
 
@@ -54,36 +54,36 @@ export default function CPListPage() {
     setFilterStatus('전체');
   };
 
-  // 선택된 CP의 차수 이력
+  // 선택된 투자의 차수 이력
   const selectedRevisions = useMemo(() => {
-    if (!selectedCP) return [];
-    return mockCPRevisions
-      .filter(r => r.cpId === selectedCP.id)
+    if (!selectedCpInvestment) return [];
+    return mockCpInvestmentRevisions
+      .filter(r => r.cpId === selectedCpInvestment.id)
       .sort((a, b) => a.revisionNumber - b.revisionNumber);
-  }, [selectedCP]);
+  }, [selectedCpInvestment]);
 
   // 현재 표시 차수: 확정(CONFIRMED) 중 가장 최신 차수
   const currentRevision = useMemo(() => {
-    if (!selectedCP) return null;
+    if (!selectedCpInvestment) return null;
     const confirmed = selectedRevisions.filter(r => r.status === 'CONFIRMED');
     return confirmed[confirmed.length - 1] ?? selectedRevisions[0] ?? null;
-  }, [selectedCP, selectedRevisions]);
+  }, [selectedCpInvestment, selectedRevisions]);
 
   // Drawer 헤더용 현재차수 레이블 계산
   const currentRevisionLabel = useMemo(() => {
-    if (!selectedCP || selectedRevisions.length === 0) return '';
+    if (!selectedCpInvestment || selectedRevisions.length === 0) return '';
     const pendingRev = selectedRevisions.find(r => r.status === 'PENDING_APPROVAL');
     const draftRev   = selectedRevisions.find(r => r.status === 'DRAFT');
     if (pendingRev) return `${pendingRev.revisionNumber}차 (결재진행중)`;
     if (draftRev)   return `${draftRev.revisionNumber}차 (초안)`;
-    return `${selectedCP.currentRevision}차 (확정)`;
-  }, [selectedCP, selectedRevisions]);
+    return `${selectedCpInvestment.currentRevision}차 (확정)`;
+  }, [selectedCpInvestment, selectedRevisions]);
 
   return (
     <div className="content-wrap">
-      <Breadcrumb items={[{ label: 'CP/프로젝트 관리' }, { label: 'CP 관리' }]} />
+      <Breadcrumb items={[{ label: '투자/프로젝트 관리' }, { label: '투자 관리' }]} />
       <div className="content-title-wrap">
-        <h2>CP 목록</h2>
+        <h2>투자 목록</h2>
       </div>
 
       {/* 조회 조건 */}
@@ -111,7 +111,7 @@ export default function CPListPage() {
       {/* 목록 테이블 */}
       <div className="content-box-wrap type-02">
         <div className="title-row-wrap">
-          <h3>CP 목록</h3>
+          <h3>투자 목록</h3>
           <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {filtered.length}건</span>
         </div>
         <div className="table-wrap">
@@ -133,7 +133,7 @@ export default function CPListPage() {
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={9} style={{ textAlign: 'center', padding: '2rem', color: '#6c757d' }}>
-                    조건에 맞는 CP가 없습니다.
+                    조건에 맞는 투자 항목이 없습니다.
                   </td>
                 </tr>
               ) : (
@@ -187,21 +187,21 @@ export default function CPListPage() {
       <DrawerPanel
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        title="CP 미리보기"
+        title="투자 미리보기"
         width={480}
         footer={
           <div className="button-wrap">
-            <button className="btn type-03" onClick={() => { if (selectedCP) router.push('/cp/' + selectedCP.id); }}>
-              CP 상세 →
+            <button className="btn type-03" onClick={() => { if (selectedCpInvestment) router.push('/cp/' + selectedCpInvestment.id); }}>
+              투자 상세 →
             </button>
           </div>
         }
       >
-        {selectedCP && (
+        {selectedCpInvestment && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 헤더 */}
             <div>
-              <div style={{ fontWeight: 700, fontSize: '13px', marginBottom: '4px' }}>{selectedCP.projectName}</div>
+              <div style={{ fontWeight: 700, fontSize: '13px', marginBottom: '4px' }}>{selectedCpInvestment.projectName}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '12px', color: '#555' }}>
                 <span>현재차수: <strong>{currentRevisionLabel}</strong></span>
               </div>
@@ -260,7 +260,7 @@ export default function CPListPage() {
                       <div style={{ flex: 1, paddingBottom: '0.75rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2px' }}>
                           <span style={{ fontWeight: 700, fontSize: '12px' }}>{rev.revisionNumber}차</span>
-                          <StatusBadge type="cpRevision" value={rev.status} />
+                          <StatusBadge type="cpInvestmentRevision" value={rev.status} />
                         </div>
                         <div style={{ fontSize: '11px', color: '#555' }}>
                           확정일: {formatDate(rev.confirmedAt ?? '')}

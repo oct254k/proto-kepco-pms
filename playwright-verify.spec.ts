@@ -72,15 +72,15 @@ test('SCR-P-02 기회등록 (Stepper)', async ({ page }) => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// SCR-P-03 기회 Funnel 현황 (/opportunity)
+// SCR-P-03 기회 사업접수 현황 (/opportunity)
 // ─────────────────────────────────────────────────────────────
-test('SCR-P-03 기회 Funnel 현황', async ({ page }) => {
+test('SCR-P-03 기회 사업접수 현황', async ({ page }) => {
   await page.goto('/opportunity');
   await page.waitForLoadState('networkidle');
 
   await expect(page).not.toHaveURL(/404/);
 
-  // Funnel 5단계 카드 텍스트 확인
+  // 사업접수 5단계 카드 텍스트 확인
   await expect(page.locator('text=기회등록중').first()).toBeVisible();
   await expect(page.locator('text=검토중').first()).toBeVisible();
   await expect(page.locator('text=승인완료').first()).toBeVisible();
@@ -95,8 +95,8 @@ test('SCR-P-03 기회 Funnel 현황', async ({ page }) => {
   const table = page.locator('table').first();
   await expect(table).toBeVisible();
 
-  // [+ 기회 등록] 버튼
-  await expect(page.locator('button', { hasText: '기회 등록' }).first()).toBeVisible();
+  // [+ 사업접수 등록] 버튼
+  await expect(page.locator('button', { hasText: '사업접수 등록' }).first()).toBeVisible();
 
   // Drawer 열기 — 첫 번째 테이블 행 클릭
   const firstRow = page.locator('tbody tr').first();
@@ -109,7 +109,7 @@ test('SCR-P-03 기회 Funnel 현황', async ({ page }) => {
     // (구현에 따라 다를 수 있어 느슨하게 검증)
   }
 
-  await page.screenshot({ path: 'playwright-results/03-opportunity-funnel.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-results/03-opportunity-intake.png', fullPage: true });
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -178,9 +178,9 @@ test('SCR-P-04b 프로젝트 상세 — 탭 6개', async ({ page }) => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// SCR-P-05 CP 목록 (/cp)
+// SCR-P-05 투자 목록 (/cp)
 // ─────────────────────────────────────────────────────────────
-test('SCR-P-05 CP 목록', async ({ page }) => {
+test('SCR-P-05 투자 목록', async ({ page }) => {
   await page.goto('/cp');
   await page.waitForLoadState('networkidle');
 
@@ -198,13 +198,13 @@ test('SCR-P-05 CP 목록', async ({ page }) => {
   const rowCount = await rows.count();
   expect(rowCount).toBeGreaterThan(0);
 
-  await page.screenshot({ path: 'playwright-results/05-cp-list.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-results/05-investment-list.png', fullPage: true });
 });
 
 // ─────────────────────────────────────────────────────────────
-// SCR-P-06 CP 상세 (/cp/CP-2024-001)
+// SCR-P-06 투자 상세 (/cp/CP-2024-001)
 // ─────────────────────────────────────────────────────────────
-test('SCR-P-06 CP 상세 — 차수 타임라인 + 탭 3개', async ({ page }) => {
+test('SCR-P-06 투자 상세 — 차수 타임라인 + 탭 3개', async ({ page }) => {
   await page.goto('/cp/CP-2024-001');
   await page.waitForLoadState('networkidle');
 
@@ -229,7 +229,7 @@ test('SCR-P-06 CP 상세 — 차수 타임라인 + 탭 3개', async ({ page }) =
   // [차수 UP 신규 작성] 버튼 존재
   await expect(page.locator('text=차수 UP').first()).toBeVisible();
 
-  await page.screenshot({ path: 'playwright-results/06-cp-detail.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-results/06-investment-detail.png', fullPage: true });
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -419,9 +419,9 @@ test('SCR-P-14 시스템환경 — 탭 2개 + 차트', async ({ page }) => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// SCR-P-15 Pipeline Kanban (/pipeline)
+// SCR-P-15 입찰현황 Kanban (/pipeline)
 // ─────────────────────────────────────────────────────────────
-test('SCR-P-15 Pipeline Kanban — 7컬럼', async ({ page }) => {
+test('SCR-P-15 입찰현황 Kanban — 7컬럼', async ({ page }) => {
   await page.goto('/pipeline');
   await page.waitForLoadState('networkidle');
 
@@ -450,13 +450,13 @@ test('SCR-P-15 Pipeline Kanban — 7컬럼', async ({ page }) => {
     await page.waitForTimeout(500);
   }
 
-  await page.screenshot({ path: 'playwright-results/15-pipeline.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-results/15-bid.png', fullPage: true });
 });
 
 // ─────────────────────────────────────────────────────────────
-// SCR-P-17 CP 상세 (/cp/CP-2024-001) — 상세 검증
+// SCR-P-17 투자 상세 (/cp/CP-2024-001) — 상세 검증
 // ─────────────────────────────────────────────────────────────
-test('SCR-P-17 CP 상세 — 헤더카드 + 타임라인 + 탭', async ({ page }) => {
+test('SCR-P-17 투자 상세 — 헤더카드 + 타임라인 + 탭', async ({ page }) => {
   await page.goto('/cp/CP-2024-001');
   await page.waitForLoadState('networkidle');
 
@@ -490,7 +490,7 @@ test('SCR-P-17 CP 상세 — 헤더카드 + 타임라인 + 탭', async ({ page }
   // [프로젝트 상세] 링크 존재
   await expect(page.locator('text=프로젝트').first()).toBeVisible();
 
-  await page.screenshot({ path: 'playwright-results/17-cp-detail.png', fullPage: true });
+  await page.screenshot({ path: 'playwright-results/17-investment-detail.png', fullPage: true });
 });
 
 // ─────────────────────────────────────────────────────────────

@@ -1,7 +1,7 @@
-import { PROJECT_STATUS, REPAYMENT_STATUS, OPPORTUNITY_STATUS, CP_REVISION_STATUS, ALERT_LEVEL } from '@/lib/constants/status';
+import { PROJECT_STATUS, REPAYMENT_STATUS, OPPORTUNITY_STATUS, CP_INVESTMENT_REVISION_STATUS, ALERT_LEVEL } from '@/lib/constants/status';
 
 interface StatusBadgeProps {
-  type: 'project' | 'repayment' | 'opportunity' | 'cpRevision' | 'alert' | 'custom';
+  type: 'project' | 'repayment' | 'opportunity' | 'cpInvestmentRevision' | 'alert' | 'custom';
   value: string;
   customLabel?: string;
   customBg?: string;
@@ -20,8 +20,8 @@ export default function StatusBadge({ type, value, customLabel, customBg, custom
   } else if (type === 'opportunity') {
     const s = OPPORTUNITY_STATUS[value as keyof typeof OPPORTUNITY_STATUS];
     if (s) { bg = s.bg; text = s.text; label = s.label; }
-  } else if (type === 'cpRevision') {
-    const s = CP_REVISION_STATUS[value as keyof typeof CP_REVISION_STATUS];
+  } else if (type === 'cpInvestmentRevision') {
+    const s = CP_INVESTMENT_REVISION_STATUS[value as keyof typeof CP_INVESTMENT_REVISION_STATUS];
     if (s) { bg = s.bg; text = s.text; label = s.label; }
   } else if (type === 'alert') {
     const s = ALERT_LEVEL[value as keyof typeof ALERT_LEVEL];

@@ -1,10 +1,10 @@
-import { mockCPs } from '@/lib/mock-data/cp';
-import CPDetailClient from './CPDetailClient';
+import { mockCpInvestments } from '@/lib/mock-data/cp';
+import CpInvestmentDetailClient from './CpInvestmentDetailClient';
 
 export function generateStaticParams() {
-  return mockCPs.map(cp => ({ id: cp.id }));
+  return mockCpInvestments.map(cp => ({ id: cp.id }));
 }
 
-export default function CPDetailPage() {
-  return <CPDetailClient />;
+export default function CpInvestmentDetailPage() {
+  return <CpInvestmentDetailClient />;
 }

@@ -22,11 +22,11 @@ export const OPPORTUNITY_STATUS = {
   CONTRACTED:   { label: '계약체결',   bg: '#cfe2ff', text: '#084298' },
 } as const;
 
-export const PIPELINE_STAGE_ORDER: string[] = [
+export const BID_STAGE_ORDER: string[] = [
   '발주요청접수', '공고중', '제안서접수중', '기술평가', '가격평가', '낙찰', '계약체결',
 ];
 
-export const CP_REVISION_STATUS = {
+export const CP_INVESTMENT_REVISION_STATUS = {
   CONFIRMED:        { label: '확정',        bg: '#d4edda', text: '#155724' },
   DRAFT:            { label: '초안',        bg: '#fff3cd', text: '#856404' },
   PENDING_APPROVAL: { label: '결재진행중',  bg: '#cfe2ff', text: '#084298' },

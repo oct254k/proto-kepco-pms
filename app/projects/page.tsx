@@ -109,7 +109,7 @@ export default function ProjectsPage() {
       <div className="breadcrumb-container">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">홈</li>
-          <li className="breadcrumb-item">CP/프로젝트 관리</li>
+          <li className="breadcrumb-item">투자/프로젝트 관리</li>
           <li className="breadcrumb-item active">프로젝트 관리</li>
         </ol>
       </div>
