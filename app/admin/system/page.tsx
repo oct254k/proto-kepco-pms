@@ -17,8 +17,8 @@ import { formatDate } from '@/lib/utils';
 const menuUsageData = [
   { menu: '대시보드', count: 245 },
   { menu: '프로젝트목록', count: 198 },
-  { menu: 'Pipeline', count: 165 },
-  { menu: 'CP관리', count: 142 },
+  { menu: '입찰현황', count: 165 },
+  { menu: '투자관리', count: 142 },
   { menu: '계약조회', count: 98 },
   { menu: '사업결산', count: 87 },
   { menu: '기회현황', count: 76 },

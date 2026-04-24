@@ -1,7 +1,7 @@
-import { PipelineCard } from '@/types';
+import { BidCard } from '@/types';
 
-export const mockPipelineCards: PipelineCard[] = [
-  // ── 발주요청접수 (3건)
+export const mockBidCards: BidCard[] = [
+  // ── 발주요청접수 (3건) — SRM 발주계획 수립 중, srmBidId 없음
   {
     id: 'PL-009',
     opportunityId: 'OPP-2025-009',
@@ -12,6 +12,7 @@ export const mockPipelineCards: PipelineCard[] = [
     procurementMethod: '2단계입찰',
     manager: '한지민',
     deadline: '2025-09-30',
+    orderRequestId: 'ORD-REQ-2025-009',
   },
   {
     id: 'PL-010',
@@ -24,6 +25,7 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '강동원',
     deadline: '2025-10-15',
     epcCompany: '(주)서일엔지니어링',
+    orderRequestId: 'ORD-REQ-2025-010',
   },
   {
     id: 'PL-005',
@@ -36,9 +38,10 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '정다은',
     deadline: '2025-08-31',
     epcCompany: '(주)부산보일러',
+    orderRequestId: 'ORD-REQ-2025-005',
   },
 
-  // ── 공고중 (2건)
+  // ── 공고중 (2건) — srm-bid-stage: ANNOUNCED 수신
   {
     id: 'PL-001',
     opportunityId: 'OPP-2025-001',
@@ -50,6 +53,8 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '김민준',
     deadline: '2025-05-30',
     epcCompany: '(주)한빛전기',
+    orderRequestId: 'ORD-REQ-2025-001',
+    srmBidId: 'BID-2026-005',
   },
   {
     id: 'PL-008',
@@ -61,9 +66,11 @@ export const mockPipelineCards: PipelineCard[] = [
     procurementMethod: '적격심사',
     manager: '이서연',
     deadline: '2025-06-20',
+    orderRequestId: 'ORD-REQ-2025-008',
+    srmBidId: 'BID-2025-008',
   },
 
-  // ── 제안서접수중 (2건)
+  // ── 제안서접수중 (2건) — srm-bid-stage: PROPOSAL_OPEN + srm-bid-items 수신
   {
     id: 'PL-002',
     opportunityId: 'OPP-2025-002',
@@ -75,6 +82,8 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '이서연',
     deadline: '2025-06-15',
     epcCompany: '에너지솔루션(주)',
+    orderRequestId: 'ORD-REQ-2025-002',
+    srmBidId: 'BID-2026-004',
   },
   {
     id: 'PL-007',
@@ -87,9 +96,11 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '박지훈',
     deadline: '2025-07-10',
     epcCompany: '(주)포스텍엔지니어링',
+    orderRequestId: 'ORD-REQ-2025-007',
+    srmBidId: 'BID-2025-007',
   },
 
-  // ── 기술평가 (2건)
+  // ── 기술평가 (2건) — srm-bid-stage: TECH_EVAL + srm-bid-proposals 수신
   {
     id: 'PL-003',
     opportunityId: 'OPP-2025-003',
@@ -101,6 +112,8 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '박지훈',
     deadline: '2025-05-20',
     epcCompany: '(주)그린테크',
+    orderRequestId: 'ORD-REQ-2025-003',
+    srmBidId: 'BID-2026-003',
   },
   {
     id: 'PL-006',
@@ -113,9 +126,11 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '최수빈',
     deadline: '2025-06-01',
     epcCompany: '(주)창원전기',
+    orderRequestId: 'ORD-REQ-2025-006',
+    srmBidId: 'BID-2025-006',
   },
 
-  // ── 가격평가 (2건)
+  // ── 가격평가 (2건) — srm-bid-stage: PRICE_EVAL
   {
     id: 'PL-011',
     opportunityId: 'OPP-2025-011',
@@ -127,6 +142,8 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '김민준',
     deadline: '2025-05-10',
     epcCompany: '에너지솔루션(주)',
+    orderRequestId: 'ORD-REQ-2025-011',
+    srmBidId: 'BID-2026-002',
   },
   {
     id: 'PL-012',
@@ -139,9 +156,11 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '정다은',
     deadline: '2025-05-25',
     epcCompany: '(주)한빛전기',
+    orderRequestId: 'ORD-REQ-2025-012',
+    srmBidId: 'BID-2025-012',
   },
 
-  // ── 낙찰 (2건)
+  // ── 낙찰 (2건) — srm-bid-awarded 수신
   {
     id: 'PL-004',
     opportunityId: 'OPP-2025-004',
@@ -152,6 +171,8 @@ export const mockPipelineCards: PipelineCard[] = [
     procurementMethod: '2단계입찰',
     manager: '최수빈',
     deadline: '2025-07-01',
+    orderRequestId: 'ORD-REQ-2025-004',
+    srmBidId: 'BID-2026-001',
   },
   {
     id: 'PL-013',
@@ -164,9 +185,11 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '한지민',
     deadline: '2025-06-30',
     epcCompany: '(주)그린테크',
+    orderRequestId: 'ORD-REQ-2025-013',
+    srmBidId: 'BID-2025-013',
   },
 
-  // ── 계약체결 (1건)
+  // ── 계약체결 (1건) — PMS 내부 계약 체결 완료
   {
     id: 'PL-014',
     opportunityId: 'OPP-2025-014',
@@ -178,5 +201,7 @@ export const mockPipelineCards: PipelineCard[] = [
     manager: '강동원',
     deadline: '2025-04-15',
     epcCompany: '에너지솔루션(주)',
+    orderRequestId: 'ORD-REQ-2025-014',
+    srmBidId: 'BID-2025-014',
   },
 ];

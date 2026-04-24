@@ -5,8 +5,8 @@ import { useRouter, useParams } from 'next/navigation';
 import ModalDialog from '@/components/common/ModalDialog';
 import StatusBadge from '@/components/common/StatusBadge';
 import Breadcrumb from '@/components/layout/Breadcrumb';
-import { mockCPs, mockCPRevisions } from '@/lib/mock-data/cp';
-import { CPRevision } from '@/types';
+import { mockCpInvestments, mockCpInvestmentRevisions } from '@/lib/mock-data/cp';
+import { CpInvestmentRevision } from '@/types';
 import { formatDate } from '@/lib/utils';
 
 // Mock WBS 일정 데이터
@@ -36,18 +36,18 @@ const MOCK_QUANTITY = [
   { name: '설치공사', unit: '식', qty: 1, unitPrice: 55000000, total: 55000000 },
 ];
 
-export default function CPDetailPage() {
+export default function CpInvestmentDetailPage() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
 
-  const cp = useMemo(() => mockCPs.find(c => c.id === id), [id]);
-  const [revisions, setRevisions] = useState<CPRevision[]>(() =>
-    mockCPRevisions.filter(r => r.cpId === id).sort((a, b) => a.revisionNumber - b.revisionNumber)
+  const cp = useMemo(() => mockCpInvestments.find(c => c.id === id), [id]);
+  const [revisions, setRevisions] = useState<CpInvestmentRevision[]>(() =>
+    mockCpInvestmentRevisions.filter(r => r.cpId === id).sort((a, b) => a.revisionNumber - b.revisionNumber)
   );
 
   const [selectedRevNo, setSelectedRevNo] = useState<number>(() => {
-    const cpData = mockCPs.find(c => c.id === id);
+    const cpData = mockCpInvestments.find(c => c.id === id);
     return cpData?.currentRevision ?? 0;
   });
 
@@ -69,7 +69,7 @@ export default function CPDetailPage() {
     return (
       <div className="content-wrap">
         <div style={{ textAlign: 'center', padding: '3rem', color: '#6c757d' }}>
-          CP 정보를 불러오지 못했습니다. 새로고침 후 재시도하세요.
+          투자 정보를 불러오지 못했습니다. 새로고침 후 재시도하세요.
         </div>
       </div>
     );
@@ -87,7 +87,7 @@ export default function CPDetailPage() {
       return;
     }
     const maxRev = Math.max(...revisions.map(r => r.revisionNumber));
-    const newRev: CPRevision = {
+    const newRev: CpInvestmentRevision = {
       id: `REV-NEW-${Date.now()}`,
       cpId: cp.id,
       revisionNumber: maxRev + 1,
@@ -149,9 +149,9 @@ export default function CPDetailPage() {
 
   return (
     <div className="content-wrap">
-      <Breadcrumb items={[{ label: 'CP/프로젝트 관리' }, { label: 'CP 관리', href: '/cp' }, { label: cp.projectName }]} />
+      <Breadcrumb items={[{ label: '투자/프로젝트 관리' }, { label: '투자 관리', href: '/cp' }, { label: cp.projectName }]} />
       <div className="content-title-wrap">
-        <h2>CP 상세 — 차수 관리</h2>
+        <h2>투자 상세 — 차수 관리</h2>
       </div>
 
       {/* 헤더 카드 */}
@@ -212,14 +212,8 @@ export default function CPDetailPage() {
               const isSelected = rev.revisionNumber === selectedRevNo;
               const isDraft = rev.status === 'DRAFT';
               const isPendingApproval = rev.status === 'PENDING_APPROVAL';
-              // 현재 확정 차수(가장 최신 CONFIRMED)
               const isCurrentConfirmed = rev.revisionNumber === currentConfirmedRevision?.revisionNumber;
 
-              // 설계서 SCR-P-17 border 스타일 결정:
-              // CONFIRMED (현재 확정 차수): 2px solid #00a7ea (Primary solid)
-              // CONFIRMED (이전 확정 차수): 2px solid #dee2e6 (회색 solid)
-              // DRAFT: 2px dashed #adb5bd (회색 점선) — 선택 여부 무관
-              // PENDING_APPROVAL: 2px dashed #0d6efd (파랑 점선) — 선택 여부 무관
               let borderStyle: string;
               if (isPendingApproval) {
                 borderStyle = '2px dashed #0d6efd';
@@ -247,7 +241,7 @@ export default function CPDetailPage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '4px' }}>
                     <span style={{ fontWeight: 700, fontSize: '13px' }}>{rev.revisionNumber}차</span>
-                    <StatusBadge type="cpRevision" value={rev.status} />
+                    <StatusBadge type="cpInvestmentRevision" value={rev.status} />
                   </div>
                   <div style={{ fontSize: '11px', color: '#555', marginBottom: '2px' }}>
                     {rev.confirmedAt ? formatDate(rev.confirmedAt) : '작성중'}
@@ -306,7 +300,6 @@ export default function CPDetailPage() {
         {/* 일정 계획 탭 */}
         {activeTab === 'schedule' && (
           <div>
-            {/* 요약 카드 */}
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
               {[
                 { label: '착공일', value: formatDate(selectedRevision?.startDate ?? '') },
@@ -320,7 +313,6 @@ export default function CPDetailPage() {
               ))}
             </div>
 
-            {/* WBS 일정 테이블 */}
             <div className="table-wrap" style={{ marginBottom: '1rem' }}>
               <table className="data-table">
                 <thead>
@@ -348,7 +340,6 @@ export default function CPDetailPage() {
               </table>
             </div>
 
-            {/* Gantt 바 */}
             <div style={{ background: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '4px', padding: '0.75rem' }}>
               <div style={{ fontWeight: 700, fontSize: '12px', marginBottom: '0.75rem' }}>Gantt 바 (기간 시각화)</div>
               {MOCK_SCHEDULE.map(row => (

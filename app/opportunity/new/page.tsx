@@ -206,11 +206,11 @@ export default function OpportunityNewPage() {
         <ol className="breadcrumb">
           <li className="breadcrumb-item">홈</li>
           <li className="breadcrumb-item">사업 기회관리</li>
-          <li className="breadcrumb-item active">Funnel 등록·발주요청</li>
+          <li className="breadcrumb-item active">사업접수 등록·발주요청</li>
         </ol>
       </div>
       <div className="content-title-wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Funnel 등록·발주요청</h2>
+        <h2>사업접수 등록·발주요청</h2>
         <div style={{ display: 'flex', gap: '0.375rem' }}>
           <button className="btn type-02" onClick={handleTempSave}>임시저장</button>
           <button className="btn type-02" onClick={() => router.push('/opportunity')}>닫기</button>
@@ -746,7 +746,7 @@ export default function OpportunityNewPage() {
             ))}
 
             <div style={{ fontSize: '11px', color: '#6c757d', marginBottom: '0.5rem' }}>
-              ※ 각 발주요청은 개별적으로 SRM에 전송됩니다. &nbsp; ※ 각 발주요청 = Pipeline 카드 1장 생성
+              ※ 각 발주요청은 개별적으로 SRM에 전송됩니다. &nbsp; ※ 각 발주요청 = 입찰 카드 1장 생성
             </div>
           </div>
         )}
@@ -773,7 +773,7 @@ export default function OpportunityNewPage() {
                 onClick={() => {
                   if (!validateStep4()) return;
                   showToast('제출되었습니다. 그룹웨어 결재 요청이 생성됩니다.', 'success');
-                  // 제출 후 SUBMITTED 상태로 변경되고 SCR-P-03(Funnel 현황)으로 이동
+                  // 제출 후 SUBMITTED 상태로 변경되고 SCR-P-03(사업접수 현황)으로 이동
                   setTimeout(() => router.push('/opportunity'), 1500);
                 }}
               >
@@ -917,7 +917,7 @@ export default function OpportunityNewPage() {
       >
         <p style={{ fontSize: '12px', lineHeight: 1.8 }}>
           총 {orders.length}건의 발주요청을 SRM으로 전송합니다.<br />
-          Pipeline 카드 {orders.length}장이 생성됩니다.<br />
+          입찰 카드 {orders.length}장이 생성됩니다.<br />
           계속하시겠습니까?
         </p>
       </ModalDialog>

@@ -10,11 +10,11 @@ export type RepaymentStatus = 'PLANNED' | 'INVOICED' | 'REPAID' | 'UNPAID';
 // 기회 상태
 export type OpportunityStatus = 'DRAFT' | 'REVIEWING' | 'APPROVED' | 'PO_REQUESTED' | 'CONTRACTED';
 
-// Pipeline 단계
-export type PipelineStage = '발주요청접수' | '공고중' | '제안서접수중' | '기술평가' | '가격평가' | '낙찰' | '계약체결';
+// 입찰 단계
+export type BidStage = '발주요청접수' | '공고중' | '제안서접수중' | '기술평가' | '가격평가' | '낙찰' | '계약체결';
 
-// CP 차수 상태
-export type CPRevisionStatus = 'CONFIRMED' | 'DRAFT' | 'PENDING_APPROVAL';
+// 투자 차수 상태
+export type CpInvestmentRevisionStatus = 'CONFIRMED' | 'DRAFT' | 'PENDING_APPROVAL';
 
 // 프로젝트
 export interface Project {
@@ -115,22 +115,25 @@ export interface Opportunity {
   description?: string;
 }
 
-// Pipeline 카드
-export interface PipelineCard {
+// 입찰 카드
+export interface BidCard {
   id: string;
   opportunityId: string;
   name: string;
   type: ProjectType;
-  stage: PipelineStage;
+  stage: BidStage;
   expectedAmount: number;
   procurementMethod: string;
   manager: string;
   deadline: string;
   epcCompany?: string;
+  // 설계서 05_ERD/02 — SRM 연계 식별자
+  orderRequestId?: string;  // ORDER_REQUEST.ORDER_REQUEST_ID
+  srmBidId?: string;        // SRM_BID.SRM_BID_ID (공고중 이상 카드에만 존재)
 }
 
-// CP
-export interface CP {
+// 투자
+export interface CpInvestment {
   id: string;
   projectId: string;
   projectName: string;
@@ -143,14 +146,14 @@ export interface CP {
   status: string;
 }
 
-// CP 차수
-export interface CPRevision {
+// 투자 차수
+export interface CpInvestmentRevision {
   id: string;
   cpId: string;
   revisionNumber: number;
   confirmedAt?: string;
   reason: string;
-  status: CPRevisionStatus;
+  status: CpInvestmentRevisionStatus;
   startDate: string;
   endDate: string;
   totalBudget: number;

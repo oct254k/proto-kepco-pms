@@ -1,6 +1,8 @@
-import { CP, CPRevision } from '@/types';
+// 투자(구 CP, Construction Plan) 목록.
+// ID 접두어 `CP-YYYY-NNN`은 레거시 호환을 위해 유지한다.
+import { CpInvestment, CpInvestmentRevision } from '@/types';
 
-export const mockCPs: CP[] = [
+export const mockCpInvestments: CpInvestment[] = [
   {
     id: 'CP-2024-001',
     projectId: 'PRJ-2024-001',
@@ -95,7 +97,7 @@ export const mockCPs: CP[] = [
   },
 ];
 
-export const mockCPRevisions: CPRevision[] = [
+export const mockCpInvestmentRevisions: CpInvestmentRevision[] = [
   // ── CP-2024-001 (광명전기 LED, 2차)
   {
     id: 'REV-001-0', cpId: 'CP-2024-001', revisionNumber: 0,

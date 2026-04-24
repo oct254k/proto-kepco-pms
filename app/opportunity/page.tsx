@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import FunnelChart from '@/components/common/FunnelChart';
+import IntakeChart from '@/components/common/IntakeChart';
 import DrawerPanel from '@/components/common/DrawerPanel';
 import StatusBadge from '@/components/common/StatusBadge';
 import DocumentViewer from '@/components/common/DocumentViewer';
@@ -10,7 +10,7 @@ import { mockOpportunities } from '@/lib/mock-data/opportunities';
 import { Opportunity } from '@/types';
 import { formatDate } from '@/lib/utils';
 
-const FUNNEL_STEPS = [
+const INTAKE_STEPS = [
   { key: 'DRAFT',        label: '기회등록중' },
   { key: 'REVIEWING',    label: '검토중' },
   { key: 'APPROVED',     label: '승인완료' },
@@ -44,7 +44,7 @@ export default function OpportunityPage() {
   const [filterType, setFilterType] = useState('전체');
   const [filterStatus, setFilterStatus] = useState('전체');
   const [filterEnergyUser, setFilterEnergyUser] = useState('');
-  const [activeFunnelKey, setActiveFunnelKey] = useState<string | undefined>(undefined);
+  const [activeIntakeKey, setActiveIntakeKey] = useState<string | undefined>(undefined);
 
   // Drawer 상태
   const [selectedOpp, setSelectedOpp] = useState<Opportunity | null>(null);
@@ -60,9 +60,9 @@ export default function OpportunityPage() {
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerFile, setViewerFile] = useState({ name: '', url: '' });
 
-  // Funnel 카운트 계산
-  const funnelSteps = useMemo(() => {
-    return FUNNEL_STEPS.map(s => ({
+  // 사업접수 카운트 계산
+  const intakeSteps = useMemo(() => {
+    return INTAKE_STEPS.map(s => ({
       ...s,
       count: mockOpportunities.filter(o => o.status === s.key).length,
     }));
@@ -73,20 +73,20 @@ export default function OpportunityPage() {
     return mockOpportunities.filter(o => {
       const yearOk = filterYear === '전체' || o.createdAt.startsWith(filterYear);
       const typeOk = filterType === '전체' || o.type === filterType;
-      const statusOk = (filterStatus === '전체' && !activeFunnelKey)
-        || (activeFunnelKey && o.status === activeFunnelKey)
-        || (!activeFunnelKey && filterStatus !== '전체' && o.status === filterStatus);
+      const statusOk = (filterStatus === '전체' && !activeIntakeKey)
+        || (activeIntakeKey && o.status === activeIntakeKey)
+        || (!activeIntakeKey && filterStatus !== '전체' && o.status === filterStatus);
       const euOk = !filterEnergyUser || o.energyUser.includes(filterEnergyUser);
       return yearOk && typeOk && statusOk && euOk;
     });
-  }, [filterYear, filterType, filterStatus, filterEnergyUser, activeFunnelKey]);
+  }, [filterYear, filterType, filterStatus, filterEnergyUser, activeIntakeKey]);
 
-  // Funnel 카드 클릭
-  const handleFunnelClick = (key: string) => {
-    if (activeFunnelKey === key) {
-      setActiveFunnelKey(undefined);
+  // 사업접수 카드 클릭
+  const handleIntakeClick = (key: string) => {
+    if (activeIntakeKey === key) {
+      setActiveIntakeKey(undefined);
     } else {
-      setActiveFunnelKey(key);
+      setActiveIntakeKey(key);
       setFilterStatus('전체');
     }
   };
@@ -124,7 +124,7 @@ export default function OpportunityPage() {
     setFilterType('전체');
     setFilterStatus('전체');
     setFilterEnergyUser('');
-    setActiveFunnelKey(undefined);
+    setActiveIntakeKey(undefined);
   };
 
   return (
@@ -133,34 +133,34 @@ export default function OpportunityPage() {
         <ol className="breadcrumb">
           <li className="breadcrumb-item">홈</li>
           <li className="breadcrumb-item">사업 기회관리</li>
-          <li className="breadcrumb-item active">Funnel 현황</li>
+          <li className="breadcrumb-item active">사업접수 현황</li>
         </ol>
       </div>
     <div className="content-wrap">
       {/* 페이지 제목 */}
       <div className="content-title-wrap">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h2>사업 기회 Funnel 현황</h2>
-          <button className="btn" onClick={() => router.push('/opportunity/new')}>+ Funnel 등록</button>
+          <h2>사업 기회접수 현황</h2>
+          <button className="btn" onClick={() => router.push('/opportunity/new')}>+ 사업접수 등록</button>
         </div>
       </div>
 
-      {/* Funnel 시각화 */}
+      {/* 사업접수 시각화 */}
       <div className="content-box-wrap type-02">
         <div className="title-row-wrap">
           <h3>단계별 현황</h3>
         </div>
-        <FunnelChart
-          steps={funnelSteps}
-          activeKey={activeFunnelKey}
-          onStepClick={handleFunnelClick}
+        <IntakeChart
+          steps={intakeSteps}
+          activeKey={activeIntakeKey}
+          onStepClick={handleIntakeClick}
         />
-        {activeFunnelKey && (
+        {activeIntakeKey && (
           <div style={{ marginTop: '0.5rem', fontSize: '11px', color: '#6c757d' }}>
             클릭한 단계로 필터 적용 중 —{' '}
             <button
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#00a7ea', fontSize: '11px' }}
-              onClick={() => setActiveFunnelKey(undefined)}
+              onClick={() => setActiveIntakeKey(undefined)}
             >
               전체 보기
             </button>
@@ -180,7 +180,7 @@ export default function OpportunityPage() {
             {TYPES.map(t => <option key={t}>{t}</option>)}
           </select>
           <label className="form-label">상태</label>
-          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveFunnelKey(undefined); }} style={{ width: '100%' }}>
+          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: '100%' }}>
             {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
           </select>
           <label className="form-label">에너지사용자명</label>

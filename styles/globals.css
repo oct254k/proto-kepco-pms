@@ -12,7 +12,7 @@ body {
   font-size: 12px;
   line-height: 1.4;
   color: #333;
-  background-color: #f0f2f5;
+  background-color: #ffffff;
 }
 
 /* ── 레이아웃 ── */
@@ -361,13 +361,13 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
 .kanban-card-title { font-weight: 700; margin-bottom: 0.25rem; font-size: 12px; }
 .kanban-card-meta { color: #6c757d; font-size: 11px; display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.25rem; }
 
-/* ── Funnel ── */
-.funnel-bar { display: flex; align-items: center; gap: 0; margin-bottom: 1.5rem; }
-.funnel-step { flex: 1; background: var(--bg-filter-box); border: 1px solid var(--border-color); text-align: center; padding: 0.75rem 0.5rem; cursor: pointer; position: relative; }
-.funnel-step.active, .funnel-step:hover { background: #e8f4fd; border-color: var(--color-primary); }
-.funnel-step-count { font-size: 20px; font-weight: 700; color: var(--color-primary); }
-.funnel-step-label { font-size: 11px; color: #555; margin-top: 0.25rem; }
-.funnel-arrow { color: var(--color-primary); font-size: 18px; padding: 0 0.25rem; }
+/* ── Intake ── */
+.intake-bar { display: flex; align-items: center; gap: 0; margin-bottom: 1.5rem; }
+.intake-step { flex: 1; background: var(--bg-filter-box); border: 1px solid var(--border-color); text-align: center; padding: 0.75rem 0.5rem; cursor: pointer; position: relative; }
+.intake-step.active, .intake-step:hover { background: #e8f4fd; border-color: var(--color-primary); }
+.intake-step-count { font-size: 20px; font-weight: 700; color: var(--color-primary); }
+.intake-step-label { font-size: 11px; color: #555; margin-top: 0.25rem; }
+.intake-arrow { color: var(--color-primary); font-size: 18px; padding: 0 0.25rem; }
 
 /* ── Stepper ── */
 .stepper { display: flex; align-items: center; margin-bottom: 2rem; }

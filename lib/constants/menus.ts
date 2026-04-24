@@ -18,16 +18,16 @@ export const menuTree: MenuItem[] = [
     id: 'opportunity',
     label: '사업 기회관리',
     children: [
-      { id: 'opportunity-list', label: 'Funnel 현황', href: '/opportunity' },
-      { id: 'opportunity-new', label: 'Funnel 등록', href: '/opportunity/new' },
-      { id: 'pipeline', label: 'Pipeline 현황', href: '/pipeline' },
+      { id: 'opportunity-list', label: '사업접수 현황', href: '/opportunity' },
+      { id: 'opportunity-new', label: '사업접수 등록', href: '/opportunity/new' },
+      { id: 'pipeline', label: '입찰현황', href: '/pipeline' },
     ],
   },
   {
     id: 'cp-project',
-    label: 'CP/프로젝트 관리',
+    label: '투자/프로젝트 관리',
     children: [
-      { id: 'cp', label: 'CP 관리', href: '/cp' },
+      { id: 'cp', label: '투자 관리', href: '/cp' },
       { id: 'projects', label: '프로젝트 관리', href: '/projects' },
     ],
   },
