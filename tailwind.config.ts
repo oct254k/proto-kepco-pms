@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#1C395B',
+        primary: '#00a7ea',
       },
       fontFamily: {
         sans: ['"Nanum Gothic"', '돋움', 'dotum', 'Helvetica', 'sans-serif'],

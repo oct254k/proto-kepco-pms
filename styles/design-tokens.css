@@ -1,57 +1,57 @@
 :root {
   /* ── 브랜드 컬러 ── */
-  --color-primary:        #1C395B;
-  --color-primary-dark:   #222222;
-  --color-primary-active: #1C395B;
+  --color-primary:        #00a7ea;
+  --color-primary-dark:   #0b88c8;
+  --color-primary-active: #009bd8;
 
   /* ── 버튼 ── */
-  --btn-primary-bg:    #1C395B;
-  --btn-secondary-bg:  #666666;
-  --btn-action-bg:     #1C395B;
-  --btn-download-bg:   #666666;
-  --btn-small-bg:      #666666;
-  --btn-disabled-bg:   #888888;
+  --btn-primary-bg:    #00a7ea;
+  --btn-secondary-bg:  #697e8d;
+  --btn-action-bg:     #417498;
+  --btn-download-bg:   #7cadbe;
+  --btn-small-bg:      #697e8d;
+  --btn-disabled-bg:   #b9cdd4;
 
   /* ── 사이드바 ── */
-  --sidebar-bg:              #1C395B;
-  --sidebar-menu1-bg:        #1C395B;
-  --sidebar-menu1-hover:     #222222;
-  --sidebar-menu2-bg:        #1C395B;
-  --sidebar-menu2-hover:     #222222;
-  --sidebar-divider:         #222222;
+  --sidebar-bg:              #343e4d;
+  --sidebar-menu1-bg:        #444f61;
+  --sidebar-menu1-hover:     #4e5b70;
+  --sidebar-menu2-bg:        #343e4d;
+  --sidebar-menu2-hover:     #394352;
+  --sidebar-divider:         #20262e;
   --sidebar-menu1-text:      #ffffff;
-  --sidebar-menu2-text:      #888888;
-  --sidebar-menu2-hover-text:#666666;
+  --sidebar-menu2-text:      #9ca4af;
+  --sidebar-menu2-hover-text:#a8b0bc;
   --sidebar-menu2-active:    #ffffff;
 
   /* ── 입력 요소 ── */
-  --input-border:          #888888;
-  --input-display-border:  #888888;
-  --input-display-bg:      #F2F6FA;
-  --input-disabled-border: #888888;
-  --input-focus-border:    #1C395B;
-  --input-required-border: #F5BC21;
-  --input-error-border:    #F5BC21;
-  --input-error-bg:        #EBF0F5;
+  --input-border:          #becacf;
+  --input-display-border:  #bfcacf;
+  --input-display-bg:      #f2f4f5;
+  --input-disabled-border: #dee2e3;
+  --input-focus-border:    #00a9e0;
+  --input-required-border: #fdaa84;
+  --input-error-border:    #ff0b3a;
+  --input-error-bg:        #fff2f4;
 
   /* ── 승인 상태 배지 ── */
-  --status-approved-bg:  #F2F6FA; --status-approved-text:  #3B414E;
-  --status-pending-bg:   #EBF0F5; --status-pending-text:   #F5BC21;
-  --status-rejected-bg:  #EBF0F5; --status-rejected-text:  #222222;
-  --status-none-bg:      #EBF0F5; --status-none-text:      #3B414E;
+  --status-approved-bg:  #d4edda; --status-approved-text:  #155724;
+  --status-pending-bg:   #fff3cd; --status-pending-text:   #856404;
+  --status-rejected-bg:  #f8d7da; --status-rejected-text:  #721c24;
+  --status-none-bg:      #e2e3e5; --status-none-text:      #383d41;
 
   /* ── 시스템 피드백 ── */
-  --feedback-success: #1C395B;
-  --feedback-warning: #F5BC21;
-  --feedback-danger:  #F5BC21;
-  --feedback-info:    #1C395B;
-  --feedback-neutral: #666666;
+  --feedback-success: #198754;
+  --feedback-warning: #fd7e14;
+  --feedback-danger:  #dc3545;
+  --feedback-info:    #0d6efd;
+  --feedback-neutral: #6c757d;
 
   /* ── 배경 및 구분선 ── */
   --bg-content:       #ffffff;
-  --bg-filter-box:    #F2F6FA;
-  --bg-table-header:  #F2F6FA;
-  --bg-table-hover:   #EBF0F5;
-  --bg-table-even:    #F2F6FA;
-  --border-color:     #EBF0F5;
+  --bg-filter-box:    #f8f9fa;
+  --bg-table-header:  #f8f9fa;
+  --bg-table-hover:   #f8f9fa;
+  --bg-table-even:    #f8f9fa;
+  --border-color:     #dee2e6;
 }
