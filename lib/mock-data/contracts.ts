@@ -27,9 +27,9 @@ export const mockContracts: Contract[] = [
   { id: 'CNT-2023-001', projectId: 'PRJ-2023-001', type: 'AWARD', name: '부산항 조명교체 수주계약', counterparty: '부산항만공사', amount: 600000000, date: '2022-12-15', status: '계약체결', fileUrl: PDF },
   { id: 'CNT-2023-001B', projectId: 'PRJ-2023-001', type: 'ORDER', name: '부산항 조명교체 발주계약', counterparty: '(주)한빛전기', amount: 440000000, date: '2023-01-10', status: '계약체결', fileUrl: PDF },
 
-  // ── PRJ-2023-002 KT 데이터센터 (LUMP_SUM)
-  { id: 'CNT-2023-002', projectId: 'PRJ-2023-002', type: 'AWARD', name: 'KT IDC 냉각 최적화 수주계약', counterparty: 'KT(주)', amount: 2200000000, date: '2023-04-20', status: '계약체결', fileUrl: PDF },
-  { id: 'CNT-2023-002B', projectId: 'PRJ-2023-002', type: 'ORDER', name: 'KT IDC 냉각 최적화 발주계약', counterparty: '(주)그린테크', amount: 1650000000, date: '2023-05-10', status: '계약체결', fileUrl: PDF },
+  // ── PRJ-2023-002 엘엠에이티(LMAT) LED (LUMP_SUM)
+  { id: 'CNT-2023-002', projectId: 'PRJ-2023-002', type: 'AWARD', name: 'LMAT LED 조명 교체 수주계약', counterparty: 'LMAT', amount: 2200000000, date: '2023-04-20', status: '계약체결', fileUrl: PDF },
+  { id: 'CNT-2023-002B', projectId: 'PRJ-2023-002', type: 'ORDER', name: 'LMAT LED 조명 교체 발주계약', counterparty: '(주)그린테크', amount: 1650000000, date: '2023-05-10', status: '계약체결', fileUrl: PDF },
 
   // ── PRJ-2025-001 대전공장 (RECEPTION)
   { id: 'CNT-2025-001', projectId: 'PRJ-2025-001', type: 'AWARD', name: '대전공장 공조 최적화 수주계약', counterparty: '(주)대전산업', amount: 380000000, date: '2025-01-20', status: '계약체결', fileUrl: PDF },

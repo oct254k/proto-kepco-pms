@@ -64,12 +64,12 @@ export const mockCpInvestments: CpInvestment[] = [
   {
     id: 'CP-2023-002',
     projectId: 'PRJ-2023-002',
-    projectName: 'KT 데이터센터 절감',
-    energyUser: 'KT(주)',
-    manager: '한승우',
+    projectName: '엘엠에이티(LMAT) LED',
+    energyUser: 'LMAT',
+    manager: '에이티',
     currentRevision: 3,
     lastChangedAt: '2024-09-30',
-    changeSummary: 'AI 제어 모듈 추가로 예산 증액 및 일정 조정',
+    changeSummary: 'LED 조명 교체 범위 확대로 예산 증액 및 일정 조정',
     status: 'ACTIVE',
   },
   {
@@ -173,7 +173,7 @@ export const mockCpInvestmentRevisions: CpInvestmentRevision[] = [
     status: 'CONFIRMED', startDate: '2024-06-01', endDate: '2029-05-31', totalBudget: 585000000,
   },
 
-  // ── CP-2023-002 (KT 데이터센터, 3차)
+  // ── CP-2023-002 (엘엠에이티(LMAT) LED, 3차)
   {
     id: 'REV-KT-0', cpId: 'CP-2023-002', revisionNumber: 0,
     confirmedAt: '2023-04-15', reason: '원계획 수립',
@@ -181,17 +181,17 @@ export const mockCpInvestmentRevisions: CpInvestmentRevision[] = [
   },
   {
     id: 'REV-KT-1', cpId: 'CP-2023-002', revisionNumber: 1,
-    confirmedAt: '2024-02-20', reason: '냉매 회수 설비 추가 및 일부 배관 재설계',
+    confirmedAt: '2024-02-20', reason: 'LED 조명 추가 구역 포함 및 설계 재검토',
     status: 'CONFIRMED', startDate: '2023-07-01', endDate: '2028-08-31', totalBudget: 2280000000,
   },
   {
     id: 'REV-KT-2', cpId: 'CP-2023-002', revisionNumber: 2,
-    confirmedAt: '2024-06-01', reason: '2단계 AI 제어 모듈 범위 확대 (Rack 3동 → 전동)',
+    confirmedAt: '2024-06-01', reason: '2단계 LED 교체 범위 확대 (3동 → 전동)',
     status: 'CONFIRMED', startDate: '2023-07-01', endDate: '2028-08-31', totalBudget: 2380000000,
   },
   {
     id: 'REV-KT-3', cpId: 'CP-2023-002', revisionNumber: 3,
-    confirmedAt: '2024-09-30', reason: '전력 수전 설비 용량 증설로 예산 재편성',
+    confirmedAt: '2024-09-30', reason: '전력 설비 용량 증설로 예산 재편성',
     status: 'CONFIRMED', startDate: '2023-09-01', endDate: '2028-10-31', totalBudget: 2420000000,
   },
 

@@ -106,11 +106,11 @@ export const SRM_BID_ITEMS: Record<string, SrmBidItems> = {
     announceDate: '2025-04-01', deadline: '2025-07-01', webhookAt: '2025-05-20 16:48:33',
   },
   'PL-013': {
-    announcement: 'KT 데이터센터 냉각 최적화 제한경쟁 공고. 대상: 1,000RT 칠러 시스템 2대 교체 및 AI 제어 최적화.',
+    announcement: '엘엠에이티(LMAT) LED 조명 교체 제한경쟁 공고. 대상: LED 조명 시스템 교체 및 에너지 절감 최적화.',
     items: [
-      { name: '고효율 칠러 (1,000RT)', unit: '대', qty: 2, unitPrice: 820000000 },
-      { name: 'AI 냉각 제어 시스템', unit: '식', qty: 1, unitPrice: 120000000 },
-      { name: '배관·전기 공사', unit: '식', qty: 1, unitPrice: 90000000 },
+      { name: '고효율 LED 조명 (산업용)', unit: '식', qty: 2, unitPrice: 820000000 },
+      { name: 'LED 제어 시스템', unit: '식', qty: 1, unitPrice: 120000000 },
+      { name: '배선·전기 공사', unit: '식', qty: 1, unitPrice: 90000000 },
     ],
     announceDate: '2025-02-10', deadline: '2025-06-30', webhookAt: '2025-05-22 17:03:27',
   },

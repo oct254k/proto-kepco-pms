@@ -177,7 +177,7 @@ export const mockBidCards: BidCard[] = [
   {
     id: 'PL-013',
     opportunityId: 'OPP-2025-013',
-    name: 'KT 데이터센터 냉각 최적화',
+    name: '엘엠에이티(LMAT) LED 조명 교체',
     type: '3자간',
     stage: '낙찰',
     expectedAmount: 1850000000,

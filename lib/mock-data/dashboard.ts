@@ -37,7 +37,7 @@ export const mockTodayRepayments = [
 export const mockUncollected = [
   { projectId: 'PRJ-2024-001', projectName: '광명전기 LED 교체', round: 6, amount: 5200000, elapsedDays: 85, alertLevel: 'RED' as const },
   { projectId: 'PRJ-2024-003', projectName: '인천항 냉동창고 절감', round: 3, amount: 22000000, elapsedDays: 65, alertLevel: 'RED' as const },
-  { projectId: 'PRJ-2023-002', projectName: 'KT 데이터센터 절감', round: 2, amount: 38000000, elapsedDays: 45, alertLevel: 'ORANGE' as const },
+  { projectId: 'PRJ-2023-002', projectName: '엘엠에이티(LMAT) LED', round: 2, amount: 38000000, elapsedDays: 45, alertLevel: 'ORANGE' as const },
   { projectId: 'PRJ-2024-005', projectName: '롯데마트 냉난방', round: 5, amount: 8500000, elapsedDays: 32, alertLevel: 'YELLOW' as const },
 ];
 
