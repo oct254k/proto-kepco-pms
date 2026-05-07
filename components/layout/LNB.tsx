@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { menuTree } from '@/lib/constants/menus';
@@ -16,10 +16,16 @@ export default function LNB() {
     );
   };
 
-  const isActive = (href: string) => {
-    if (href === '/dashboard') return pathname === '/dashboard' || pathname === '/';
-    return pathname.startsWith(href);
-  };
+  const activeHref = useMemo(() => {
+    if (pathname === '/' || pathname === '/dashboard') return '/dashboard';
+    const allHrefs = menuTree
+      .flatMap(g => g.children?.map(c => c.href).filter((h): h is string => Boolean(h)) ?? []);
+    return allHrefs
+      .filter(h => pathname === h || pathname.startsWith(h + '/'))
+      .sort((a, b) => b.length - a.length)[0];
+  }, [pathname]);
+
+  const isActive = (href: string) => href === activeHref;
 
   return (
     <nav className="sidebar">
