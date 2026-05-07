@@ -170,17 +170,17 @@ export default function OpportunityPage() {
 
       {/* 검색 조건 */}
       <div className="content-box-wrap">
-        <div className="form-grid" style={{ gridTemplateColumns: 'auto 1fr auto 1fr auto 1fr auto 1fr' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <label className="form-label">접수년도</label>
-          <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={{ width: '100%' }}>
+          <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={{ width: 90 }}>
             {YEARS.map(y => <option key={y}>{y}</option>)}
           </select>
           <label className="form-label">사업유형</label>
-          <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: '100%' }}>
+          <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: 90 }}>
             {TYPES.map(t => <option key={t}>{t}</option>)}
           </select>
           <label className="form-label">상태</label>
-          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: '100%' }}>
+          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: 130 }}>
             {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
           </select>
           <label className="form-label">에너지사용자명</label>
@@ -189,10 +189,8 @@ export default function OpportunityPage() {
             value={filterEnergyUser}
             onChange={e => setFilterEnergyUser(e.target.value)}
             placeholder="업체명 검색"
-            style={{ width: '100%' }}
+            style={{ flex: 1, minWidth: 140 }}
           />
-        </div>
-        <div style={{ display: 'flex', gap: '0.375rem', marginTop: '0.75rem', justifyContent: 'flex-end' }}>
           <button className="btn type-03" onClick={() => {}}>조회</button>
           <button className="btn type-02" onClick={handleReset}>초기화</button>
         </div>

@@ -5,24 +5,35 @@
   --color-primary-active: #009bd8;
 
   /* ── 버튼 ── */
-  --btn-primary-bg:    #00a7ea;
-  --btn-secondary-bg:  #697e8d;
-  --btn-action-bg:     #417498;
-  --btn-download-bg:   #7cadbe;
-  --btn-small-bg:      #697e8d;
-  --btn-disabled-bg:   #b9cdd4;
+  --btn-primary-bg:        #304C6C;     /* back */
+  --btn-primary-text:      #ffffff;     /* fore */
+  --btn-primary-border:    #DFE8F0;     /* stroke */
+  --btn-primary-hover:     #3e5e83;
+  --btn-primary-active:    #243a55;
+  --btn-secondary-bg:      #F2F6FA;     /* back */
+  --btn-secondary-text:    #304C6C;     /* fore */
+  --btn-secondary-border:  #D0D8E3;     /* stroke */
+  --btn-secondary-hover:   #E5ECF3;
+  --btn-action-bg:         #417498;     /* CTA — 짙은 청색 유지 */
+  --btn-download-bg:       #7cadbe;
+  --btn-small-bg:          #f1f3f5;     /* Light: 옅은 회색 */
+  --btn-small-text:        #495057;
+  --btn-small-border:      #ced4da;
+  --btn-disabled-bg:       #e9ecef;
 
-  /* ── 사이드바 ── */
-  --sidebar-bg:              #343e4d;
-  --sidebar-menu1-bg:        #444f61;
-  --sidebar-menu1-hover:     #4e5b70;
-  --sidebar-menu2-bg:        #343e4d;
-  --sidebar-menu2-hover:     #394352;
-  --sidebar-divider:         #20262e;
-  --sidebar-menu1-text:      #ffffff;
-  --sidebar-menu2-text:      #9ca4af;
-  --sidebar-menu2-hover-text:#a8b0bc;
-  --sidebar-menu2-active:    #ffffff;
+  /* ── 사이드바 (Light) ── */
+  --sidebar-bg:              #ffffff;
+  --sidebar-menu1-bg:        #f5f7fa;       /* 그룹 헤더 */
+  --sidebar-menu1-hover:     #ebeef2;
+  --sidebar-menu2-bg:        #ffffff;
+  --sidebar-menu2-hover:     #f0f4f8;
+  --sidebar-divider:         #e6ebf0;
+  --sidebar-menu1-text:      #1a1a1a;
+  --sidebar-menu2-text:      #555555;
+  --sidebar-menu2-hover-text:#1a1a1a;
+  --sidebar-menu2-active:    #ffffff;       /* active 텍스트 흰색 */
+  --sidebar-border:          #e6ebf0;       /* 콘텐츠와의 경계선 */
+  --sidebar-active-bg:       #1C395B;       /* active 짙은 네이비 배경 */
 
   /* ── 입력 요소 ── */
   --input-border:          #becacf;
@@ -49,9 +60,21 @@
 
   /* ── 배경 및 구분선 ── */
   --bg-content:       #ffffff;
-  --bg-filter-box:    #f8f9fa;
-  --bg-table-header:  #f8f9fa;
-  --bg-table-hover:   #f8f9fa;
-  --bg-table-even:    #f8f9fa;
+  --bg-filter-box:    #ffffff;
+  --bg-table-header:  #f8f9fa;  /* 테이블 헤더만 옅은 회색 강조 유지 */
+  --bg-table-hover:   #f5f7fa;  /* 호버 인터랙션은 시각화 유지 */
+  --bg-table-even:    #ffffff;  /* zebra 제거 */
   --border-color:     #dee2e6;
+
+  /* ── 카드 ── */
+  --card-bg:      #F2F6FA;   /* 카드 본체 배경 (back) */
+  --card-fg-bg:   #ffffff;   /* 카드 안 강조/콘텐츠 영역 (fore) */
+  --card-border:  #E8E8E8;   /* 카드 보더 (stroke) */
+
+  /* ── 라운드(border-radius) ── */
+  --radius-sm: 2px;       /* 배지, 미세 요소 */
+  --radius-md: 4px;       /* 버튼, 입력 필드 */
+  --radius-lg: 8px;       /* 카드, 콘텐츠 박스 */
+  --radius-xl: 12px;      /* KPI 카드 등 강조 컨테이너 */
+  --radius-full: 9999px;  /* 알약 형태 */
 }

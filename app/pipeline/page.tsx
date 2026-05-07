@@ -261,7 +261,7 @@ export default function BidPage() {
                     transition: 'border-color 0.15s, background 0.15s',
                   }}
                 >
-                  <div style={{ fontSize: '11px', color: '#6c757d', marginBottom: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{stage}</div>
+                  <div style={{ fontSize: '11px', color: '#6c757d', marginBottom: '0.25rem', minHeight: '2.4em', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1.2, wordBreak: 'keep-all' }}>{stage}</div>
                   <div style={{ fontSize: '20px', fontWeight: '700', color: isActive ? '#00a7ea' : '#343a40', lineHeight: 1 }}>{count}</div>
                   <div style={{ fontSize: '10px', color: '#adb5bd', marginTop: '0.125rem' }}>건</div>
                 </div>
@@ -280,7 +280,7 @@ export default function BidPage() {
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
                 placeholder="사업명"
-                style={{ width: 140 }}
+                style={{ width: 120 }}
               />
             </div>
             <div className="filter-item">
@@ -290,12 +290,12 @@ export default function BidPage() {
                 value={filterManager}
                 onChange={(e) => setFilterManager(e.target.value)}
                 placeholder="담당자"
-                style={{ width: 100 }}
+                style={{ width: 90 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">조달방식</label>
-              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 110 }}>
+              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 100 }}>
                 <option value="">전체</option>
                 <option value="경쟁입찰">경쟁입찰</option>
                 <option value="수의계약">수의계약</option>
@@ -306,9 +306,9 @@ export default function BidPage() {
             </div>
             <div className="filter-item">
               <label className="filter-label">발주요청일</label>
-              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 120 }} />
-              <span style={{ padding: '0 0.375rem', color: '#6c757d' }}>~</span>
-              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 120 }} />
+              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 110 }} />
+              <span style={{ padding: '0 0.25rem', color: '#6c757d' }}>~</span>
+              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 110 }} />
             </div>
             <div className="filter-actions">
               <button className="btn" onClick={handleSearch}>조회</button>
@@ -327,17 +327,27 @@ export default function BidPage() {
               </div>
             </div>
             <div className="table-wrap type-03">
-              <table className="data-table">
+              <table className="data-table" style={{ tableLayout: 'fixed', minWidth: 880 }}>
+                <colgroup>
+                  <col style={{ width: 48 }} />
+                  <col />
+                  <col style={{ width: 76 }} />
+                  <col style={{ width: 110 }} />
+                  <col style={{ width: 116 }} />
+                  <col style={{ width: 140 }} />
+                  <col style={{ width: 90 }} />
+                  <col style={{ width: 80 }} />
+                </colgroup>
                 <thead>
                   <tr>
-                    <th style={{ width: 40 }}>No</th>
+                    <th>No</th>
                     <th style={{ textAlign: 'left' }}>사업명</th>
-                    <th style={{ width: 70 }}>유형</th>
-                    <th style={{ width: 90 }}>조달방식</th>
-                    <th style={{ width: 100 }}>단계</th>
-                    <th style={{ width: 100, textAlign: 'right' }}>예상계약금액</th>
-                    <th style={{ width: 70, textAlign: 'left' }}>담당자</th>
-                    <th style={{ width: 65 }}>D-day</th>
+                    <th>유형</th>
+                    <th>조달방식</th>
+                    <th>단계</th>
+                    <th style={{ textAlign: 'right' }}>예상계약금액</th>
+                    <th style={{ textAlign: 'left' }}>담당자</th>
+                    <th>D-day</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -356,7 +366,7 @@ export default function BidPage() {
                         style={{ cursor: 'pointer' }}
                       >
                         <td className="text-center">{idx + 1}</td>
-                        <td className="text-left" style={{ fontWeight: '600', color: '#0d6efd' }}>{card.name}</td>
+                        <td className="text-left" style={{ fontWeight: '600', color: '#0d6efd', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={card.name}>{card.name}</td>
                         <td className="text-center">
                           <StatusBadge
                             type="custom"
