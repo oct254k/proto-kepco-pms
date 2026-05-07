@@ -98,15 +98,15 @@ body {
   font-family: inherit;
   font-size: 12px;
   font-weight: 400;
-  border: 1px solid transparent;
+  border: 1px solid var(--btn-primary-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   background-color: var(--btn-primary-bg);
-  color: #fff;
+  color: var(--btn-primary-text);
   white-space: nowrap;
 }
-.btn:hover { background-color: var(--color-primary-active); }
-.btn:active { background-color: var(--color-primary-dark); }
+.btn:hover { background-color: var(--btn-primary-hover); }
+.btn:active { background-color: var(--btn-primary-active); }
 
 .btn.type-02 {
   background-color: var(--btn-secondary-bg);
@@ -115,10 +115,10 @@ body {
 }
 .btn.type-02:hover { background-color: var(--btn-secondary-hover); }
 
-.btn.type-03 { background-color: var(--btn-action-bg); min-width: 84px; }
+.btn.type-03 { background-color: var(--btn-action-bg); border-color: transparent; min-width: 84px; }
 .btn.type-03:hover { background-color: #365e7a; }
 
-.btn.type-04 { background-color: var(--btn-download-bg); min-width: 84px; }
+.btn.type-04 { background-color: var(--btn-download-bg); border-color: transparent; min-width: 84px; }
 .btn.type-04:hover { background-color: #6a99aa; }
 
 .btn.type-05 {
@@ -127,7 +127,7 @@ body {
   border-color: var(--btn-small-border);
   height: 20px;
   min-width: 50px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .btn.disabled, .btn:disabled {
@@ -286,9 +286,9 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
 }
 
 /* ── 조회조건 폼 ── */
-.filter-row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 0.375rem 0.75rem; align-items: center; }
 .filter-item { display: flex; align-items: center; gap: 0.375rem; }
-.filter-label { font-size: 12px; color: #555; white-space: nowrap; min-width: 60px; }
+.filter-label { font-size: 12px; color: #555; white-space: nowrap; }
 .filter-actions { display: flex; gap: 0.375rem; margin-left: auto; }
 
 /* ── KPI 카드 ── */
@@ -355,7 +355,7 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
 .sidebar-menu2 {
   padding: 0.5rem 1rem 0.5rem 2.5rem;
   margin: 2px 0.5rem;
-  border-radius: var(--radius-md);
+  border-radius: 20px;
   font-size: 14px;
   color: var(--sidebar-menu2-text);
   cursor: pointer;

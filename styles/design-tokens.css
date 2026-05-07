@@ -5,11 +5,15 @@
   --color-primary-active: #009bd8;
 
   /* ── 버튼 ── */
-  --btn-primary-bg:        #00a7ea;
-  --btn-secondary-bg:      #ffffff;     /* Light: 흰 배경 + 보더 */
-  --btn-secondary-text:    #495057;
-  --btn-secondary-border:  #ced4da;
-  --btn-secondary-hover:   #f1f3f5;
+  --btn-primary-bg:        #304C6C;     /* back */
+  --btn-primary-text:      #ffffff;     /* fore */
+  --btn-primary-border:    #DFE8F0;     /* stroke */
+  --btn-primary-hover:     #3e5e83;
+  --btn-primary-active:    #243a55;
+  --btn-secondary-bg:      #F2F6FA;     /* back */
+  --btn-secondary-text:    #304C6C;     /* fore */
+  --btn-secondary-border:  #D0D8E3;     /* stroke */
+  --btn-secondary-hover:   #E5ECF3;
   --btn-action-bg:         #417498;     /* CTA — 짙은 청색 유지 */
   --btn-download-bg:       #7cadbe;
   --btn-small-bg:          #f1f3f5;     /* Light: 옅은 회색 */
