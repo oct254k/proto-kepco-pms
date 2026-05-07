@@ -280,7 +280,7 @@ export default function BidPage() {
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
                 placeholder="사업명"
-                style={{ width: 140 }}
+                style={{ width: 120 }}
               />
             </div>
             <div className="filter-item">
@@ -290,12 +290,12 @@ export default function BidPage() {
                 value={filterManager}
                 onChange={(e) => setFilterManager(e.target.value)}
                 placeholder="담당자"
-                style={{ width: 100 }}
+                style={{ width: 90 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">조달방식</label>
-              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 110 }}>
+              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 100 }}>
                 <option value="">전체</option>
                 <option value="경쟁입찰">경쟁입찰</option>
                 <option value="수의계약">수의계약</option>
@@ -306,9 +306,9 @@ export default function BidPage() {
             </div>
             <div className="filter-item">
               <label className="filter-label">발주요청일</label>
-              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 120 }} />
-              <span style={{ padding: '0 0.375rem', color: '#6c757d' }}>~</span>
-              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 120 }} />
+              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 110 }} />
+              <span style={{ padding: '0 0.25rem', color: '#6c757d' }}>~</span>
+              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 110 }} />
             </div>
             <div className="filter-actions">
               <button className="btn" onClick={handleSearch}>조회</button>
