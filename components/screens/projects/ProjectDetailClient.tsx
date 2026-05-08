@@ -12,6 +12,7 @@ import { mockInvoices } from '@/lib/mock-data/invoices';
 import { mockUncollected } from '@/lib/mock-data/dashboard';
 import { mockCpInvestments } from '@/lib/mock-data/cp';
 import { formatAmount, formatDate, formatDday } from '@/lib/utils';
+import { FileSpreadsheet } from 'lucide-react';
 
 // Mock 투자비 데이터
 const mockInvestments = [
@@ -278,7 +279,7 @@ export default function ProjectDetailClient({ id }: Props) {
             <div>
               <div className="title-row-wrap">
                 <h3>세금계산서 (WEHAGO 연동)</h3>
-                <button className="btn type-04">엑셀내보내기</button>
+                <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
               </div>
               <div className="table-wrap">
                 <table className="data-table">
@@ -329,7 +330,7 @@ export default function ProjectDetailClient({ id }: Props) {
                 <div className="button-wrap">
                   <button className="btn type-02">상환 헤더</button>
                   <button className="btn type-02">스케줄 생성</button>
-                  <button className="btn type-04">엑셀</button>
+                  <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
                 </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
@@ -512,7 +513,7 @@ export default function ProjectDetailClient({ id }: Props) {
                 <td className="text-center">{h.date}</td>
                 <td className="text-center">{h.field}</td>
                 <td className="text-left" style={{ color: '#6c757d' }}>{h.before}</td>
-                <td className="text-left" style={{ color: '#00a7ea', fontWeight: '700' }}>{h.after}</td>
+                <td className="text-left" style={{ color: '#1a1a1a', fontWeight: '700' }}>{h.after}</td>
               </tr>
             ))}
           </tbody>

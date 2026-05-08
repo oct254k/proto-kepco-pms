@@ -1,4 +1,8 @@
 :root {
+  /* 전역 폰트 — 피그마 시안과 동일하게 Pretendard 우선 */
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Segoe UI", "Noto Sans KR", "Nanum Gothic", "돋움", dotum, sans-serif;
+
   /* ── 브랜드 컬러 ── */
   --color-primary:        #00a7ea;
   --color-primary-dark:   #0b88c8;
@@ -14,26 +18,38 @@
   --btn-secondary-text:    #304C6C;     /* fore */
   --btn-secondary-border:  #D0D8E3;     /* stroke */
   --btn-secondary-hover:   #E5ECF3;
-  --btn-action-bg:         #417498;     /* CTA — 짙은 청색 유지 */
-  --btn-download-bg:       #7cadbe;
+  --btn-action-bg:         #304C6C;     /* CTA — 조회 버튼 (Figma 다크 네이비) */
+  --btn-action-hover:      #243a55;
+  --btn-download-bg:       #ffffff;     /* 엑셀 다운로드 — 흰 배경 */
+  --btn-download-text:     #304C6C;
+  --btn-download-border:   #D0D8E3;
+  --btn-download-hover:    #F2F6FA;
   --btn-small-bg:          #f1f3f5;     /* Light: 옅은 회색 */
   --btn-small-text:        #495057;
   --btn-small-border:      #ced4da;
   --btn-disabled-bg:       #e9ecef;
 
-  /* ── 사이드바 (Light) ── */
+  /* ── 사이드바 — TalkToFigma Left / PMS (ardmcpmk 선택 시안) ── */
   --sidebar-bg:              #ffffff;
-  --sidebar-menu1-bg:        #f5f7fa;       /* 그룹 헤더 */
-  --sidebar-menu1-hover:     #ebeef2;
-  --sidebar-menu2-bg:        #ffffff;
-  --sidebar-menu2-hover:     #f0f4f8;
+  --sidebar-menu1-text:      #3b414e;       /* 1뎁스 기본 SemiBold 16 */
+  --sidebar-menu1-icon:      #3b414e;
+  --sidebar-menu1-expanded-bg:   #1c395b; /* 펼친 1뎁스 pill */
+  --sidebar-menu1-expanded-text: #ffffff;
+  --sidebar-menu1-hover:     #f5f7fa;
+  --sidebar-menu2-text:      #1c395b;       /* 2뎁스 본문 Regular 14 */
+  --sidebar-menu2-hover:     #f9f9f9;
+  --sidebar-menu2-hover-text:#1c395b;
+  --sidebar-menu2-active:    #1c395b;       /* 활성 2뎁스: Bold 17, 배경 없음 */
   --sidebar-divider:         #e6ebf0;
-  --sidebar-menu1-text:      #1a1a1a;
-  --sidebar-menu2-text:      #555555;
-  --sidebar-menu2-hover-text:#1a1a1a;
-  --sidebar-menu2-active:    #ffffff;       /* active 텍스트 흰색 */
-  --sidebar-border:          #e6ebf0;       /* 콘텐츠와의 경계선 */
-  --sidebar-active-bg:       #1C395B;       /* active 짙은 네이비 배경 */
+  --sidebar-border:          #e6ebf0;
+  --sidebar-search-bg:       #f9f9f9;
+  --sidebar-search-stroke:   #e6eaf1;
+  --sidebar-search-placeholder: #8f95a9;
+  --sidebar-search-border:   #e6ebf0;
+  --sidebar-chevron:         #8f95a9;
+  --sidebar-chevron-on-expanded: rgba(255, 255, 255, 0.88);
+  --sidebar-item-radius:     8px;
+  --sidebar-menu-pill-radius: 9999px;
 
   /* ── 입력 요소 ── */
   --input-border:          #becacf;
@@ -59,6 +75,8 @@
   --feedback-neutral: #6c757d;
 
   /* ── 배경 및 구분선 ── */
+  /* 페이지 캔버스(피그마 대형 프레임과 동일하게 흰 기반) */
+  --bg-page:          #ffffff;
   --bg-content:       #ffffff;
   --bg-filter-box:    #ffffff;
   --bg-table-header:  #f8f9fa;  /* 테이블 헤더만 옅은 회색 강조 유지 */
@@ -77,4 +95,43 @@
   --radius-lg: 8px;       /* 카드, 콘텐츠 박스 */
   --radius-xl: 12px;      /* KPI 카드 등 강조 컨테이너 */
   --radius-full: 9999px;  /* 알약 형태 */
+  /* Figma 메인 패널(흰 영역 r=18) */
+  --radius-panel: 18px;
+
+  /* ── Figma 선택 프레임(main / 자금 / 사업접수) 악센트 ── */
+  --figma-navy:         #1c395b;
+  --figma-yellow:       #ffcd00;
+  --figma-yellow-mid:   #fdd938;
+  --kpi-surface-blue:   #f2f7ff;
+  --kpi-surface-amber:  #fffaf3;
+  --kpi-surface-green:  #f1fcee;
+  --figma-schedule-bg:  #eaeff4;
+
+  /* ── 조회/집계 영역 (피그마 리스트 화면) ── */
+  --panel-search-bg:      #edf2f8;
+  --panel-search-border:  #d5dde8;
+  --panel-aggregate-bg:   #e2eaf4;
+  --panel-aggregate-border: #c5d2e3;
+  --panel-section-title-color: #1c395b;
+  --panel-label-color:    #3d5266;
+
+  /* 그리드(테이블) 가로선 — Figma 0430 시안: 영업이력관리 카드·셀 스트로크 Table Header 구분과 동일 #e8e8e8 */
+  --grid-row-line:     #e8e8e8;
+  /* 컬럼명 행 아래 강조선(네이비) — 시안 내 헤더/바디 경계 */
+  --grid-header-rule:  #1c395b;
+  /* Figma Table Header 텍스트(접수번호 등): Pretendard SemiBold, fill #3b414e */
+  --grid-header-text:  #3b414e;
+
+  /* 상태 칩: 배경 단일 톤, 글자색만 단계 */
+  --status-chip-bg:     #fff0e6;
+  --status-chip-border: rgba(194, 65, 12, 0.22);
+  --status-text-muted:  #78716f;
+  --status-text-light:  #fb923c;
+  --status-text-mid:    #ea580c;
+  --status-text-strong: #c2410c;
+  --status-text-max:    #7c2d12;
+
+  /* 진행률 바 (사업 진척 등) */
+  --progress-track-bg:  #e8ecf1;
+  --progress-fill-navy: #1c395b;
 }

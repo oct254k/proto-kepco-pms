@@ -7,6 +7,7 @@ import StatusBadge from '@/components/common/StatusBadge';
 import { mockProjects } from '@/lib/mock-data/projects';
 import { formatAmount, formatAmountShort, formatDate, calcDday, formatDday } from '@/lib/utils';
 import { Project } from '@/types';
+import { Search, RotateCcw, FileSpreadsheet } from 'lucide-react';
 
 type SortField = 'name' | 'energyUser' | 'status' | 'startDate' | 'endDate' | 'projectCost';
 type SortDir = 'asc' | 'desc';
@@ -119,7 +120,8 @@ export default function ProjectsPage() {
 
       <div className="content-wrap">
         {/* 조회조건 */}
-        <div className="content-box-wrap">
+        <div className="content-box-wrap screen-panel-query">
+          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">프로젝트명</label>
@@ -181,8 +183,12 @@ export default function ProjectsPage() {
               </select>
             </div>
             <div className="filter-actions">
-              <button className="btn" onClick={handleSearch}>조회</button>
-              <button className="btn type-02" onClick={handleReset}>초기화</button>
+              <button type="button" className="btn type-03 btn-with-icon" onClick={handleSearch}>
+                <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+              </button>
+              <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+                <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+              </button>
             </div>
           </div>
         </div>
@@ -193,7 +199,7 @@ export default function ProjectsPage() {
             <h3>프로젝트 목록</h3>
             <div className="button-wrap">
               <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {filtered.length}건</span>
-              <button className="btn type-04">엑셀내보내기</button>
+              <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
             </div>
           </div>
           <div className="table-wrap">
@@ -230,7 +236,7 @@ export default function ProjectsPage() {
                     return (
                       <tr key={p.id} onClick={() => handleRowClick(p)}>
                         <td className="text-center">{i + 1}</td>
-                        <td className="text-left" style={{ color: '#00a7ea', fontWeight: '600' }}>{p.name}</td>
+                        <td className="text-left" style={{ color: '#1a1a1a', fontWeight: '600' }}>{p.name}</td>
                         <td className="text-center">{p.type}</td>
                         <td className="text-left">{p.energyUser}</td>
                         <td className="text-center">{p.manager}</td>
@@ -328,7 +334,7 @@ export default function ProjectsPage() {
                 <div style={{ fontWeight: '700', fontSize: '12px', color: '#333', marginBottom: '0.5rem', borderBottom: '1px solid #dee2e6', paddingBottom: '0.25rem' }}>상환 진행</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#6c757d', marginBottom: '0.25rem' }}>
                   <span>진행률</span>
-                  <span style={{ fontWeight: '700', color: '#00a7ea' }}>{selectedProject.repaymentProgress}%</span>
+                  <span style={{ fontWeight: '700', color: '#1a1a1a' }}>{selectedProject.repaymentProgress}%</span>
                 </div>
                 <div className="progress-bar">
                   <div className="progress-fill" style={{ width: `${selectedProject.repaymentProgress}%` }} />
