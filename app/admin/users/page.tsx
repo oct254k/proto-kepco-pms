@@ -8,14 +8,17 @@ import StatusBadge from '@/components/common/StatusBadge';
 import { mockUsers } from '@/lib/mock-data/users';
 import { User } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
-// 그룹웨어 연동 Mock 데이터
+const CHIP_BG = '#fff0e6';
+
+// 그룹웨어 연동 Mock 데이터 (상태 칩: 배경 통일 / 글자 단계)
 const gwSyncData = [
-  { id: 1, name: '김민준', department: '사업개발팀', changeType: '신규', changeTypeBg: '#d4edda', changeTypeText: '#155724', changedAt: '2025-01-15', status: '동기화완료' },
-  { id: 2, name: '이서연', department: '사업개발팀', changeType: '정보변경', changeTypeBg: '#fff3cd', changeTypeText: '#856404', changedAt: '2025-02-10', status: '동기화완료' },
-  { id: 3, name: '박지훈', department: '기술팀', changeType: '신규', changeTypeBg: '#d4edda', changeTypeText: '#155724', changedAt: '2025-03-01', status: '동기화완료' },
-  { id: 4, name: '오미래', department: '경영기획팀', changeType: '퇴직', changeTypeBg: '#f8d7da', changeTypeText: '#721c24', changedAt: '2025-03-20', status: '비활성처리완료' },
-  { id: 5, name: '신동현', department: 'IT팀', changeType: '신규', changeTypeBg: '#d4edda', changeTypeText: '#155724', changedAt: '2025-04-01', status: '동기화대기' },
+  { id: 1, name: '김민준', department: '사업개발팀', changeType: '신규', changeTypeBg: CHIP_BG, changeTypeText: '#c2410c', changedAt: '2025-01-15', status: '동기화완료' },
+  { id: 2, name: '이서연', department: '사업개발팀', changeType: '정보변경', changeTypeBg: CHIP_BG, changeTypeText: '#ea580c', changedAt: '2025-02-10', status: '동기화완료' },
+  { id: 3, name: '박지훈', department: '기술팀', changeType: '신규', changeTypeBg: CHIP_BG, changeTypeText: '#c2410c', changedAt: '2025-03-01', status: '동기화완료' },
+  { id: 4, name: '오미래', department: '경영기획팀', changeType: '퇴직', changeTypeBg: CHIP_BG, changeTypeText: '#7c2d12', changedAt: '2025-03-20', status: '비활성처리완료' },
+  { id: 5, name: '신동현', department: 'IT팀', changeType: '신규', changeTypeBg: CHIP_BG, changeTypeText: '#c2410c', changedAt: '2025-04-01', status: '동기화대기' },
 ];
 
 export default function AdminUsersPage() {
@@ -153,8 +156,8 @@ export default function AdminUsersPage() {
           type="custom"
           value={u.role}
           customLabel={u.role === 'ADMIN' ? 'ADMIN' : 'USER'}
-          customBg={u.role === 'ADMIN' ? '#cfe2ff' : '#e2e3e5'}
-          customText={u.role === 'ADMIN' ? '#084298' : '#383d41'}
+          customBg={CHIP_BG}
+          customText={u.role === 'ADMIN' ? '#c2410c' : '#78716f'}
         />
       ),
     },
@@ -165,8 +168,8 @@ export default function AdminUsersPage() {
           type="custom"
           value={u.status}
           customLabel={u.status === 'ACTIVE' ? 'ACTIVE' : 'INACTIVE'}
-          customBg={u.status === 'ACTIVE' ? '#d4edda' : '#f8d7da'}
-          customText={u.status === 'ACTIVE' ? '#155724' : '#721c24'}
+          customBg={CHIP_BG}
+          customText={u.status === 'ACTIVE' ? '#ea580c' : '#9a3412'}
         />
       ),
     },
@@ -212,7 +215,8 @@ export default function AdminUsersPage() {
       {activeTab === 'pms' && (
         <>
           {/* 조회조건 */}
-          <div className="content-box-wrap">
+          <div className="content-box-wrap screen-panel-query">
+            <div className="screen-panel-heading">조회 조건</div>
             <div className="filter-row">
               <div className="filter-item">
                 <label className="filter-label">이름</label>
@@ -251,8 +255,14 @@ export default function AdminUsersPage() {
                 </select>
               </div>
               <div className="filter-actions">
-                <button className="btn" onClick={handleSearch}>조회</button>
-                <button className="btn type-02" onClick={handleReset}>초기화</button>
+                <button type="button" className="btn type-03 btn-with-icon" onClick={handleSearch}>
+                  <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+                  조회
+                </button>
+                <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+                  <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+                  초기화
+                </button>
               </div>
             </div>
           </div>
@@ -321,15 +331,15 @@ export default function AdminUsersPage() {
                   type="custom"
                   value={selectedUser.role}
                   customLabel={selectedUser.role}
-                  customBg={selectedUser.role === 'ADMIN' ? '#cfe2ff' : '#e2e3e5'}
-                  customText={selectedUser.role === 'ADMIN' ? '#084298' : '#383d41'}
+                  customBg={CHIP_BG}
+                  customText={selectedUser.role === 'ADMIN' ? '#c2410c' : '#78716f'}
                 />
                 <StatusBadge
                   type="custom"
                   value={selectedUser.status}
                   customLabel={selectedUser.status}
-                  customBg={selectedUser.status === 'ACTIVE' ? '#d4edda' : '#f8d7da'}
-                  customText={selectedUser.status === 'ACTIVE' ? '#155724' : '#721c24'}
+                  customBg={CHIP_BG}
+                  customText={selectedUser.status === 'ACTIVE' ? '#ea580c' : '#9a3412'}
                 />
               </div>
             </div>

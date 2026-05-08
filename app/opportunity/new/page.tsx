@@ -193,7 +193,7 @@ export default function OpportunityNewPage() {
       {toast && (
         <div style={{
           position: 'fixed', top: '1.5rem', right: '1.5rem', zIndex: 9999,
-          background: toast.type === 'success' ? '#155724' : '#721c24',
+          background: toast.type === 'success' ? '#1c395b' : '#dc3545',
           color: '#fff', padding: '0.75rem 1.25rem', borderRadius: '0.375rem',
           fontSize: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -233,12 +233,12 @@ export default function OpportunityNewPage() {
                   key={t}
                   onClick={() => setBizType(t)}
                   style={{
-                    border: `2px solid ${bizType === t ? 'var(--color-primary)' : '#dee2e6'}`,
+                    border: `2px solid ${bizType === t ? 'var(--figma-navy)' : '#dee2e6'}`,
                     borderRadius: '0.5rem',
                     padding: '1.5rem 2rem',
                     cursor: 'pointer',
                     minWidth: 200,
-                    background: bizType === t ? '#e8f4fd' : '#fff',
+                    background: bizType === t ? '#edf2f8' : '#fff',
                     textAlign: 'center',
                   }}
                 >
@@ -573,7 +573,7 @@ export default function OpportunityNewPage() {
             {/* STEP4 미승인 안내 배너 */}
             {!MOCK_STEP4_APPROVED && (
               <div style={{
-                background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '0.25rem',
+                background: '#fff8e6', border: '1px solid #fdd938', borderRadius: '0.25rem',
                 padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '12px', color: '#856404',
               }}>
                 ⚠ 수주계약 체결이 완료되지 않았습니다.<br />
@@ -584,8 +584,8 @@ export default function OpportunityNewPage() {
             {/* STEP4 승인 완료 안내 */}
             {MOCK_STEP4_APPROVED && (
               <div style={{
-                background: '#d4edda', border: '1px solid #c3e6cb', borderRadius: '0.25rem',
-                padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '12px', color: '#155724',
+                background: '#eaeff4', border: '1px solid #c5d2e3', borderRadius: '0.25rem',
+                padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '12px', color: '#1c395b',
               }}>
                 ✅ 수주계약 체결 완료 / PROJECT 생성 완료 — 아래 발주요청을 1건 이상 작성하여 SRM으로 전송하세요.
               </div>
@@ -691,7 +691,7 @@ export default function OpportunityNewPage() {
                     <tfoot>
                       <tr>
                         <td colSpan={4} style={{ textAlign: 'right', fontWeight: '700', padding: '0.5rem 0.75rem' }}>예상 계약금액</td>
-                        <td className="text-right" style={{ fontWeight: '700', color: '#00a7ea' }}>
+                        <td className="text-right" style={{ fontWeight: '700', color: '#1a1a1a' }}>
                           {calcOrderTotal(order).toLocaleString('ko-KR')}원
                         </td>
                         <td />
@@ -717,7 +717,7 @@ export default function OpportunityNewPage() {
                       <span
                         key={v.id}
                         style={{
-                          background: '#e8f4fd', border: '1px solid #00a7ea', borderRadius: '20px',
+                          background: '#edf2f8', border: '1px solid #c5d2e3', borderRadius: '20px',
                           padding: '2px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '0.5rem',
                         }}
                       >

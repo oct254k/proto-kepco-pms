@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import StatusBadge from '@/components/common/StatusBadge';
 import ModalDialog from '@/components/common/ModalDialog';
 import DrawerPanel from '@/components/common/DrawerPanel';
+import ExcelMsIcon from '@/components/icons/ExcelMsIcon';
 import { mockProjects } from '@/lib/mock-data/projects';
 import { mockContracts } from '@/lib/mock-data/contracts';
 import { mockRepayments } from '@/lib/mock-data/repayments';
@@ -12,7 +13,6 @@ import { mockInvoices } from '@/lib/mock-data/invoices';
 import { mockUncollected } from '@/lib/mock-data/dashboard';
 import { mockCpInvestments } from '@/lib/mock-data/cp';
 import { formatAmount, formatDate, formatDday } from '@/lib/utils';
-import { FileSpreadsheet } from 'lucide-react';
 
 // Mock 투자비 데이터
 const mockInvestments = [
@@ -279,7 +279,10 @@ export default function ProjectDetailClient({ id }: Props) {
             <div>
               <div className="title-row-wrap">
                 <h3>세금계산서 (WEHAGO 연동)</h3>
-                <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
+                <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
+                  <ExcelMsIcon className="btn-icon-left btn-excel-icon" />
+                  다운로드
+                </button>
               </div>
               <div className="table-wrap">
                 <table className="data-table">
@@ -330,7 +333,10 @@ export default function ProjectDetailClient({ id }: Props) {
                 <div className="button-wrap">
                   <button className="btn type-02">상환 헤더</button>
                   <button className="btn type-02">스케줄 생성</button>
-                  <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
+                  <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
+                  <ExcelMsIcon className="btn-icon-left btn-excel-icon" />
+                  다운로드
+                </button>
                 </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>

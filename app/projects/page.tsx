@@ -4,10 +4,11 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import DrawerPanel from '@/components/common/DrawerPanel';
 import StatusBadge from '@/components/common/StatusBadge';
+import ExcelMsIcon from '@/components/icons/ExcelMsIcon';
 import { mockProjects } from '@/lib/mock-data/projects';
 import { formatAmount, formatAmountShort, formatDate, calcDday, formatDday } from '@/lib/utils';
 import { Project } from '@/types';
-import { Search, RotateCcw, FileSpreadsheet } from 'lucide-react';
+import { Search, RotateCcw } from 'lucide-react';
 
 type SortField = 'name' | 'energyUser' | 'status' | 'startDate' | 'endDate' | 'projectCost';
 type SortDir = 'asc' | 'desc';
@@ -199,7 +200,10 @@ export default function ProjectsPage() {
             <h3>프로젝트 목록</h3>
             <div className="button-wrap">
               <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {filtered.length}건</span>
-              <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
+              <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
+                <ExcelMsIcon className="btn-icon-left btn-excel-icon" />
+                다운로드
+              </button>
             </div>
           </div>
           <div className="table-wrap">

@@ -6,12 +6,13 @@ import KanbanBoard from '@/components/common/KanbanBoard';
 import DrawerPanel from '@/components/common/DrawerPanel';
 import ModalDialog from '@/components/common/ModalDialog';
 import StatusBadge from '@/components/common/StatusBadge';
+import ExcelMsIcon from '@/components/icons/ExcelMsIcon';
 import { mockBidCards } from '@/lib/mock-data/pipeline';
 import { mockContractors } from '@/lib/mock-data/contractors';
 import { SRM_BID_ITEMS, SRM_PROPOSALS, SRM_AWARDS, SrmBidItems, SrmProposal, SrmAward } from '@/lib/mock-data/srm-data';
 import { findByPmsCardId } from '@/lib/mock-data/id-map';
 import { formatAmountShort, formatAmount, formatDate, calcDday } from '@/lib/utils';
-import { Search, RotateCcw, FileSpreadsheet } from 'lucide-react';
+import { Search, RotateCcw } from 'lucide-react';
 import { BidCard, BidStage } from '@/types';
 
 const STAGES: BidStage[] = [
@@ -325,7 +326,10 @@ export default function BidPage() {
             <div className="title-row-wrap">
               <h3>입찰 목록{activeStage && <span style={{ fontSize: '11px', color: '#00a7ea', marginLeft: '0.5rem', fontWeight: 400 }}>({activeStage} 필터 적용)</span>}</h3>
               <div className="button-wrap">
-                <button className="btn type-04 btn-with-icon"><FileSpreadsheet size={14} color="#217346" aria-hidden />다운로드</button>
+                <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
+                  <ExcelMsIcon className="btn-icon-left btn-excel-icon" />
+                  다운로드
+                </button>
               </div>
             </div>
             <div className="table-wrap type-03">

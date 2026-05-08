@@ -9,6 +9,7 @@ import { mockProjects } from '@/lib/mock-data/projects';
 import { Project, ProjectStatus } from '@/types';
 import { PROJECT_STATUS } from '@/lib/constants/status';
 import { formatAmount, formatDate } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
 // 변경 이력 Mock (PRJ-2024-001 기준)
 const mockHistory = [
@@ -158,7 +159,8 @@ export default function AdminProjectsPage() {
       </div>
 
       {/* 조회조건 */}
-      <div className="content-box-wrap">
+      <div className="content-box-wrap screen-panel-query">
+        <div className="screen-panel-heading">조회 조건</div>
         <div className="filter-row">
           <div className="filter-item">
             <label className="filter-label">프로젝트명</label>
@@ -196,8 +198,14 @@ export default function AdminProjectsPage() {
             </select>
           </div>
           <div className="filter-actions">
-            <button className="btn" onClick={handleSearch}>조회</button>
-            <button className="btn type-02" onClick={handleReset}>초기화</button>
+            <button type="button" className="btn type-03 btn-with-icon" onClick={handleSearch}>
+              <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+              조회
+            </button>
+            <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+              <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+              초기화
+            </button>
           </div>
         </div>
       </div>
@@ -346,7 +354,7 @@ export default function AdminProjectsPage() {
                         <tr key={att.id}>
                           <td
                             className="text-left"
-                            style={{ cursor: 'pointer', color: '#00a9e0', textDecoration: 'underline' }}
+                            style={{ cursor: 'pointer', color: '#1a1a1a', textDecoration: 'underline', textUnderlineOffset: '2px' }}
                             onClick={() => { setViewerFile(att.fileName); setViewerOpen(true); }}
                           >
                             {att.fileName}

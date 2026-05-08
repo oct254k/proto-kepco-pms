@@ -164,8 +164,31 @@ body {
 .btn.type-03 { background-color: var(--btn-action-bg); border-color: transparent; min-width: 84px; }
 .btn.type-03:hover { background-color: var(--btn-action-hover); }
 
-.btn.type-04 { background-color: var(--btn-download-bg); color: var(--btn-download-text); border-color: var(--btn-download-border); min-width: 84px; }
+.btn.type-04 { background-color: var(--btn-download-bg); color: var(--btn-download-text); border-color: var(--btn-download-border); min-width: 84px; border-radius: var(--btn-download-radius, 8px); }
 .btn.type-04:hover { background-color: var(--btn-download-hover); }
+
+/* Figma: 엑셀 다운로드(흰 버튼 36h, r8, 아이콘 24 + 간격 6, 라벨 13 SemiBold) */
+.btn.type-04.btn-excel-download {
+  height: 36px;
+  min-height: 36px;
+  border-radius: var(--btn-download-radius, 8px);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 96px;
+  padding-left: 10px;
+  padding-right: 14px;
+  gap: 6px;
+}
+.btn.type-04.btn-excel-download.btn-with-icon {
+  padding-left: 10px;
+}
+.btn.type-04.btn-excel-download .btn-excel-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+}
 
 .btn.type-05 {
   background-color: var(--btn-small-bg);

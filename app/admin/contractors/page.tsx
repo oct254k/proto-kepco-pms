@@ -11,17 +11,15 @@ import EmptyState from '@/components/common/EmptyState';
 import { mockContractors } from '@/lib/mock-data/contractors';
 import { mockContracts } from '@/lib/mock-data/contracts';
 import { formatDate, formatAmountShort, formatAmount } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 import { Contractor } from '@/types';
 
 // ── 신용등급 배지 스타일 ──────────────────────────────────────────────────────
-function getCreditBadgeStyle(grade: string) {
-  if (grade === 'A+' || grade === 'A') {
-    return { background: '#d4edda', color: '#155724' };
-  }
-  if (grade === 'BB+' || grade === 'BB-') {
-    return { background: '#fff3cd', color: '#856404' };
-  }
-  return { background: '#f8d7da', color: '#721c24' };
+function getCreditBadgeStyle(grade: string): { background: string; color: string } {
+  const bg = '#fff0e6';
+  if (grade === 'A+' || grade === 'A') return { background: bg, color: '#c2410c' };
+  if (grade === 'BB+' || grade === 'BB-') return { background: bg, color: '#ea580c' };
+  return { background: bg, color: '#7c2d12' };
 }
 
 function CreditBadge({ grade }: { grade: string }) {
@@ -155,7 +153,8 @@ export default function ContractorsPage() {
 
       <div className="content-wrap">
         {/* ── 조회조건 ── */}
-        <div className="content-box-wrap">
+        <div className="content-box-wrap screen-panel-query">
+          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">업체명</label>
@@ -180,11 +179,16 @@ export default function ContractorsPage() {
               </select>
             </div>
             <div className="filter-actions">
-              <button className="btn" onClick={() => {}}>조회</button>
+              <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+                <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+                조회
+              </button>
               <button
-                className="btn type-02"
+                type="button"
+                className="btn type-02 btn-with-icon"
                 onClick={() => { setSearchName(''); setSearchGrade('전체'); }}
               >
+                <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
                 초기화
               </button>
             </div>

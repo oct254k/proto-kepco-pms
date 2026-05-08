@@ -20,10 +20,11 @@
   --btn-secondary-hover:   #E5ECF3;
   --btn-action-bg:         #304C6C;     /* CTA — 조회 버튼 (Figma 다크 네이비) */
   --btn-action-hover:      #243a55;
-  --btn-download-bg:       #ffffff;     /* 엑셀 다운로드 — 흰 배경 */
-  --btn-download-text:     #304C6C;
-  --btn-download-border:   #D0D8E3;
-  --btn-download-hover:    #F2F6FA;
+  --btn-download-bg:       #ffffff;
+  --btn-download-text:     #304c6c;
+  --btn-download-border:   #cfcfcf;     /* Figma 엑셀 다운로드 스트로크 */
+  --btn-download-hover:    #f2f6fa;
+  --btn-download-radius:   8px;
   --btn-small-bg:          #f1f3f5;     /* Light: 옅은 회색 */
   --btn-small-text:        #495057;
   --btn-small-border:      #ced4da;

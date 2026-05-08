@@ -185,7 +185,7 @@ export default function DashboardPage() {
                       onClick={() => router.push('/projects/' + r.projectId + '?tab=repayment')}
                       style={{ cursor: 'pointer' }}
                     >
-                      <td className="text-left" style={{ color: '#00a7ea' }}>{r.projectName}</td>
+                      <td className="text-left" style={{ color: '#1a1a1a' }}>{r.projectName}</td>
                       <td className="text-center">{r.round}회</td>
                       <td className="text-right">{r.amount.toLocaleString('ko-KR')}원</td>
                       <td className="text-center"><StatusBadge type="repayment" value={r.status} /></td>
@@ -309,7 +309,7 @@ export default function DashboardPage() {
               <tbody>
                 {filteredUncollected.map((u) => (
                   <tr key={u.projectId + u.round} onClick={() => router.push('/projects/' + u.projectId)}>
-                    <td className="text-left" style={{ color: '#00a7ea' }}>{u.projectName}</td>
+                    <td className="text-left" style={{ color: '#1a1a1a' }}>{u.projectName}</td>
                     <td className="text-center">{u.round}회</td>
                     <td className="text-right">{formatAmountShort(u.amount)}</td>
                     <td className="text-center" style={{ color: '#dc3545', fontWeight: '700' }}>D+{u.elapsedDays}</td>

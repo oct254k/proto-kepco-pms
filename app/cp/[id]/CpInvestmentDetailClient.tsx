@@ -250,7 +250,7 @@ export default function CpInvestmentDetailPage() {
                     {rev.reason}
                   </div>
                   {isPendingApproval && (
-                    <div style={{ fontSize: '11px', color: '#0d6efd', fontWeight: 600, marginBottom: '0.25rem' }}>
+                    <div style={{ fontSize: '11px', color: '#1a1a1a', fontWeight: 600, marginBottom: '0.25rem' }}>
                       결재 진행 중
                     </div>
                   )}
@@ -352,7 +352,7 @@ export default function CpInvestmentDetailPage() {
                         left: `${getGanttLeft(row.start)}%`,
                         width: `${getGanttWidth(row.start, row.end)}%`,
                         height: '100%',
-                        background: row.progress === 100 ? '#28a745' : row.progress > 0 ? '#00a7ea' : '#adb5bd',
+                        background: row.progress > 0 ? '#1c395b' : '#ced4da',
                         borderRadius: '2px',
                       }}
                     />

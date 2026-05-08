@@ -10,6 +10,9 @@ import StatusBadge from '@/components/common/StatusBadge';
 import { mockProjects } from '@/lib/mock-data/projects';
 import { Project } from '@/types';
 import { formatDate, formatAmount } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
+
+const SETTLEMENT_CHIP_BG = '#fff0e6';
 
 // Mock IRR 데이터
 const IRR_DATA: Record<string, { plannedIrr: number; actualIrr: number; settlementStatus: '결산완료' | '미완료'; settlementDate?: string; totalInvestment: number; totalRepayment: number; period: string }> = {
@@ -69,20 +72,29 @@ export default function SettlementPage() {
       </div>
 
       {/* 검색 조건 */}
-      <div className="content-box-wrap">
-        <div className="form-grid" style={{ gridTemplateColumns: 'auto 1fr auto 1fr' }}>
-          <label className="form-label">프로젝트명</label>
-          <input type="text" value={filterName} onChange={e => setFilterName(e.target.value)} placeholder="프로젝트명 검색" style={{ width: '100%' }} />
-          <label className="form-label">결산상태</label>
-          <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: '100%' }}>
-            <option>전체</option>
-            <option>결산완료</option>
-            <option>미완료</option>
-          </select>
-        </div>
-        <div style={{ display: 'flex', gap: '0.375rem', marginTop: '0.75rem', justifyContent: 'flex-end' }}>
-          <button className="btn type-03" onClick={() => {}}>조회</button>
-          <button className="btn type-02" onClick={handleReset}>초기화</button>
+      <div className="content-box-wrap screen-panel-query">
+        <div className="screen-panel-heading">조회 조건</div>
+        <div className="filter-row">
+          <div className="filter-item">
+            <label className="filter-label">프로젝트명</label>
+            <input type="text" value={filterName} onChange={e => setFilterName(e.target.value)} placeholder="프로젝트명 검색" style={{ width: 160 }} />
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">결산상태</label>
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: 120 }}>
+              <option>전체</option>
+              <option>결산완료</option>
+              <option>미완료</option>
+            </select>
+          </div>
+          <div className="filter-actions">
+            <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+              <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+            </button>
+            <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+              <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+            </button>
+          </div>
         </div>
       </div>
 
@@ -135,8 +147,8 @@ export default function SettlementPage() {
                           type="custom"
                           value={irr.settlementStatus}
                           customLabel={irr.settlementStatus}
-                          customBg={irr.settlementStatus === '결산완료' ? '#d1e7dd' : '#e2e3e5'}
-                          customText={irr.settlementStatus === '결산완료' ? '#0a3622' : '#383d41'}
+                          customBg={SETTLEMENT_CHIP_BG}
+                          customText={irr.settlementStatus === '결산완료' ? '#c2410c' : '#78716f'}
                         />
                       </td>
                       <td className="text-center">{irr.settlementDate ? formatDate(irr.settlementDate) : '-'}</td>
@@ -173,8 +185,8 @@ export default function SettlementPage() {
                 type="custom"
                 value={selectedIrr.settlementStatus}
                 customLabel={selectedIrr.settlementStatus}
-                customBg={selectedIrr.settlementStatus === '결산완료' ? '#d1e7dd' : '#e2e3e5'}
-                customText={selectedIrr.settlementStatus === '결산완료' ? '#0a3622' : '#383d41'}
+                customBg={SETTLEMENT_CHIP_BG}
+                customText={selectedIrr.settlementStatus === '결산완료' ? '#c2410c' : '#78716f'}
               />
             </div>
 

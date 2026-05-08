@@ -10,6 +10,7 @@ import DrawerPanel from '@/components/common/DrawerPanel';
 import ModalDialog from '@/components/common/ModalDialog';
 import EmptyState from '@/components/common/EmptyState';
 import { formatDate } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
 // ── Mock 데이터 ───────────────────────────────────────────────────────────────
 
@@ -313,7 +314,8 @@ export default function SystemPage() {
       {mainTab === 'requests' && (
         <div className="content-wrap">
           {/* 조회조건 */}
-          <div className="content-box-wrap">
+          <div className="content-box-wrap screen-panel-query">
+            <div className="screen-panel-heading">조회 조건</div>
             <div className="filter-row">
               <div className="filter-item">
                 <label className="filter-label">요청자</label>
@@ -354,9 +356,13 @@ export default function SystemPage() {
                 />
               </div>
               <div className="filter-actions">
-                <button className="btn" onClick={() => {}}>조회</button>
+                <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+                  <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
+                  조회
+                </button>
                 <button
-                  className="btn type-02"
+                  type="button"
+                  className="btn type-02 btn-with-icon"
                   onClick={() => {
                     setFilterRequester('');
                     setFilterStatus('전체');
@@ -364,6 +370,7 @@ export default function SystemPage() {
                     setFilterDateTo('');
                   }}
                 >
+                  <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />
                   초기화
                 </button>
               </div>
