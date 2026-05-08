@@ -8,8 +8,10 @@ import Breadcrumb from '@/components/layout/Breadcrumb';
 import { mockCpInvestments, mockCpInvestmentRevisions } from '@/lib/mock-data/cp';
 import { CpInvestment } from '@/types';
 import { formatDate, formatAmount } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
 const REVISION_OPTIONS = ['전체', '0차', '1차 이상'];
+const CP_STATUS_CHIP_BG = '#fff0e6';
 // 상태 옵션: mock 데이터의 status 값(ACTIVE/CLOSED/DRAFT)에 맞게 정의
 const STATUS_OPTIONS = [
   { label: '전체',  value: '전체' },
@@ -87,24 +89,37 @@ export default function CpInvestmentListPage() {
       </div>
 
       {/* 조회 조건 */}
-      <div className="content-box-wrap">
-        <div className="form-grid" style={{ gridTemplateColumns: 'auto 1fr auto 1fr auto 1fr auto 1fr' }}>
-          <label className="form-label">프로젝트명</label>
-          <input type="text" value={filterProject} onChange={e => setFilterProject(e.target.value)} placeholder="프로젝트명 검색" style={{ width: '100%' }} />
-          <label className="form-label">에너지사용자명</label>
-          <input type="text" value={filterEnergyUser} onChange={e => setFilterEnergyUser(e.target.value)} placeholder="업체명 검색" style={{ width: '100%' }} />
-          <label className="form-label">현재차수</label>
-          <select value={filterRevision} onChange={e => setFilterRevision(e.target.value)} style={{ width: '100%' }}>
-            {REVISION_OPTIONS.map(o => <option key={o}>{o}</option>)}
-          </select>
-          <label className="form-label">상태</label>
-          <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: '100%' }}>
-            {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
-        </div>
-        <div style={{ display: 'flex', gap: '0.375rem', marginTop: '0.75rem', justifyContent: 'flex-end' }}>
-          <button className="btn type-03" onClick={() => {}}>조회</button>
-          <button className="btn type-02" onClick={handleReset}>초기화</button>
+      <div className="content-box-wrap screen-panel-query">
+        <div className="screen-panel-heading">조회 조건</div>
+        <div className="filter-row">
+          <div className="filter-item">
+            <label className="filter-label">프로젝트명</label>
+            <input type="text" value={filterProject} onChange={e => setFilterProject(e.target.value)} placeholder="프로젝트명 검색" style={{ width: 160 }} />
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">에너지사용자명</label>
+            <input type="text" value={filterEnergyUser} onChange={e => setFilterEnergyUser(e.target.value)} placeholder="업체명 검색" style={{ width: 150 }} />
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">현재차수</label>
+            <select value={filterRevision} onChange={e => setFilterRevision(e.target.value)} style={{ width: 100 }}>
+              {REVISION_OPTIONS.map(o => <option key={o}>{o}</option>)}
+            </select>
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">상태</label>
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: 120 }}>
+              {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+          <div className="filter-actions">
+            <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+              <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+            </button>
+            <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+              <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+            </button>
+          </div>
         </div>
       </div>
 
@@ -142,7 +157,7 @@ export default function CpInvestmentListPage() {
                     <td className="text-center">{idx + 1}</td>
                     <td className="text-left">
                       <button
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#00a7ea', fontSize: '12px', padding: 0 }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', fontSize: '12px', padding: 0 }}
                         onClick={e => { e.stopPropagation(); router.push('/cp/' + cp.id); }}
                       >
                         {cp.projectName}
@@ -164,14 +179,14 @@ export default function CpInvestmentListPage() {
                           cp.status === 'CLOSED' ? '완료'   : cp.status
                         }
                         customBg={
-                          cp.status === 'ACTIVE' ? '#d1e7dd' :
-                          cp.status === 'DRAFT'  ? '#fff3cd' :
-                          cp.status === 'CLOSED' ? '#e2e3e5' : '#e2e3e5'
+                          cp.status === 'ACTIVE' ? CP_STATUS_CHIP_BG :
+                          cp.status === 'DRAFT'  ? CP_STATUS_CHIP_BG :
+                          cp.status === 'CLOSED' ? CP_STATUS_CHIP_BG : CP_STATUS_CHIP_BG
                         }
                         customText={
-                          cp.status === 'ACTIVE' ? '#0a3622' :
-                          cp.status === 'DRAFT'  ? '#856404' :
-                          cp.status === 'CLOSED' ? '#383d41' : '#383d41'
+                          cp.status === 'ACTIVE' ? '#ea580c' :
+                          cp.status === 'DRAFT'  ? '#fb923c' :
+                          cp.status === 'CLOSED' ? '#9a3412' : '#78716f'
                         }
                       />
                     </td>
