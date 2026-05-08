@@ -271,7 +271,7 @@ export default function AdminUsersPage() {
           <div className="content-box-wrap type-02">
             <div className="title-row-wrap">
               <h3>사용자 목록</h3>
-              <button className="btn type-03" onClick={() => setRegisterModalOpen(true)}>신규 등록</button>
+              <button className="btn type-03" onClick={() => setRegisterModalOpen(true)}>+ 신규 등록</button>
             </div>
             <DataTable
               columns={columns as Parameters<typeof DataTable>[0]['columns']}
@@ -415,7 +415,7 @@ export default function AdminUsersPage() {
         title="사용자 등록"
         footer={
           <>
-            <button className="btn type-03" onClick={handleRegister}>등록</button>
+            <button className="btn type-03" onClick={handleRegister}>+ 등록</button>
             <button className="btn type-02" onClick={() => setRegisterModalOpen(false)}>취소</button>
           </>
         }

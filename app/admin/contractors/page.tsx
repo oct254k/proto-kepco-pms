@@ -200,7 +200,7 @@ export default function ContractorsPage() {
           <div className="title-row-wrap">
             <h3>협력업체 목록</h3>
             <div className="button-wrap">
-              <button className="btn" onClick={() => setRegisterOpen(true)}>신규 등록</button>
+              <button className="btn" onClick={() => setRegisterOpen(true)}>+ 신규 등록</button>
               <button
                 className="btn type-03"
                 disabled={!checkedId}
@@ -456,7 +456,7 @@ export default function ContractorsPage() {
         size="md"
         footer={
           <>
-            <button className="btn" onClick={handleRegister}>등록</button>
+            <button className="btn" onClick={handleRegister}>+ 등록</button>
             <button className="btn type-02" onClick={() => setRegisterOpen(false)}>취소</button>
           </>
         }

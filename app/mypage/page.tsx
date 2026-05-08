@@ -287,7 +287,7 @@ export default function MyPage() {
         {section3Open && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.75rem' }}>
-              <button className="btn" onClick={() => setIsRequestModalOpen(true)}>신규 요청 등록</button>
+              <button className="btn" onClick={() => setIsRequestModalOpen(true)}>+ 신규 요청 등록</button>
             </div>
 
             <div className="table-wrap">
