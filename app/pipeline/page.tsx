@@ -11,6 +11,7 @@ import { mockContractors } from '@/lib/mock-data/contractors';
 import { SRM_BID_ITEMS, SRM_PROPOSALS, SRM_AWARDS, SrmBidItems, SrmProposal, SrmAward } from '@/lib/mock-data/srm-data';
 import { findByPmsCardId } from '@/lib/mock-data/id-map';
 import { formatAmountShort, formatAmount, formatDate, calcDday } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 import { BidCard, BidStage } from '@/types';
 
 const STAGES: BidStage[] = [
@@ -242,36 +243,31 @@ export default function BidPage() {
 
         {/* 목록 뷰 — 단계 카운트 카드 */}
         {viewMode === 'list' && (
-          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            {stageCounts.map(({ stage, count }) => {
-              const isActive = activeStage === stage;
-              const isCompleted = stage === '계약체결';
-              return (
-                <div
-                  key={stage}
-                  onClick={() => setActiveStage(isActive ? null : stage)}
-                  style={{
-                    flex: 1,
-                    border: `1px solid ${isActive ? '#00a7ea' : '#dee2e6'}`,
-                    borderRadius: '0.375rem',
-                    background: isCompleted ? '#e8f4e8' : isActive ? '#e8f4fb' : '#f8f9fa',
-                    padding: '0.625rem 0.5rem',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.15s, background 0.15s',
-                  }}
-                >
-                  <div style={{ fontSize: '11px', color: '#6c757d', marginBottom: '0.25rem', minHeight: '2.4em', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1.2, wordBreak: 'keep-all' }}>{stage}</div>
-                  <div style={{ fontSize: '20px', fontWeight: '700', color: isActive ? '#00a7ea' : '#343a40', lineHeight: 1 }}>{count}</div>
-                  <div style={{ fontSize: '10px', color: '#adb5bd', marginTop: '0.125rem' }}>건</div>
-                </div>
-              );
-            })}
+          <div className="content-box-wrap screen-panel-aggregate" style={{ padding: '0' }}>
+            <div className="agg-row">
+              {stageCounts.map(({ stage, count }) => {
+                const isActive = activeStage === stage;
+                return (
+                  <div
+                    key={stage}
+                    className={`agg-card clickable${isActive ? ' active' : ''}`}
+                    onClick={() => setActiveStage(isActive ? null : stage)}
+                  >
+                    <div className="agg-label">{stage}</div>
+                    <div className="agg-value-row">
+                      <span className="agg-value">{count}</span>
+                      <span className="agg-unit">건</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 
         {/* 공통 필터 */}
-        <div className="content-box-wrap">
+        <div className="content-box-wrap screen-panel-query">
+          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">사업명</label>
@@ -280,7 +276,7 @@ export default function BidPage() {
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
                 placeholder="사업명"
-                style={{ width: 120 }}
+                style={{ width: 130 }}
               />
             </div>
             <div className="filter-item">
@@ -290,12 +286,12 @@ export default function BidPage() {
                 value={filterManager}
                 onChange={(e) => setFilterManager(e.target.value)}
                 placeholder="담당자"
-                style={{ width: 90 }}
+                style={{ width: 100 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">조달방식</label>
-              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 100 }}>
+              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 110 }}>
                 <option value="">전체</option>
                 <option value="경쟁입찰">경쟁입찰</option>
                 <option value="수의계약">수의계약</option>
@@ -305,14 +301,20 @@ export default function BidPage() {
               </select>
             </div>
             <div className="filter-item">
-              <label className="filter-label">발주요청일</label>
-              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 110 }} />
-              <span style={{ padding: '0 0.25rem', color: '#6c757d' }}>~</span>
-              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 110 }} />
+              <label className="filter-label">발주요청일(시작)</label>
+              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 130 }} />
+            </div>
+            <div className="filter-item">
+              <label className="filter-label">발주요청일(종료)</label>
+              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 130 }} />
             </div>
             <div className="filter-actions">
-              <button className="btn" onClick={handleSearch}>조회</button>
-              <button className="btn type-02" onClick={handleReset}>초기화</button>
+              <button type="button" className="btn type-03 btn-with-icon" onClick={handleSearch}>
+                <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+              </button>
+              <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+                <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+              </button>
             </div>
           </div>
         </div>
@@ -366,7 +368,7 @@ export default function BidPage() {
                         style={{ cursor: 'pointer' }}
                       >
                         <td className="text-center">{idx + 1}</td>
-                        <td className="text-left" style={{ fontWeight: '600', color: '#0d6efd', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={card.name}>{card.name}</td>
+                        <td className="text-left" style={{ fontWeight: '600', color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={card.name}>{card.name}</td>
                         <td className="text-center">
                           <StatusBadge
                             type="custom"

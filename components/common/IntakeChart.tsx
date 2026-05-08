@@ -14,20 +14,18 @@ interface IntakeChartProps {
 
 export default function IntakeChart({ steps, activeKey, onStepClick }: IntakeChartProps) {
   return (
-    <div className="intake-bar">
-      {steps.map((step, i) => (
-        <div key={step.key} style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-          <div
-            className={`intake-step ${activeKey === step.key ? 'active' : ''}`}
-            style={{ flex: 1 }}
-            onClick={() => onStepClick?.(step.key)}
-          >
-            <div className="intake-step-count">{step.count}</div>
-            <div className="intake-step-label">{step.label}</div>
+    <div className="agg-row">
+      {steps.map((step) => (
+        <div
+          key={step.key}
+          className={`agg-card clickable${activeKey === step.key ? ' active' : ''}`}
+          onClick={() => onStepClick?.(step.key)}
+        >
+          <div className="agg-label">{step.label}</div>
+          <div className="agg-value-row">
+            <span className="agg-value">{step.count}</span>
+            <span className="agg-unit">건</span>
           </div>
-          {i < steps.length - 1 && (
-            <div style={{ color: '#00a7ea', fontSize: '18px', padding: '0 4px', flexShrink: 0 }}>▶</div>
-          )}
         </div>
       ))}
     </div>

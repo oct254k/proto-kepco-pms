@@ -8,8 +8,23 @@ import DocumentViewer from '@/components/common/DocumentViewer';
 import { mockContracts } from '@/lib/mock-data/contracts';
 import { Contract } from '@/types';
 import { formatDate, formatAmount, formatAmountShort } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
 const STATUS_OPTIONS = ['전체', '계약체결', '변경', '해지'];
+const CONTRACT_CHIP_BG = '#fff0e6';
+
+function getContractStatusChipColors(status: string): { bg: string; text: string } {
+  switch (status) {
+    case '계약체결':
+      return { bg: CONTRACT_CHIP_BG, text: '#c2410c' };
+    case '변경':
+      return { bg: CONTRACT_CHIP_BG, text: '#fb923c' };
+    case '해지':
+      return { bg: CONTRACT_CHIP_BG, text: '#7c2d12' };
+    default:
+      return { bg: CONTRACT_CHIP_BG, text: '#78716f' };
+  }
+}
 
 export default function ContractsPage() {
   const router = useRouter();
@@ -92,24 +107,39 @@ export default function ContractsPage() {
         {activeTab === 'AWARD' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 검색 조건 */}
-            <div className="content-box-wrap">
-              <div className="form-grid" style={{ gridTemplateColumns: 'auto 1fr auto 1fr auto 1fr' }}>
-                <label className="form-label">계약명</label>
-                <input type="text" value={awardFilterName} onChange={e => setAwardFilterName(e.target.value)} placeholder="계약명 검색" style={{ width: '100%' }} />
-                <label className="form-label">에너지사용자</label>
-                <input type="text" value={awardFilterEU} onChange={e => setAwardFilterEU(e.target.value)} placeholder="업체명 검색" style={{ width: '100%' }} />
-                <label className="form-label">상태</label>
-                <select value={awardFilterStatus} onChange={e => setAwardFilterStatus(e.target.value)} style={{ width: '100%' }}>
-                  {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
-                </select>
-                <label className="form-label">계약일(시작)</label>
-                <input type="date" value={awardFilterFrom} onChange={e => setAwardFilterFrom(e.target.value)} style={{ width: '100%' }} />
-                <label className="form-label">계약일(종료)</label>
-                <input type="date" value={awardFilterTo} onChange={e => setAwardFilterTo(e.target.value)} style={{ width: '100%' }} />
-              </div>
-              <div style={{ display: 'flex', gap: '0.375rem', marginTop: '0.75rem', justifyContent: 'flex-end' }}>
-                <button className="btn type-03" onClick={() => {}}>조회</button>
-                <button className="btn type-02" onClick={handleAwardReset}>초기화</button>
+            <div className="content-box-wrap screen-panel-query">
+              <div className="screen-panel-heading">조회 조건</div>
+              <div className="filter-row">
+                <div className="filter-item">
+                  <label className="filter-label">계약명</label>
+                  <input type="text" value={awardFilterName} onChange={e => setAwardFilterName(e.target.value)} placeholder="계약명 검색" style={{ width: 180 }} />
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">에너지사용자</label>
+                  <input type="text" value={awardFilterEU} onChange={e => setAwardFilterEU(e.target.value)} placeholder="업체명 검색" style={{ width: 150 }} />
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">상태</label>
+                  <select value={awardFilterStatus} onChange={e => setAwardFilterStatus(e.target.value)} style={{ width: 110 }}>
+                    {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">계약일(시작)</label>
+                  <input type="date" value={awardFilterFrom} onChange={e => setAwardFilterFrom(e.target.value)} style={{ width: 130 }} />
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">계약일(종료)</label>
+                  <input type="date" value={awardFilterTo} onChange={e => setAwardFilterTo(e.target.value)} style={{ width: 130 }} />
+                </div>
+                <div className="filter-actions">
+                  <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+                    <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+                  </button>
+                  <button type="button" className="btn type-02 btn-with-icon" onClick={handleAwardReset}>
+                    <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -138,7 +168,9 @@ export default function ContractsPage() {
                         </td>
                       </tr>
                     ) : (
-                      awardContracts.map(c => (
+                      awardContracts.map(c => {
+                        const chip = getContractStatusChipColors(c.status);
+                        return (
                         <tr key={c.id} onClick={() => handleRowClick(c)}>
                           <td className="text-left">{c.name}</td>
                           <td className="text-left">{c.counterparty}</td>
@@ -149,20 +181,34 @@ export default function ContractsPage() {
                               type="custom"
                               value={c.status}
                               customLabel={c.status}
-                              customBg="#d1e7dd"
-                              customText="#0a3622"
+                              customBg={chip.bg}
+                              customText={chip.text}
                             />
                           </td>
                         </tr>
-                      ))
+                        );
+                      })
                     )}
                   </tbody>
                 </table>
               </div>
               {/* 집계 */}
-              <div className="content-box-wrap" style={{ marginTop: '0.75rem', padding: '0.5rem 0.75rem', display: 'flex', gap: '2rem', fontSize: '12px' }}>
-                <span>조회건수: <strong>{awardContracts.length}건</strong></span>
-                <span>수주계약금액 합계: <strong>{formatAmountShort(awardTotal)}</strong></span>
+              <div className="content-box-wrap screen-panel-aggregate" style={{ marginTop: '0.75rem', padding: '0' }}>
+                <div className="agg-row">
+                  <div className="agg-card">
+                    <div className="agg-label">조회건수</div>
+                    <div className="agg-value-row">
+                      <span className="agg-value">{awardContracts.length}</span>
+                      <span className="agg-unit">건</span>
+                    </div>
+                  </div>
+                  <div className="agg-card">
+                    <div className="agg-label">수주계약금액 합계</div>
+                    <div className="agg-value-row">
+                      <span className="agg-value">{formatAmountShort(awardTotal)}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -172,22 +218,35 @@ export default function ContractsPage() {
         {activeTab === 'ORDER' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 검색 조건 */}
-            <div className="content-box-wrap">
-              <div className="form-grid" style={{ gridTemplateColumns: 'auto 1fr auto 1fr auto 1fr' }}>
-                <label className="form-label">EPC사명</label>
-                <input type="text" value={orderFilterName} onChange={e => setOrderFilterName(e.target.value)} placeholder="업체명/계약명 검색" style={{ width: '100%' }} />
-                <label className="form-label">상태</label>
-                <select value={orderFilterStatus} onChange={e => setOrderFilterStatus(e.target.value)} style={{ width: '100%' }}>
-                  {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
-                </select>
-                <label className="form-label">계약일(시작)</label>
-                <input type="date" value={orderFilterFrom} onChange={e => setOrderFilterFrom(e.target.value)} style={{ width: '100%' }} />
-                <label className="form-label" style={{ gridColumn: '1' }}>계약일(종료)</label>
-                <input type="date" value={orderFilterTo} onChange={e => setOrderFilterTo(e.target.value)} style={{ width: '100%' }} />
-              </div>
-              <div style={{ display: 'flex', gap: '0.375rem', marginTop: '0.75rem', justifyContent: 'flex-end' }}>
-                <button className="btn type-03" onClick={() => {}}>조회</button>
-                <button className="btn type-02" onClick={handleOrderReset}>초기화</button>
+            <div className="content-box-wrap screen-panel-query">
+              <div className="screen-panel-heading">조회 조건</div>
+              <div className="filter-row">
+                <div className="filter-item">
+                  <label className="filter-label">EPC사명</label>
+                  <input type="text" value={orderFilterName} onChange={e => setOrderFilterName(e.target.value)} placeholder="업체명/계약명 검색" style={{ width: 180 }} />
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">상태</label>
+                  <select value={orderFilterStatus} onChange={e => setOrderFilterStatus(e.target.value)} style={{ width: 110 }}>
+                    {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">계약일(시작)</label>
+                  <input type="date" value={orderFilterFrom} onChange={e => setOrderFilterFrom(e.target.value)} style={{ width: 130 }} />
+                </div>
+                <div className="filter-item">
+                  <label className="filter-label">계약일(종료)</label>
+                  <input type="date" value={orderFilterTo} onChange={e => setOrderFilterTo(e.target.value)} style={{ width: 130 }} />
+                </div>
+                <div className="filter-actions">
+                  <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+                    <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+                  </button>
+                  <button type="button" className="btn type-02 btn-with-icon" onClick={handleOrderReset}>
+                    <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -216,7 +275,9 @@ export default function ContractsPage() {
                         </td>
                       </tr>
                     ) : (
-                      orderContracts.map(c => (
+                      orderContracts.map(c => {
+                        const chip = getContractStatusChipColors(c.status);
+                        return (
                         <tr key={c.id} onClick={() => handleRowClick(c)}>
                           <td className="text-left">{c.name}</td>
                           <td className="text-left">{c.counterparty}</td>
@@ -227,20 +288,34 @@ export default function ContractsPage() {
                               type="custom"
                               value={c.status}
                               customLabel={c.status}
-                              customBg="#d1e7dd"
-                              customText="#0a3622"
+                              customBg={chip.bg}
+                              customText={chip.text}
                             />
                           </td>
                         </tr>
-                      ))
+                        );
+                      })
                     )}
                   </tbody>
                 </table>
               </div>
               {/* 집계 */}
-              <div className="content-box-wrap" style={{ marginTop: '0.75rem', padding: '0.5rem 0.75rem', display: 'flex', gap: '2rem', fontSize: '12px' }}>
-                <span>조회건수: <strong>{orderContracts.length}건</strong></span>
-                <span>계약금액 합계: <strong>{formatAmountShort(orderTotal)}</strong></span>
+              <div className="content-box-wrap screen-panel-aggregate" style={{ marginTop: '0.75rem', padding: '0' }}>
+                <div className="agg-row">
+                  <div className="agg-card">
+                    <div className="agg-label">조회건수</div>
+                    <div className="agg-value-row">
+                      <span className="agg-value">{orderContracts.length}</span>
+                      <span className="agg-unit">건</span>
+                    </div>
+                  </div>
+                  <div className="agg-card">
+                    <div className="agg-label">계약금액 합계</div>
+                    <div className="agg-value-row">
+                      <span className="agg-value">{formatAmountShort(orderTotal)}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -266,7 +341,13 @@ export default function ContractsPage() {
             {/* 상태 배지 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '12px', color: '#6c757d' }}>{selectedContract.id}</span>
-              <StatusBadge type="custom" value={selectedContract.status} customLabel={selectedContract.status} customBg="#d1e7dd" customText="#0a3622" />
+              <StatusBadge
+                type="custom"
+                value={selectedContract.status}
+                customLabel={selectedContract.status}
+                customBg={getContractStatusChipColors(selectedContract.status).bg}
+                customText={getContractStatusChipColors(selectedContract.status).text}
+              />
             </div>
 
             {/* 기본 정보 */}

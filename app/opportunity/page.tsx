@@ -9,6 +9,7 @@ import DocumentViewer from '@/components/common/DocumentViewer';
 import { mockOpportunities } from '@/lib/mock-data/opportunities';
 import { Opportunity } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { Search, RotateCcw } from 'lucide-react';
 
 const INTAKE_STEPS = [
   { key: 'DRAFT',        label: '기회등록중' },
@@ -18,13 +19,15 @@ const INTAKE_STEPS = [
   { key: 'CONTRACTED',   label: '계약체결' },
 ];
 
+const CHIP_BG = '#fff0e6';
+
 // Drawer 상단 결재상태 배지 매핑 (설계서 SCR-P-03 기준)
 const APPROVAL_STATUS_MAP: Record<string, { label: string; bg: string; color: string }> = {
-  DRAFT:        { label: '등록중',      bg: '#e2e3e5', color: '#383d41' },
-  REVIEWING:    { label: '검토중',      bg: '#fff3cd', color: '#856404' },
-  APPROVED:     { label: '승인완료',    bg: '#d4edda', color: '#155724' },
-  PO_REQUESTED: { label: '발주요청완료', bg: '#cff4fc', color: '#055160' },
-  CONTRACTED:   { label: '계약체결',   bg: '#cfe2ff', color: '#084298' },
+  DRAFT:        { label: '등록중',      bg: CHIP_BG, color: '#78716f' },
+  REVIEWING:    { label: '검토중',      bg: CHIP_BG, color: '#fb923c' },
+  APPROVED:     { label: '승인완료',    bg: CHIP_BG, color: '#ea580c' },
+  PO_REQUESTED: { label: '발주요청완료', bg: CHIP_BG, color: '#c2410c' },
+  CONTRACTED:   { label: '계약체결',   bg: CHIP_BG, color: '#9a3412' },
 };
 
 const YEARS = ['전체', '2023', '2024', '2025', '2026'];
@@ -145,21 +148,18 @@ export default function OpportunityPage() {
         </div>
       </div>
 
-      {/* 사업접수 시각화 */}
-      <div className="content-box-wrap type-02">
-        <div className="title-row-wrap">
-          <h3>단계별 현황</h3>
-        </div>
+      {/* 단계별 집계 (피그마: 집계영역) */}
+      <div className="content-box-wrap screen-panel-aggregate" style={{ padding: '0' }}>
         <IntakeChart
           steps={intakeSteps}
           activeKey={activeIntakeKey}
           onStepClick={handleIntakeClick}
         />
         {activeIntakeKey && (
-          <div style={{ marginTop: '0.5rem', fontSize: '11px', color: '#6c757d' }}>
+          <div style={{ padding: '0 1.25rem 0.5rem', fontSize: '11px', color: '#6c757d' }}>
             클릭한 단계로 필터 적용 중 —{' '}
             <button
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#00a7ea', fontSize: '11px' }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', fontSize: '11px', textDecoration: 'underline', textUnderlineOffset: '2px' }}
               onClick={() => setActiveIntakeKey(undefined)}
             >
               전체 보기
@@ -168,31 +168,46 @@ export default function OpportunityPage() {
         )}
       </div>
 
-      {/* 검색 조건 */}
-      <div className="content-box-wrap">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <label className="form-label">접수년도</label>
-          <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={{ width: 90 }}>
-            {YEARS.map(y => <option key={y}>{y}</option>)}
-          </select>
-          <label className="form-label">사업유형</label>
-          <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: 90 }}>
-            {TYPES.map(t => <option key={t}>{t}</option>)}
-          </select>
-          <label className="form-label">상태</label>
-          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: 130 }}>
-            {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
-          </select>
-          <label className="form-label">에너지사용자명</label>
-          <input
-            type="text"
-            value={filterEnergyUser}
-            onChange={e => setFilterEnergyUser(e.target.value)}
-            placeholder="업체명 검색"
-            style={{ flex: 1, minWidth: 140 }}
-          />
-          <button className="btn type-03" onClick={() => {}}>조회</button>
-          <button className="btn type-02" onClick={handleReset}>초기화</button>
+      {/* 조회 조건 */}
+      <div className="content-box-wrap screen-panel-query">
+        <div className="screen-panel-heading">조회 조건</div>
+        <div className="filter-row">
+          <div className="filter-item">
+            <label className="filter-label">접수년도</label>
+            <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={{ width: 90 }}>
+              {YEARS.map(y => <option key={y}>{y}</option>)}
+            </select>
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">사업유형</label>
+            <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: 90 }}>
+              {TYPES.map(t => <option key={t}>{t}</option>)}
+            </select>
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">상태</label>
+            <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: 130 }}>
+              {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
+            </select>
+          </div>
+          <div className="filter-item">
+            <label className="filter-label">에너지사용자명</label>
+            <input
+              type="text"
+              value={filterEnergyUser}
+              onChange={e => setFilterEnergyUser(e.target.value)}
+              placeholder="업체명 검색"
+              style={{ width: 160 }}
+            />
+          </div>
+          <div className="filter-actions">
+            <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
+              <Search className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />조회
+            </button>
+            <button type="button" className="btn type-02 btn-with-icon" onClick={handleReset}>
+              <RotateCcw className="btn-icon-left" size={14} strokeWidth={2} aria-hidden />초기화
+            </button>
+          </div>
         </div>
       </div>
 
@@ -273,7 +288,7 @@ export default function OpportunityPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 결재상태 배지 — Drawer 상단 (설계서 SCR-P-03 기준) */}
             {(() => {
-              const approvalStatus = APPROVAL_STATUS_MAP[selectedOpp.status] ?? { label: selectedOpp.status, bg: '#e2e3e5', color: '#383d41' };
+              const approvalStatus = APPROVAL_STATUS_MAP[selectedOpp.status] ?? { label: selectedOpp.status, bg: CHIP_BG, color: '#78716f' };
               return (
                 <div style={{
                   display: 'flex', alignItems: 'center', gap: '0.75rem',
