@@ -154,13 +154,11 @@ export default function ContractorsPage() {
       <div className="content-wrap">
         {/* ── 조회조건 ── */}
         <div className="content-box-wrap screen-panel-query">
-          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">업체명</label>
               <input
                 type="text"
-                style={{ width: 160 }}
                 placeholder="업체명 입력"
                 value={searchName}
                 onChange={(e) => setSearchName(e.target.value)}
@@ -169,7 +167,6 @@ export default function ContractorsPage() {
             <div className="filter-item">
               <label className="filter-label">신용등급</label>
               <select
-                style={{ width: 100 }}
                 value={searchGrade}
                 onChange={(e) => setSearchGrade(e.target.value)}
               >

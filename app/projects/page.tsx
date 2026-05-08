@@ -122,7 +122,6 @@ export default function ProjectsPage() {
       <div className="content-wrap">
         {/* 조회조건 */}
         <div className="content-box-wrap screen-panel-query">
-          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">프로젝트명</label>
@@ -131,7 +130,6 @@ export default function ProjectsPage() {
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
                 placeholder="프로젝트명 검색"
-                style={{ width: 160 }}
               />
             </div>
             <div className="filter-item">
@@ -141,12 +139,11 @@ export default function ProjectsPage() {
                 value={filterEnergyUser}
                 onChange={(e) => setFilterEnergyUser(e.target.value)}
                 placeholder="에너지사용자"
-                style={{ width: 140 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">사업유형</label>
-              <select value={filterType} onChange={(e) => setFilterType(e.target.value)} style={{ width: 100 }}>
+              <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
                 <option value="">전체</option>
                 <option value="3자간">3자간</option>
                 <option value="용역">용역</option>
@@ -154,7 +151,7 @@ export default function ProjectsPage() {
             </div>
             <div className="filter-item">
               <label className="filter-label">프로젝트상태</label>
-              <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} style={{ width: 110 }}>
+              <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
                 <option value="">전체</option>
                 <option value="RECEPTION">접수</option>
                 <option value="CONSTRUCTION">공사</option>
@@ -171,12 +168,11 @@ export default function ProjectsPage() {
                 value={filterManager}
                 onChange={(e) => setFilterManager(e.target.value)}
                 placeholder="담당자"
-                style={{ width: 100 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">접수연도</label>
-              <select value={filterYear} onChange={(e) => setFilterYear(e.target.value)} style={{ width: 90 }}>
+              <select value={filterYear} onChange={(e) => setFilterYear(e.target.value)}>
                 <option value="">전체</option>
                 {[2022, 2023, 2024, 2025, 2026].map((y) => (
                   <option key={y} value={String(y)}>{y}년</option>

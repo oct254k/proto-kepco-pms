@@ -25,7 +25,7 @@ export const menuTree: MenuItem[] = [
   },
   {
     id: 'cp-project',
-    label: '투자/프로젝트 관리',
+    label: '프로젝트관리',
     children: [
       { id: 'cp', label: '투자 관리', href: '/cp' },
       { id: 'projects', label: '프로젝트 관리', href: '/projects' },

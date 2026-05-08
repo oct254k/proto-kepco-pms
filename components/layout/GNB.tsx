@@ -6,7 +6,17 @@ export default function GNB() {
   return (
     <header className="gnb">
       <div className="gnb-logo">
-        <img src="/logo.svg" alt="KEPCO ES" style={{ height: 28, objectFit: 'contain' }} />
+        <img
+          src="/logo.svg"
+          alt="KEPCO ES"
+          style={{
+            height: 'var(--gnb-logo-height)',
+            maxWidth: 'var(--gnb-logo-max-width)',
+            width: 'auto',
+            objectFit: 'contain',
+            display: 'block',
+          }}
+        />
       </div>
       <div className="gnb-spacer" />
       <div className="gnb-actions">

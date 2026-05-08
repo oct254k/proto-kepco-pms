@@ -73,15 +73,14 @@ export default function SettlementPage() {
 
       {/* 검색 조건 */}
       <div className="content-box-wrap screen-panel-query">
-        <div className="screen-panel-heading">조회 조건</div>
         <div className="filter-row">
           <div className="filter-item">
             <label className="filter-label">프로젝트명</label>
-            <input type="text" value={filterName} onChange={e => setFilterName(e.target.value)} placeholder="프로젝트명 검색" style={{ width: 160 }} />
+            <input type="text" value={filterName} onChange={e => setFilterName(e.target.value)} placeholder="프로젝트명 검색" />
           </div>
           <div className="filter-item">
             <label className="filter-label">결산상태</label>
-            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: 120 }}>
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
               <option>전체</option>
               <option>결산완료</option>
               <option>미완료</option>

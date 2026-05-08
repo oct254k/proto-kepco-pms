@@ -51,6 +51,16 @@
   --sidebar-chevron-on-expanded: rgba(255, 255, 255, 0.88);
   --sidebar-item-radius:     8px;
   --sidebar-menu-pill-radius: 9999px;
+  /* TalkToFigma Left(52buympi) — 상·하 간격 */
+  --sidebar-lnb-width: 250px;
+  --gnb-height: 80px;
+  --sidebar-padding-inline: 31px;
+  /* Left 패널 상단 ~ 메뉴검색 상단 */
+  --sidebar-padding-top: 40px;
+  /* 메뉴검색 하단 ~ 1뎁스 메뉴 */
+  --sidebar-gap-search-to-menu: 24px;
+  --gnb-logo-height: 27px;
+  --gnb-logo-max-width: 184px;
 
   /* ── 입력 요소 ── */
   --input-border:          #becacf;

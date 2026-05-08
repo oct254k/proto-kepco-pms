@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body>
         <GNB />
-        <div className="pms-container" style={{ paddingTop: '48px' }}>
+        <div className="pms-container" style={{ paddingTop: 'var(--gnb-height)' }}>
           <LNB />
           <main className="content-area">
             {children}

@@ -315,13 +315,11 @@ export default function SystemPage() {
         <div className="content-wrap">
           {/* 조회조건 */}
           <div className="content-box-wrap screen-panel-query">
-            <div className="screen-panel-heading">조회 조건</div>
             <div className="filter-row">
               <div className="filter-item">
                 <label className="filter-label">요청자</label>
                 <input
                   type="text"
-                  style={{ width: 120 }}
                   placeholder="요청자명"
                   value={filterRequester}
                   onChange={(e) => setFilterRequester(e.target.value)}
@@ -330,7 +328,6 @@ export default function SystemPage() {
               <div className="filter-item">
                 <label className="filter-label">상태</label>
                 <select
-                  style={{ width: 120 }}
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
                 >
@@ -343,14 +340,12 @@ export default function SystemPage() {
                 <label className="filter-label">기간</label>
                 <input
                   type="date"
-                  style={{ width: 130 }}
                   value={filterDateFrom}
                   onChange={(e) => setFilterDateFrom(e.target.value)}
                 />
                 <span style={{ padding: '0 4px', color: '#6c757d' }}>~</span>
                 <input
                   type="date"
-                  style={{ width: 130 }}
                   value={filterDateTo}
                   onChange={(e) => setFilterDateTo(e.target.value)}
                 />

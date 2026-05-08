@@ -170,23 +170,22 @@ export default function OpportunityPage() {
 
       {/* 조회 조건 */}
       <div className="content-box-wrap screen-panel-query">
-        <div className="screen-panel-heading">조회 조건</div>
         <div className="filter-row">
           <div className="filter-item">
             <label className="filter-label">접수년도</label>
-            <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={{ width: 90 }}>
+            <select value={filterYear} onChange={e => setFilterYear(e.target.value)}>
               {YEARS.map(y => <option key={y}>{y}</option>)}
             </select>
           </div>
           <div className="filter-item">
             <label className="filter-label">사업유형</label>
-            <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ width: 90 }}>
+            <select value={filterType} onChange={e => setFilterType(e.target.value)}>
               {TYPES.map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
           <div className="filter-item">
             <label className="filter-label">상태</label>
-            <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }} style={{ width: 130 }}>
+            <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setActiveIntakeKey(undefined); }}>
               {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
             </select>
           </div>
@@ -197,7 +196,6 @@ export default function OpportunityPage() {
               value={filterEnergyUser}
               onChange={e => setFilterEnergyUser(e.target.value)}
               placeholder="업체명 검색"
-              style={{ width: 160 }}
             />
           </div>
           <div className="filter-actions">

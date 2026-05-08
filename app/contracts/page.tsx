@@ -108,29 +108,28 @@ export default function ContractsPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 검색 조건 */}
             <div className="content-box-wrap screen-panel-query">
-              <div className="screen-panel-heading">조회 조건</div>
               <div className="filter-row">
                 <div className="filter-item">
                   <label className="filter-label">계약명</label>
-                  <input type="text" value={awardFilterName} onChange={e => setAwardFilterName(e.target.value)} placeholder="계약명 검색" style={{ width: 180 }} />
+                  <input type="text" value={awardFilterName} onChange={e => setAwardFilterName(e.target.value)} placeholder="계약명 검색" />
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">에너지사용자</label>
-                  <input type="text" value={awardFilterEU} onChange={e => setAwardFilterEU(e.target.value)} placeholder="업체명 검색" style={{ width: 150 }} />
+                  <input type="text" value={awardFilterEU} onChange={e => setAwardFilterEU(e.target.value)} placeholder="업체명 검색" />
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">상태</label>
-                  <select value={awardFilterStatus} onChange={e => setAwardFilterStatus(e.target.value)} style={{ width: 110 }}>
+                  <select value={awardFilterStatus} onChange={e => setAwardFilterStatus(e.target.value)}>
                     {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
                   </select>
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">계약일(시작)</label>
-                  <input type="date" value={awardFilterFrom} onChange={e => setAwardFilterFrom(e.target.value)} style={{ width: 130 }} />
+                  <input type="date" value={awardFilterFrom} onChange={e => setAwardFilterFrom(e.target.value)} />
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">계약일(종료)</label>
-                  <input type="date" value={awardFilterTo} onChange={e => setAwardFilterTo(e.target.value)} style={{ width: 130 }} />
+                  <input type="date" value={awardFilterTo} onChange={e => setAwardFilterTo(e.target.value)} />
                 </div>
                 <div className="filter-actions">
                   <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>
@@ -221,25 +220,24 @@ export default function ContractsPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 검색 조건 */}
             <div className="content-box-wrap screen-panel-query">
-              <div className="screen-panel-heading">조회 조건</div>
               <div className="filter-row">
                 <div className="filter-item">
                   <label className="filter-label">EPC사명</label>
-                  <input type="text" value={orderFilterName} onChange={e => setOrderFilterName(e.target.value)} placeholder="업체명/계약명 검색" style={{ width: 180 }} />
+                  <input type="text" value={orderFilterName} onChange={e => setOrderFilterName(e.target.value)} placeholder="업체명/계약명 검색" />
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">상태</label>
-                  <select value={orderFilterStatus} onChange={e => setOrderFilterStatus(e.target.value)} style={{ width: 110 }}>
+                  <select value={orderFilterStatus} onChange={e => setOrderFilterStatus(e.target.value)}>
                     {STATUS_OPTIONS.map(o => <option key={o}>{o}</option>)}
                   </select>
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">계약일(시작)</label>
-                  <input type="date" value={orderFilterFrom} onChange={e => setOrderFilterFrom(e.target.value)} style={{ width: 130 }} />
+                  <input type="date" value={orderFilterFrom} onChange={e => setOrderFilterFrom(e.target.value)} />
                 </div>
                 <div className="filter-item">
                   <label className="filter-label">계약일(종료)</label>
-                  <input type="date" value={orderFilterTo} onChange={e => setOrderFilterTo(e.target.value)} style={{ width: 130 }} />
+                  <input type="date" value={orderFilterTo} onChange={e => setOrderFilterTo(e.target.value)} />
                 </div>
                 <div className="filter-actions">
                   <button type="button" className="btn type-03 btn-with-icon" onClick={() => {}}>

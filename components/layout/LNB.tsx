@@ -89,15 +89,15 @@ export default function LNB() {
   return (
     <nav className="sidebar">
       <div className="sidebar-search">
-        <Search size={18} className="sidebar-search-icon" strokeWidth={2} aria-hidden />
         <input
           type="search"
           autoComplete="off"
-          placeholder="메뉴 검색"
+          placeholder="메뉴를 검색하세요."
           value={menuQuery}
           onChange={(e) => setMenuQuery(e.target.value)}
           aria-label="메뉴 검색"
         />
+        <Search size={16} className="sidebar-search-icon" strokeWidth={2} aria-hidden />
       </div>
 
       <div className="sidebar-scroll">

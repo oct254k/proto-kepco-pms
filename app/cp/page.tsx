@@ -90,25 +90,24 @@ export default function CpInvestmentListPage() {
 
       {/* 조회 조건 */}
       <div className="content-box-wrap screen-panel-query">
-        <div className="screen-panel-heading">조회 조건</div>
         <div className="filter-row">
           <div className="filter-item">
             <label className="filter-label">프로젝트명</label>
-            <input type="text" value={filterProject} onChange={e => setFilterProject(e.target.value)} placeholder="프로젝트명 검색" style={{ width: 160 }} />
+            <input type="text" value={filterProject} onChange={e => setFilterProject(e.target.value)} placeholder="프로젝트명 검색" />
           </div>
           <div className="filter-item">
             <label className="filter-label">에너지사용자명</label>
-            <input type="text" value={filterEnergyUser} onChange={e => setFilterEnergyUser(e.target.value)} placeholder="업체명 검색" style={{ width: 150 }} />
+            <input type="text" value={filterEnergyUser} onChange={e => setFilterEnergyUser(e.target.value)} placeholder="업체명 검색" />
           </div>
           <div className="filter-item">
             <label className="filter-label">현재차수</label>
-            <select value={filterRevision} onChange={e => setFilterRevision(e.target.value)} style={{ width: 100 }}>
+            <select value={filterRevision} onChange={e => setFilterRevision(e.target.value)}>
               {REVISION_OPTIONS.map(o => <option key={o}>{o}</option>)}
             </select>
           </div>
           <div className="filter-item">
             <label className="filter-label">상태</label>
-            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ width: 120 }}>
+            <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
               {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
           </div>

@@ -268,7 +268,6 @@ export default function BidPage() {
 
         {/* 공통 필터 */}
         <div className="content-box-wrap screen-panel-query">
-          <div className="screen-panel-heading">조회 조건</div>
           <div className="filter-row">
             <div className="filter-item">
               <label className="filter-label">사업명</label>
@@ -277,7 +276,6 @@ export default function BidPage() {
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
                 placeholder="사업명"
-                style={{ width: 130 }}
               />
             </div>
             <div className="filter-item">
@@ -287,12 +285,11 @@ export default function BidPage() {
                 value={filterManager}
                 onChange={(e) => setFilterManager(e.target.value)}
                 placeholder="담당자"
-                style={{ width: 100 }}
               />
             </div>
             <div className="filter-item">
               <label className="filter-label">조달방식</label>
-              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)} style={{ width: 110 }}>
+              <select value={filterMethod} onChange={(e) => setFilterMethod(e.target.value)}>
                 <option value="">전체</option>
                 <option value="경쟁입찰">경쟁입찰</option>
                 <option value="수의계약">수의계약</option>
@@ -303,11 +300,11 @@ export default function BidPage() {
             </div>
             <div className="filter-item">
               <label className="filter-label">발주요청일(시작)</label>
-              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} style={{ width: 130 }} />
+              <input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} />
             </div>
             <div className="filter-item">
               <label className="filter-label">발주요청일(종료)</label>
-              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} style={{ width: 130 }} />
+              <input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} />
             </div>
             <div className="filter-actions">
               <button type="button" className="btn type-03 btn-with-icon" onClick={handleSearch}>

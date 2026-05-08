@@ -216,7 +216,6 @@ export default function AdminUsersPage() {
         <>
           {/* 조회조건 */}
           <div className="content-box-wrap screen-panel-query">
-            <div className="screen-panel-heading">조회 조건</div>
             <div className="filter-row">
               <div className="filter-item">
                 <label className="filter-label">이름</label>
@@ -224,7 +223,6 @@ export default function AdminUsersPage() {
                   type="text"
                   value={searchName}
                   onChange={e => setSearchName(e.target.value)}
-                  style={{ width: 120 }}
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 />
               </div>
@@ -234,13 +232,12 @@ export default function AdminUsersPage() {
                   type="text"
                   value={searchDept}
                   onChange={e => setSearchDept(e.target.value)}
-                  style={{ width: 120 }}
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 />
               </div>
               <div className="filter-item">
                 <label className="filter-label">권한</label>
-                <select value={searchRole} onChange={e => setSearchRole(e.target.value)} style={{ width: 100, height: 24 }}>
+                <select value={searchRole} onChange={e => setSearchRole(e.target.value)} style={{ height: 24 }}>
                   <option value="">전체</option>
                   <option value="USER">USER</option>
                   <option value="ADMIN">ADMIN</option>
@@ -248,7 +245,7 @@ export default function AdminUsersPage() {
               </div>
               <div className="filter-item">
                 <label className="filter-label">상태</label>
-                <select value={searchStatus} onChange={e => setSearchStatus(e.target.value)} style={{ width: 100, height: 24 }}>
+                <select value={searchStatus} onChange={e => setSearchStatus(e.target.value)} style={{ height: 24 }}>
                   <option value="">전체</option>
                   <option value="ACTIVE">ACTIVE</option>
                   <option value="INACTIVE">INACTIVE</option>

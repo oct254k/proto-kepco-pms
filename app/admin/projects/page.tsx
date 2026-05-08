@@ -160,7 +160,6 @@ export default function AdminProjectsPage() {
 
       {/* 조회조건 */}
       <div className="content-box-wrap screen-panel-query">
-        <div className="screen-panel-heading">조회 조건</div>
         <div className="filter-row">
           <div className="filter-item">
             <label className="filter-label">프로젝트명</label>
@@ -168,7 +167,6 @@ export default function AdminProjectsPage() {
               type="text"
               value={searchName}
               onChange={e => setSearchName(e.target.value)}
-              style={{ width: 160 }}
               onKeyDown={e => e.key === 'Enter' && handleSearch()}
             />
           </div>
@@ -178,13 +176,12 @@ export default function AdminProjectsPage() {
               type="text"
               value={searchEnergyUser}
               onChange={e => setSearchEnergyUser(e.target.value)}
-              style={{ width: 140 }}
               onKeyDown={e => e.key === 'Enter' && handleSearch()}
             />
           </div>
           <div className="filter-item">
             <label className="filter-label">상태</label>
-            <select value={searchStatus} onChange={e => setSearchStatus(e.target.value)} style={{ width: 110, height: 24 }}>
+            <select value={searchStatus} onChange={e => setSearchStatus(e.target.value)} style={{ height: 24 }}>
               <option value="">전체</option>
               {STATUS_OPTIONS.map(s => (
                 <option key={s} value={s}>{PROJECT_STATUS[s].label}</option>
@@ -193,7 +190,7 @@ export default function AdminProjectsPage() {
           </div>
           <div className="filter-item">
             <label className="filter-label">사업유형</label>
-            <select value={searchType} onChange={e => setSearchType(e.target.value)} style={{ width: 90, height: 24 }}>
+            <select value={searchType} onChange={e => setSearchType(e.target.value)} style={{ height: 24 }}>
               {TYPE_OPTIONS.map(t => <option key={t} value={t === '전체' ? '' : t}>{t}</option>)}
             </select>
           </div>
