@@ -672,8 +672,8 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
 
 /* ── 집계 영역 카드 ── */
 .agg-row { display: flex; align-items: stretch; }
-.agg-card { flex: 1; padding: 0.75rem 1.25rem; border-right: 1px solid var(--panel-aggregate-border); min-width: 0; }
-.agg-card:last-child { border-right: none; }
+.agg-card { flex: 1; padding: 0.75rem 1.25rem; min-width: 0; position: relative; }
+.agg-card:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 0.75rem; bottom: 0.75rem; width: 1px; background: var(--panel-aggregate-border); }
 .agg-card.clickable { cursor: pointer; transition: background 0.12s; }
 .agg-card.clickable:hover { background: rgba(28,57,91,0.05); }
 .agg-card.active { background: rgba(28,57,91,0.09); }
