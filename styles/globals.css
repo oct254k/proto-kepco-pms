@@ -80,12 +80,14 @@ body {
 .content-box-wrap.screen-panel-query {
   background: var(--panel-search-bg);
   border: none;
+  border-radius: 14px;
   box-shadow: none;
 }
 
 .content-box-wrap.screen-panel-aggregate {
   background: var(--panel-aggregate-bg);
   border: none;
+  border-radius: 14px;
   box-shadow: none;
 }
 
