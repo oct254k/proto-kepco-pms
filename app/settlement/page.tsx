@@ -102,7 +102,7 @@ export default function SettlementPage() {
         <div className="title-row-wrap">
           <div className="title-with-count">
             <h3>사업결산 목록</h3>
-            <span className="title-count">{filtered.length}건</span>
+            <span className="title-count">{filtered.length}<span className="title-unit">건</span></span>
           </div>
         </div>
         <div className="table-wrap">

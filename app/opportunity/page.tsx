@@ -214,7 +214,7 @@ export default function OpportunityPage() {
         <div className="title-row-wrap">
           <div className="title-with-count">
             <h3>기회 목록</h3>
-            <span className="title-count">{filtered.length}건</span>
+            <span className="title-count">{filtered.length}<span className="title-unit">건</span></span>
           </div>
         </div>
         <div className="table-wrap">

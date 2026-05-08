@@ -323,7 +323,7 @@ export default function BidPage() {
             <div className="title-row-wrap">
               <div className="title-with-count">
                 <h3>입찰 목록{activeStage && <span style={{ fontSize: '11px', color: '#00a7ea', marginLeft: '0.5rem', fontWeight: 400 }}>({activeStage} 필터 적용)</span>}</h3>
-                <span className="title-count">{listViewCards.length}건</span>
+                <span className="title-count">{listViewCards.length}<span className="title-unit">건</span></span>
               </div>
               <div className="button-wrap">
                 <button type="button" className="btn type-04 btn-with-icon btn-excel-download">

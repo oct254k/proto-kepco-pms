@@ -147,7 +147,7 @@ export default function ContractsPage() {
               <div className="title-row-wrap">
                 <div className="title-with-count">
                   <h3>수주계약 목록</h3>
-                  <span className="title-count">{awardContracts.length}건</span>
+                  <span className="title-count">{awardContracts.length}<span className="title-unit">건</span></span>
                 </div>
               </div>
               <div className="table-wrap">
@@ -255,7 +255,7 @@ export default function ContractsPage() {
               <div className="title-row-wrap">
                 <div className="title-with-count">
                   <h3>발주계약 목록</h3>
-                  <span className="title-count">{orderContracts.length}건</span>
+                  <span className="title-count">{orderContracts.length}<span className="title-unit">건</span></span>
                 </div>
               </div>
               <div className="table-wrap">

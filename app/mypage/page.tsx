@@ -108,7 +108,7 @@ export default function MyPage() {
         >
           <div className="title-row-wrap" style={{ marginBottom: section1Open ? '0.75rem' : 0 }}>
             <h3>{section1Open ? '▼' : '▶'} 나의 사업현황</h3>
-            <span style={{ fontSize: '12px', color: '#6c757d' }}>담당 프로젝트 {myProjects.length}건</span>
+            <span style={{ fontSize: '12px', color: '#6c757d' }}>담당 프로젝트 {myProjects.length}<span className="title-unit">건</span></span>
           </div>
         </button>
 

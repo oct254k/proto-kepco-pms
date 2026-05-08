@@ -195,7 +195,7 @@ export default function ProjectsPage() {
           <div className="title-row-wrap">
             <div className="title-with-count">
               <h3>프로젝트 목록</h3>
-              <span className="title-count">{filtered.length}건</span>
+              <span className="title-count">{filtered.length}<span className="title-unit">건</span></span>
             </div>
             <div className="button-wrap">
               <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
