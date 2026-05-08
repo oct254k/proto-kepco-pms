@@ -41,7 +41,7 @@ export const menuTree: MenuItem[] = [
   },
   {
     id: 'personal',
-    label: '개인',
+    label: '마이페이지',
     children: [
       { id: 'mypage', label: '마이페이지', href: '/mypage' },
     ],
