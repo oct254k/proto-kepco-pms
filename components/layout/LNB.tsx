@@ -7,8 +7,6 @@ import { menuTree } from '@/lib/constants/menus';
 import type { LucideIcon } from 'lucide-react';
 import {
   Briefcase,
-  ChevronDown,
-  ChevronRight,
   FolderKanban,
   LayoutDashboard,
   Search,
@@ -138,13 +136,6 @@ export default function LNB() {
                     <GroupIcon size={22} strokeWidth={2} />
                   </span>
                   <span className="sidebar-menu1-text">{group.label}</span>
-                  <span className="sidebar-menu1-chevron" aria-hidden>
-                    {isOpen ? (
-                      <ChevronDown size={14} strokeWidth={2} />
-                    ) : (
-                      <ChevronRight size={14} strokeWidth={2} />
-                    )}
-                  </span>
                 </button>
                 {isOpen && (
                   <div className="sidebar-group-items">

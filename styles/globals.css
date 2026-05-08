@@ -40,7 +40,8 @@ body {
 .content-area {
   flex: 1;
   margin-left: var(--sidebar-lnb-width);
-  padding: 24px 28px;
+  padding: 1px 28px 24px;
+  border-top: 1px solid #fff;
   min-height: 100vh;
   background-color: var(--bg-page);
 }
@@ -53,8 +54,8 @@ body {
 
 /* ── 콘텐츠 제목 ── */
 .content-title-wrap { margin-bottom: 1rem; }
-.content-title-wrap h2 { font-size: 22px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; line-height: 1.25; }
-.content-title-wrap h2::before { content: "< "; font-weight: 400; color: #1a1a1a; margin-right: 0.375rem; }
+.content-title-wrap h2 { display: flex; align-items: center; gap: 0.375rem; font-size: 28px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; line-height: 1.25; }
+.content-title-wrap h2::before { content: ''; display: inline-block; width: 24px; height: 24px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E"); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
 
 /* ── 콘텐츠 박스 ── */
 .content-wrap { display: flex; flex-direction: column; gap: 1rem; }
@@ -441,7 +442,7 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
   padding: 0 12px 0 14px;
   height: 36px;
   border: 1px solid var(--sidebar-search-stroke);
-  border-radius: var(--radius-full);
+  border-radius: 10px;
   background: var(--sidebar-search-bg);
   transition: border-color 0.15s ease;
 }
