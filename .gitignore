@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playwright / browser automation
+/.playwright-mcp/
+/test-results/
+/playwright-results/
+
+# 루트 레벨 임시 스크린샷
+/*.png
