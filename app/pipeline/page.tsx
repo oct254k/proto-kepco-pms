@@ -368,7 +368,7 @@ export default function BidPage() {
                         style={{ cursor: 'pointer' }}
                       >
                         <td className="text-center">{idx + 1}</td>
-                        <td className="text-left" style={{ fontWeight: '600', color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={card.name}>{card.name}</td>
+                        <td className="text-left" style={{ color: '#1a1a1a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={card.name}>{card.name}</td>
                         <td className="text-center">
                           <StatusBadge
                             type="custom"

@@ -236,7 +236,7 @@ export default function ProjectsPage() {
                     return (
                       <tr key={p.id} onClick={() => handleRowClick(p)}>
                         <td className="text-center">{i + 1}</td>
-                        <td className="text-left" style={{ color: '#1a1a1a', fontWeight: '600' }}>{p.name}</td>
+                        <td className="text-left">{p.name}</td>
                         <td className="text-center">{p.type}</td>
                         <td className="text-left">{p.energyUser}</td>
                         <td className="text-center">{p.manager}</td>
