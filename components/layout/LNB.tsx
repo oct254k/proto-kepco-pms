@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { menuTree } from '@/lib/constants/menus';
@@ -29,16 +29,30 @@ const GROUP_ICONS: Record<string, LucideIcon> = {
 
 export default function LNB() {
   const pathname = usePathname();
-  const [openGroups, setOpenGroups] = useState<string[]>(() =>
-    menuTree.map((g) => g.id)
-  );
+  const findActiveGroupId = (path: string) =>
+    menuTree.find((g) =>
+      g.children?.some((c) => {
+        const h = c.href || '';
+        return h && (path === h || path.startsWith(h + '/'));
+      })
+    )?.id ?? null;
+
+  const [openGroups, setOpenGroups] = useState<string[]>(() => {
+    const id = findActiveGroupId(pathname);
+    return id ? [id] : [];
+  });
 
   const [menuQuery, setMenuQuery] = useState('');
 
+  // 페이지 이동 시 해당 그룹 자동 오픈 (아코디언)
+  useEffect(() => {
+    const id = findActiveGroupId(pathname);
+    if (id) setOpenGroups([id]);
+  }, [pathname]);
+
+  // 아코디언: 하나만 열림
   const toggleGroup = (id: string) => {
-    setOpenGroups((prev) =>
-      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id]
-    );
+    setOpenGroups((prev) => (prev.includes(id) ? [] : [id]));
   };
 
   const activeHref = useMemo(() => {
