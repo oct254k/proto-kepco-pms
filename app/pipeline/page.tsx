@@ -324,7 +324,10 @@ export default function BidPage() {
         {viewMode === 'list' && (
           <div className="content-box-wrap type-02">
             <div className="title-row-wrap">
-              <h3>입찰 목록{activeStage && <span style={{ fontSize: '11px', color: '#00a7ea', marginLeft: '0.5rem', fontWeight: 400 }}>({activeStage} 필터 적용)</span>}</h3>
+              <div className="title-with-count">
+                <h3>입찰 목록{activeStage && <span style={{ fontSize: '11px', color: '#00a7ea', marginLeft: '0.5rem', fontWeight: 400 }}>({activeStage} 필터 적용)</span>}</h3>
+                <span className="title-count">{listViewCards.length}건</span>
+              </div>
               <div className="button-wrap">
                 <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
                   <ExcelMsIcon className="btn-icon-left btn-excel-icon" />

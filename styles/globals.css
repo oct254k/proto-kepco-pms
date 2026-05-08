@@ -115,6 +115,8 @@ body {
   justify-content: space-between;
   margin-bottom: 0.75rem;
 }
+.title-with-count { display: flex; align-items: baseline; gap: 0.4rem; }
+.title-count { font-size: 13px; font-weight: 600; color: var(--color-primary); }
 
 .title-row-wrap h3 {
   font-size: 15px;
@@ -183,8 +185,8 @@ body {
   padding-left: 10px;
 }
 .btn.type-04.btn-excel-download .btn-excel-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   display: block;
   object-fit: contain;

@@ -146,8 +146,10 @@ export default function ContractsPage() {
             {/* 목록 */}
             <div>
               <div className="title-row-wrap">
-                <h3>수주계약 목록</h3>
-                <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {awardContracts.length}건</span>
+                <div className="title-with-count">
+                  <h3>수주계약 목록</h3>
+                  <span className="title-count">{awardContracts.length}건</span>
+                </div>
               </div>
               <div className="table-wrap">
                 <table className="data-table">
@@ -253,8 +255,10 @@ export default function ContractsPage() {
             {/* 목록 */}
             <div>
               <div className="title-row-wrap">
-                <h3>발주계약 목록</h3>
-                <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {orderContracts.length}건</span>
+                <div className="title-with-count">
+                  <h3>발주계약 목록</h3>
+                  <span className="title-count">{orderContracts.length}건</span>
+                </div>
               </div>
               <div className="table-wrap">
                 <table className="data-table">

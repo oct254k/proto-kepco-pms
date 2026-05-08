@@ -197,9 +197,11 @@ export default function ProjectsPage() {
         {/* 목록 */}
         <div className="content-box-wrap type-02">
           <div className="title-row-wrap">
-            <h3>프로젝트 목록</h3>
+            <div className="title-with-count">
+              <h3>프로젝트 목록</h3>
+              <span className="title-count">{filtered.length}건</span>
+            </div>
             <div className="button-wrap">
-              <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {filtered.length}건</span>
               <button type="button" className="btn type-04 btn-with-icon btn-excel-download">
                 <ExcelMsIcon className="btn-icon-left btn-excel-icon" />
                 다운로드

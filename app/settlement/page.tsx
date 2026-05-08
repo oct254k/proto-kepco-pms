@@ -101,8 +101,10 @@ export default function SettlementPage() {
       {/* 목록 */}
       <div className="content-box-wrap type-02">
         <div className="title-row-wrap">
-          <h3>사업결산 목록</h3>
-          <span style={{ fontSize: '12px', color: '#6c757d' }}>총 {filtered.length}건</span>
+          <div className="title-with-count">
+            <h3>사업결산 목록</h3>
+            <span className="title-count">{filtered.length}건</span>
+          </div>
         </div>
         <div className="table-wrap">
           <table className="data-table">
