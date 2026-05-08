@@ -221,8 +221,8 @@ body {
 .data-table th {
   border-left: none;
   border-right: none;
-  /* 피그마(0430 시안): 컬럼명 위 1px 가로 규칙선 = 그리드 가로선 토큰과 동일 */
-  border-top: 1px solid var(--grid-row-line);
+  /* 컬럼명 위: 1px 진한선(데이터 행선보다 어둡게), 아래: 2px 네이비 강조선 */
+  border-top: 1px solid var(--grid-header-text);
   border-bottom: 2px solid var(--grid-header-rule);
   font-weight: 600;
   padding: 0.6rem 0.75rem;
