@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Bar, Line, XAxis, YAxis, CartesianGrid,
@@ -169,6 +169,13 @@ export default function DashboardPage() {
   const [selectedYear,  setSelectedYear]  = useState(2026);
   const [selectedMonth, setSelectedMonth] = useState(5);
   const [activeTab,     setActiveTab]     = useState<TabKey>('all');
+  const [chartWidth, setChartWidth] = useState(700);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = chartContainerRef.current;
+    if (el && el.offsetWidth > 0) setChartWidth(el.offsetWidth);
+  }, []);
 
   const kpi = mockDashboardKpi;
 
@@ -426,20 +433,23 @@ export default function DashboardPage() {
               <div className="title-row-wrap">
                 <h3>월별 사업비 · 투자비 추이</h3>
               </div>
-              <div style={{ height: 220, width: '100%' }}>
-                <ResponsiveContainer width="100%" height={220}>
-                  <ComposedChart data={monthlyPerformanceData} margin={{ top: 4, right: 20, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-                    <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-                    <YAxis yAxisId="left"  tick={{ fontSize: 11 }} unit="억" />
-                    <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} unit="%" domain={[0, 100]} />
-                    <Tooltip formatter={(value, name) => name === '달성률' ? `${value}%` : `${value}억`} />
-                    <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar  yAxisId="left"  dataKey="사업비" fill="#3b82f6" opacity={0.85} />
-                    <Bar  yAxisId="left"  dataKey="투자비" fill="#f97316" opacity={0.85} />
-                    <Line yAxisId="right" type="monotone" dataKey="달성률" stroke="#1a56db" strokeWidth={2} dot={false} />
-                  </ComposedChart>
-                </ResponsiveContainer>
+              <div ref={chartContainerRef} style={{ height: 220, width: '100%', overflow: 'hidden' }}>
+                <ComposedChart
+                  width={chartWidth}
+                  height={220}
+                  data={monthlyPerformanceData}
+                  margin={{ top: 4, right: 20, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+                  <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+                  <YAxis yAxisId="left"  tick={{ fontSize: 11 }} unit="억" />
+                  <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} unit="%" domain={[0, 100]} />
+                  <Tooltip formatter={(value, name) => name === '달성률' ? `${value}%` : `${value}억`} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar  yAxisId="left"  dataKey="사업비" fill="#3b82f6" opacity={0.85} />
+                  <Bar  yAxisId="left"  dataKey="투자비" fill="#f97316" opacity={0.85} />
+                  <Line yAxisId="right" type="monotone" dataKey="달성률" stroke="#1a56db" strokeWidth={2} dot={false} />
+                </ComposedChart>
               </div>
             </div>
           </div>

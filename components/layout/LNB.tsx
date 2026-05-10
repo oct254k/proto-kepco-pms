@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useState, Suspense } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { menuTree } from '@/lib/constants/menus';
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -17,42 +17,24 @@ import {
   FileText,
 } from 'lucide-react';
 
-/** 1뎁스 그룹 아이콘 (Lucide) */
 const GROUP_ICONS: Record<string, LucideIcon> = {
-  dashboard: LayoutDashboard,
-  reception: Briefcase,
+  dashboard:     LayoutDashboard,
+  reception:     Briefcase,
   'project-mgmt': FolderKanban,
-  contracts: FileText,
-  funds: Wallet,
-  settlement: PiggyBank,
-  mypage: UserCircle,
-  admin: Settings2,
+  contracts:     FileText,
+  funds:         Wallet,
+  settlement:    PiggyBank,
+  mypage:        UserCircle,
+  admin:         Settings2,
 };
 
-/** href에서 pathname 부분만 추출 (쿼리스트링 제거) */
-const hrefPath = (href: string) => href.split('?')[0];
-
-/** href에서 쿼리 파라미터 객체 추출 */
-const hrefQuery = (href: string): Record<string, string> => {
-  const idx = href.indexOf('?');
-  if (idx === -1) return {};
-  const pairs = href.slice(idx + 1).split('&');
-  const result: Record<string, string> = {};
-  for (const pair of pairs) {
-    const [k, v] = pair.split('=');
-    if (k) result[decodeURIComponent(k)] = decodeURIComponent(v ?? '');
-  }
-  return result;
-};
-
-function LNBInner() {
+export default function LNB() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const findActiveGroupId = (path: string) =>
     menuTree.find((g) =>
       g.children?.some((c) => {
-        const h = hrefPath(c.href || '');
+        const h = (c.href || '').split('?')[0];
         return h && (path === h || path.startsWith(h + '/'));
       })
     )?.id ?? null;
@@ -64,50 +46,32 @@ function LNBInner() {
 
   const [menuQuery, setMenuQuery] = useState('');
 
-  // 페이지 이동 시 해당 그룹 자동 오픈 (아코디언)
   useEffect(() => {
     const id = findActiveGroupId(pathname);
     if (id) setOpenGroups([id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // 아코디언: 하나만 열림
   const toggleGroup = (id: string) => {
     setOpenGroups((prev) => (prev.includes(id) ? [] : [id]));
   };
 
-  /**
-   * 메뉴 항목이 현재 페이지와 일치하는지 판단.
-   * - href에 쿼리가 있으면: pathname 일치 AND 해당 쿼리 파라미터 일치
-   * - href에 쿼리가 없으면: pathname 일치 (startsWith 포함)
-   */
-  const isActive = (href: string): boolean => {
-    const p = hrefPath(href);
-    const q = hrefQuery(href);
-    const hasQuery = Object.keys(q).length > 0;
-
-    if (hasQuery) {
-      if (pathname !== p) return false;
-      return Object.entries(q).every(([k, v]) => searchParams.get(k) === v);
-    }
-
-    return pathname === p || pathname.startsWith(p + '/');
-  };
-
   const activeHref = useMemo(() => {
     if (pathname === '/' || pathname === '/dashboard') return '/dashboard';
-    const allHrefs =
-      menuTree.flatMap((g) => g.children?.map((c) => c.href).filter((h): h is string => Boolean(h)) ?? []);
-    return allHrefs.find((h) => isActive(h));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, searchParams]);
+    const allHrefs = menuTree.flatMap(
+      (g) => g.children?.map((c) => (c.href || '').split('?')[0]).filter(Boolean) ?? []
+    );
+    return allHrefs
+      .filter((h) => pathname === h || pathname.startsWith(h + '/'))
+      .sort((a, b) => b.length - a.length)[0];
+  }, [pathname]);
+
+  const isActive = (href: string) => (href || '').split('?')[0] === activeHref;
 
   const flatItems = useMemo(
     () =>
       menuTree.flatMap((g) =>
-        (g.children ?? []).map((c) => ({
-          ...c,
-          groupLabel: g.label,
-        }))
+        (g.children ?? []).map((c) => ({ ...c, groupLabel: g.label }))
       ),
     []
   );
@@ -141,20 +105,17 @@ function LNBInner() {
             {filteredItems.length === 0 ? (
               <div className="sidebar-empty">검색 결과가 없습니다.</div>
             ) : (
-              filteredItems.map((item) => {
-                const active = isActive(item.href || '');
-                return (
-                  <Link
-                    key={`${item.id}-${item.href}`}
-                    href={item.href || '#'}
-                    className={`sidebar-menu2 ${active ? 'active' : ''}`}
-                    {...(active ? { 'aria-current': 'page' as const } : {})}
-                  >
-                    <span className="sidebar-menu2-meta">{item.groupLabel}</span>
-                    <span className="sidebar-menu2-label">{item.label}</span>
-                  </Link>
-                );
-              })
+              filteredItems.map((item) => (
+                <Link
+                  key={`${item.id}-${item.href}`}
+                  href={item.href || '#'}
+                  className={`sidebar-menu2 ${isActive(item.href || '') ? 'active' : ''}`}
+                  {...(isActive(item.href || '') ? { 'aria-current': 'page' as const } : {})}
+                >
+                  <span className="sidebar-menu2-meta">{item.groupLabel}</span>
+                  <span className="sidebar-menu2-label">{item.label}</span>
+                </Link>
+              ))
             )}
           </div>
         ) : (
@@ -206,13 +167,5 @@ function LNBInner() {
         )}
       </div>
     </nav>
-  );
-}
-
-export default function LNB() {
-  return (
-    <Suspense fallback={<nav className="sidebar" />}>
-      <LNBInner />
-    </Suspense>
   );
 }
