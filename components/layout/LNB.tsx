@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { menuTree } from '@/lib/constants/menus';
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -18,70 +18,57 @@ import {
 } from 'lucide-react';
 
 const GROUP_ICONS: Record<string, LucideIcon> = {
-  dashboard:     LayoutDashboard,
-  reception:     Briefcase,
+  dashboard:      LayoutDashboard,
+  reception:      Briefcase,
   'project-mgmt': FolderKanban,
-  contracts:     FileText,
-  funds:         Wallet,
-  settlement:    PiggyBank,
-  mypage:        UserCircle,
-  admin:         Settings2,
+  contracts:      FileText,
+  funds:          Wallet,
+  settlement:     PiggyBank,
+  mypage:         UserCircle,
+  admin:          Settings2,
 };
 
-export default function LNB() {
-  const pathname = usePathname();
+const hrefPath = (href: string) => href.split('?')[0];
 
-  const findActiveGroupId = (path: string) =>
-    menuTree.find((g) =>
-      g.children?.some((c) => {
-        const h = (c.href || '').split('?')[0];
-        return h && (path === h || path.startsWith(h + '/'));
-      })
-    )?.id ?? null;
+const hrefQuery = (href: string): Record<string, string> => {
+  const idx = href.indexOf('?');
+  if (idx === -1) return {};
+  const result: Record<string, string> = {};
+  for (const pair of href.slice(idx + 1).split('&')) {
+    const [k, v] = pair.split('=');
+    if (k) result[decodeURIComponent(k)] = decodeURIComponent(v ?? '');
+  }
+  return result;
+};
 
-  const [openGroups, setOpenGroups] = useState<string[]>(() => {
-    const id = findActiveGroupId(pathname);
-    return id ? [id] : [];
-  });
-
+function LNBInner() {
+  const pathname   = usePathname();
+  const searchParams = useSearchParams();
   const [menuQuery, setMenuQuery] = useState('');
 
-  useEffect(() => {
-    const id = findActiveGroupId(pathname);
-    if (id) setOpenGroups([id]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  const toggleGroup = (id: string) => {
-    setOpenGroups((prev) => (prev.includes(id) ? [] : [id]));
+  const isActive = (href: string): boolean => {
+    const p = hrefPath(href);
+    const q = hrefQuery(href);
+    const hasQuery = Object.keys(q).length > 0;
+    if (hasQuery) {
+      if (pathname !== p) return false;
+      return Object.entries(q).every(([k, v]) => searchParams.get(k) === v);
+    }
+    return pathname === p || pathname.startsWith(p + '/');
   };
 
-  const activeHref = useMemo(() => {
-    if (pathname === '/' || pathname === '/dashboard') return '/dashboard';
-    const allHrefs = menuTree.flatMap(
-      (g) => g.children?.map((c) => (c.href || '').split('?')[0]).filter(Boolean) ?? []
-    );
-    return allHrefs
-      .filter((h) => pathname === h || pathname.startsWith(h + '/'))
-      .sort((a, b) => b.length - a.length)[0];
-  }, [pathname]);
-
-  const isActive = (href: string) => (href || '').split('?')[0] === activeHref;
+  const isCurrentSection = (group: typeof menuTree[number]) =>
+    (group.children ?? []).some((c) => isActive(c.href || ''));
 
   const flatItems = useMemo(
-    () =>
-      menuTree.flatMap((g) =>
-        (g.children ?? []).map((c) => ({ ...c, groupLabel: g.label }))
-      ),
+    () => menuTree.flatMap((g) => (g.children ?? []).map((c) => ({ ...c, groupLabel: g.label }))),
     []
   );
 
   const q = menuQuery.trim().toLowerCase();
   const filteredItems = q
-    ? flatItems.filter(
-        (i) =>
-          i.label.toLowerCase().includes(q) ||
-          i.groupLabel.toLowerCase().includes(q)
+    ? flatItems.filter((i) =>
+        i.label.toLowerCase().includes(q) || i.groupLabel.toLowerCase().includes(q)
       )
     : null;
 
@@ -121,40 +108,33 @@ export default function LNB() {
         ) : (
           menuTree.map((group, gi) => {
             const GroupIcon = GROUP_ICONS[group.id] ?? LayoutDashboard;
-            const isOpen = openGroups.includes(group.id);
-            const isCurrentSection = (group.children ?? []).some((c) =>
-              isActive(c.href || '')
-            );
             return (
               <div key={group.id} className="sidebar-group">
-                <button
-                  type="button"
-                  className={`sidebar-menu1 ${isCurrentSection ? 'sidebar-menu1-current' : ''}`}
-                  onClick={() => toggleGroup(group.id)}
-                  aria-expanded={isOpen}
-                >
+                {/* 1depth: 클릭 불필요 → div로 표시 */}
+                <div className={`sidebar-menu1 ${isCurrentSection(group) ? 'sidebar-menu1-current' : ''}`}>
                   <span className="sidebar-menu1-icon" aria-hidden>
                     <GroupIcon size={22} strokeWidth={2} />
                   </span>
                   <span className="sidebar-menu1-text">{group.label}</span>
-                </button>
-                {isOpen && (
-                  <div className="sidebar-group-items">
-                    {group.children?.map((item) => {
-                      const active = isActive(item.href || '');
-                      return (
-                        <Link
-                          key={item.id}
-                          href={item.href || '#'}
-                          className={`sidebar-menu2 ${active ? 'active' : ''}`}
-                          {...(active ? { 'aria-current': 'page' as const } : {})}
-                        >
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
+                </div>
+
+                {/* 2depth: 항상 표시 */}
+                <div className="sidebar-group-items">
+                  {group.children?.map((item) => {
+                    const active = isActive(item.href || '');
+                    return (
+                      <Link
+                        key={item.id}
+                        href={item.href || '#'}
+                        className={`sidebar-menu2 ${active ? 'active' : ''}`}
+                        {...(active ? { 'aria-current': 'page' as const } : {})}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+
                 {(() => {
                   const next = menuTree[gi + 1];
                   return next && (next.id === 'mypage' || next.id === 'admin')
@@ -167,5 +147,13 @@ export default function LNB() {
         )}
       </div>
     </nav>
+  );
+}
+
+export default function LNB() {
+  return (
+    <Suspense fallback={<nav className="sidebar" />}>
+      <LNBInner />
+    </Suspense>
   );
 }
