@@ -10,8 +10,17 @@ import {
 import {
   FileText, Briefcase, DollarSign, FolderKanban,
   Calculator, User, LayoutGrid,
+  Inbox, ClipboardList, ShieldCheck, Wallet,
 } from 'lucide-react';
 import { mockDashboardKpi, mockNotices } from '@/lib/mock-data/dashboard';
+
+/** 월별 사업비·투자비 추이 카드 내부 패널과 동일 (다른 카드도 이 톤에 맞춤) */
+const trendCardInnerPanel: CSSProperties = {
+  border: '1px solid var(--card-border, #e6ebf0)',
+  borderRadius: 8,
+  padding: '0.75rem 0.875rem',
+  background: 'var(--bg-page, #f4f7f9)',
+};
 
 /** 일~토 그리드용: 해당 월의 앞빈칸(null) + 1..말일 */
 function getCalendarCells(year: number, month: number): (number | null)[] {
@@ -75,6 +84,33 @@ const projectKpiStats = [
 
 const calendarDow = ['일', '월', '화', '수', '목', '금', '토'];
 
+type CalendarCaption = 'completed' | 'planned' | 'unpaid' | 'bid';
+const CALENDAR_DOT_PALETTE: Record<CalendarCaption, string> = {
+  completed: '#1a56db',
+  planned: '#f97316',
+  unpaid: '#ef4444',
+  bid: '#6c757d',
+};
+
+/** 조회 연월·일에 표시할 캡션 점 (데모 목업) */
+const calendarCaptionByMonth: Record<string, Partial<Record<number, CalendarCaption[]>>> = {
+  '2026-5': {
+    2: ['completed'],
+    7: ['planned'],
+    10: ['completed', 'bid'],
+    12: ['unpaid'],
+    18: ['planned', 'unpaid'],
+    22: ['bid'],
+    25: ['completed'],
+    28: ['planned', 'bid'],
+  },
+};
+
+function getCalendarCaptions(year: number, month: number, day: number): CalendarCaption[] {
+  const key = `${year}-${month}`;
+  return calendarCaptionByMonth[key]?.[day] ?? [];
+}
+
 // ── 탭 테이블 mock ────────────────────────────────────────────────────────────
 type TabKey = 'all' | 'completed' | 'planned' | 'unpaid';
 const tabTableData = [
@@ -125,6 +161,13 @@ const shortcuts = [
   { label: '사업결산',   href: '/settlement',       Icon: Calculator },
   { label: '마이페이지', href: '/mypage',           Icon: User },
 ];
+
+const myWorkItems = [
+  { label: '접수', count: 7, Icon: Inbox },
+  { label: '입찰평가', count: 28, Icon: ClipboardList },
+  { label: '검수', count: 3, Icon: ShieldCheck },
+  { label: '상환', count: 3, Icon: Wallet },
+] as const;
 
 // ── 진행중 입찰공고 funnel ──────────────────────────────────────────────────
 const bidFunnel = [
@@ -257,6 +300,8 @@ export default function DashboardPage() {
         padding: '0.75rem 1.5rem',
         display: 'flex',
         alignItems: 'stretch',
+        borderRadius: 12,
+        overflow: 'hidden',
       }}>
         {topKpiItems.map((item, idx) => (
           <div
@@ -323,90 +368,199 @@ export default function DashboardPage() {
                 />
               </div>
 
-              {/* 가로 그래프(축소) + KPI 3열 한 줄(각 상단 라인) */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 36%) 1fr', gap: '1rem', marginBottom: '1rem', alignItems: 'start' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                  {statusBars.map((bar) => (
-                    <div key={bar.label}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 2 }}>
-                        <span style={{ color: '#555', fontWeight: 600 }}>{bar.label}</span>
-                        <span style={{ color: '#333' }}>{bar.count} {bar.amount}</span>
-                      </div>
-                      <div style={{ height: 5, background: '#e9ecef', borderRadius: 3, overflow: 'hidden' }}>
+              {/* 가로 바 + KPI — 월별 추이 카드와 동일 내부 패널 */}
+              <div style={{ ...trendCardInnerPanel, marginBottom: '1rem' }}>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'minmax(0, 38%) 1fr',
+                    columnGap: '1.5rem',
+                    alignItems: 'start',
+                  }}
+                >
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {statusBars.map((bar, barIdx) => (
+                    <div
+                      key={bar.label}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        marginBottom: barIdx < statusBars.length - 1 ? 12 : 0,
+                      }}
+                    >
+                      <span
+                        style={{
+                          flex: '0 0 auto',
+                          minWidth: '2.75rem',
+                          fontSize: 10,
+                          color: '#555',
+                          fontWeight: 600,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {bar.label}
+                      </span>
+                      <div
+                        style={{
+                          flex: '1 1 auto',
+                          minWidth: 32,
+                          height: 5,
+                          background: '#e9ecef',
+                          borderRadius: 3,
+                          overflow: 'hidden',
+                        }}
+                      >
                         <div
-                          style={{ height: '100%', width: `${bar.pct}%`, background: bar.color, borderRadius: 3, transition: 'width 0.3s ease' }}
+                          style={{
+                            height: '100%',
+                            width: `${bar.pct}%`,
+                            background: bar.color,
+                            borderRadius: 3,
+                            transition: 'width 0.3s ease',
+                          }}
                         />
                       </div>
+                      <span
+                        style={{
+                          flex: '0 0 auto',
+                          fontSize: 10,
+                          color: '#333',
+                          fontWeight: 500,
+                          whiteSpace: 'nowrap',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {bar.count} {bar.amount}
+                      </span>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '0.75rem', minWidth: 0 }}>
-                  {projectKpiStats.map((stat) => (
+                <div style={{ display: 'flex', flexDirection: 'row', minWidth: 0 }}>
+                  {projectKpiStats.map((stat, statIdx) => (
                     <div
                       key={stat.label}
                       style={{
-                        borderTop: '2px solid #1a56db',
-                        paddingTop: 8,
+                        flex: '1 1 0',
                         minWidth: 0,
+                        marginLeft: statIdx > 0 ? 20 : 0,
                       }}
                     >
-                      <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 4 }}>{stat.label}</div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: 4 }}>
-                        <span style={{ fontSize: 15, fontWeight: 700, color: '#1a1a1a' }}>{stat.value}</span>
-                        <span style={{
-                          fontSize: 10, fontWeight: 600,
+                      <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 6, lineHeight: 1.3 }}>
+                        {stat.label}
+                      </div>
+                      <div style={{ fontSize: 15, fontWeight: 700, color: '#1a1a1a', marginBottom: 6, lineHeight: 1.2 }}>
+                        {stat.value}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 600,
+                          lineHeight: 1.3,
                           color: stat.dir === 'up' ? '#16a34a' : '#ef4444',
-                        }}>
-                          {stat.dir === 'up' ? '▲' : '▼'} {stat.sub}
-                        </span>
+                        }}
+                      >
+                        {stat.dir === 'up' ? '▲' : '▼'} {stat.sub}
                       </div>
                     </div>
                   ))}
                 </div>
+                </div>
               </div>
 
-              {/* 달력(50%) + 탭·그리드(계약 등과 동일 패턴) */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 50%) minmax(0, 1fr)', gap: '1rem', alignItems: 'start' }}>
+              {/* 미니 달력 + 탭·그리드 — 동일 내부 패널 */}
+              <div style={trendCardInnerPanel}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 13.5rem) minmax(0, 1fr)', gap: '1rem', alignItems: 'start' }}>
                 {/* 미니 달력 + 범례 */}
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#1a56db', marginBottom: 8, textAlign: 'center' }}>
+                <div style={{ minWidth: 0, maxWidth: 216, justifySelf: 'start' }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#1a56db', marginBottom: 6, textAlign: 'center' }}>
                     {selectedYear}년 {selectedMonth}월
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px 2px', rowGap: 2 }}>
                     {calendarDow.map((d) => (
-                      <div key={d} style={{ textAlign: 'center', fontSize: 10, fontWeight: 700, color: '#6c757d', paddingBottom: 4 }}>
+                      <div key={d} style={{ textAlign: 'center', fontSize: 9, fontWeight: 700, color: '#6c757d', paddingBottom: 2, lineHeight: 1.2 }}>
                         {d}
                       </div>
                     ))}
-                    {calendarCells.map((day, i) => (
-                      <div key={i} style={{ textAlign: 'center', fontSize: 11, lineHeight: '26px' }}>
-                        {day !== null && (
-                          <span style={{
-                            display: 'inline-flex',
+                    {calendarCells.map((day, i) => {
+                      const captions = day !== null ? getCalendarCaptions(selectedYear, selectedMonth, day) : [];
+                      return (
+                        <div
+                          key={i}
+                          style={{
+                            textAlign: 'center',
+                            fontSize: 10,
+                            minHeight: captions.length > 0 ? 34 : 26,
+                            display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 26, height: 26,
-                            borderRadius: '50%',
-                            background: calendarHighlightDay !== null && day === calendarHighlightDay ? '#1a56db' : 'transparent',
-                            color: calendarHighlightDay !== null && day === calendarHighlightDay ? '#fff' : '#333',
-                            fontWeight: calendarHighlightDay !== null && day === calendarHighlightDay ? 700 : 400,
-                          }}>
-                            {day}
-                          </span>
-                        )}
-                      </div>
-                    ))}
+                            justifyContent: 'flex-start',
+                            paddingTop: 1,
+                          }}
+                        >
+                          {day !== null && (
+                            <>
+                              <span
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  width: 20,
+                                  height: 20,
+                                  borderRadius: '50%',
+                                  fontSize: 10,
+                                  lineHeight: 1,
+                                  background: calendarHighlightDay !== null && day === calendarHighlightDay ? '#1a56db' : 'transparent',
+                                  color: calendarHighlightDay !== null && day === calendarHighlightDay ? '#fff' : '#333',
+                                  fontWeight: calendarHighlightDay !== null && day === calendarHighlightDay ? 700 : 500,
+                                }}
+                              >
+                                {day}
+                              </span>
+                              {captions.length > 0 && (
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    gap: 2,
+                                    justifyContent: 'center',
+                                    maxWidth: 28,
+                                    marginTop: 2,
+                                    lineHeight: 0,
+                                  }}
+                                  aria-hidden
+                                >
+                                  {captions.map((c, j) => (
+                                    <span
+                                      key={`${c}-${j}`}
+                                      style={{
+                                        display: 'inline-block',
+                                        width: 4,
+                                        height: 4,
+                                        borderRadius: '50%',
+                                        background: CALENDAR_DOT_PALETTE[c],
+                                        flexShrink: 0,
+                                      }}
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div style={{ display: 'flex', gap: 12, marginTop: 10, fontSize: 10, color: '#555', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 8, fontSize: 9, color: '#555', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {[
                       { label: '상환완료', color: '#1a56db' },
                       { label: '상환예정', color: '#f97316' },
                       { label: '미상환',   color: '#ef4444' },
                       { label: '입찰',     color: '#6c757d' },
                     ].map((l) => (
-                      <span key={l.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                        <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
+                      <span key={l.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                        <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
                         {l.label}
                       </span>
                     ))}
@@ -427,20 +581,18 @@ export default function DashboardPage() {
                     ))}
                   </div>
                   <div className="table-wrap">
-                    <table className="data-table" style={{ fontSize: 12 }}>
-                      <thead>
-                        <tr>
-                          <th style={{ textAlign: 'left', width: 72 }}>상태</th>
-                          <th style={{ textAlign: 'left' }}>프로젝트명</th>
-                          <th style={{ textAlign: 'right', width: 100 }}>금액</th>
-                          <th style={{ width: 56 }}>회차</th>
-                        </tr>
-                      </thead>
+                    <table className="data-table" style={{ fontSize: 12, tableLayout: 'fixed', width: '100%' }}>
+                      <colgroup>
+                        <col style={{ width: '17%' }} />
+                        <col style={{ width: '46%' }} />
+                        <col style={{ width: '24%' }} />
+                        <col style={{ width: '13%' }} />
+                      </colgroup>
                       <tbody>
                         {filteredRows.map((row) => (
                           <tr key={row.id}>
                             <td><span style={statusBadgeStyle(row.status)}>{row.status}</span></td>
-                            <td className="text-left" style={{ color: '#1a1a1a', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <td className="text-left" style={{ color: '#1a1a1a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               {row.name}
                             </td>
                             <td className="text-right">{row.amount}</td>
@@ -450,6 +602,7 @@ export default function DashboardPage() {
                       </tbody>
                     </table>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -461,15 +614,7 @@ export default function DashboardPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
                 {kpiGoals.map((g) => (
-                  <div
-                    key={g.label}
-                    style={{
-                      border: '1px solid var(--card-border, #e6ebf0)',
-                      borderRadius: 8,
-                      padding: '0.75rem 0.875rem',
-                      background: 'var(--bg-page, #f4f7f9)',
-                    }}
-                  >
+                  <div key={g.label} style={trendCardInnerPanel}>
                     <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 4 }}>{g.label}</div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 2, marginBottom: 2 }}>
                       <span style={{ fontSize: 22, fontWeight: 700, color: '#1a1a1a' }}>{g.value}</span>
@@ -522,34 +667,31 @@ export default function DashboardPage() {
                   상세
                 </button>
               </div>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'baseline',
-                gap: '0.75rem 1.25rem',
-                marginBottom: '1rem',
-              }}>
-                <div style={{ marginRight: 'auto' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+                <div style={{ ...trendCardInnerPanel, minWidth: 0 }}>
                   <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 4 }}>회수율</div>
-                  <div style={{ fontSize: 28, fontWeight: 700, color: '#1a56db', lineHeight: 1.1 }}>
-                    {recoverySummary.ratePct}%
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
+                    <span style={{ fontSize: 22, fontWeight: 700, color: '#1a56db', lineHeight: 1.1 }}>
+                      {recoverySummary.ratePct}
+                    </span>
+                    <span style={{ fontSize: 12, color: '#555' }}>%</span>
                   </div>
                 </div>
-                <div style={{ flex: '1 1 120px', minWidth: 100 }}>
-                  <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 2 }}>총 투자·대출</div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#1a1a1a' }}>{recoverySummary.total}</div>
+                <div style={{ ...trendCardInnerPanel, minWidth: 0 }}>
+                  <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 4 }}>총 투자·대출</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#1a1a1a', lineHeight: 1.2 }}>{recoverySummary.total}</div>
                 </div>
-                <div style={{ flex: '1 1 120px', minWidth: 100 }}>
-                  <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 2 }}>회수 완료</div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#16a34a' }}>{recoverySummary.recovered}</div>
+                <div style={{ ...trendCardInnerPanel, minWidth: 0 }}>
+                  <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 4 }}>회수 완료</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#16a34a', lineHeight: 1.2 }}>{recoverySummary.recovered}</div>
                 </div>
-                <div style={{ flex: '1 1 120px', minWidth: 100 }}>
-                  <div style={{ fontSize: 10, color: '#6c757d', marginBottom: 2 }}>미회수</div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#c2410c' }}>{recoverySummary.outstanding}</div>
+                <div style={{ ...trendCardInnerPanel, minWidth: 0 }}>
+                  <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 4 }}>미회수</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#c2410c', lineHeight: 1.2 }}>{recoverySummary.outstanding}</div>
                 </div>
               </div>
-              <div style={{ height: 200, width: '100%' }}>
-                <ResponsiveContainer width="100%" height={200}>
+              <div style={{ height: 220, width: '100%' }}>
+                <ResponsiveContainer width="100%" height={220}>
                   <LineChart data={recoveryTrendData} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
                     <XAxis dataKey="month" tick={{ fontSize: 11 }} />
@@ -571,43 +713,37 @@ export default function DashboardPage() {
           {/* ═══ 우 패널 ═══════════════════════════════════════════════════ */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-            {/* ── 내 업무 ─────────────────────────────────────────────── */}
+            {/* ── 내 업무 (바로가기와 동일 버튼 톤, 1행 4열) ───────────── */}
             <div className="content-box-wrap type-02">
               <div className="title-row-wrap">
                 <h3>내 업무</h3>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
-                {[
-                  { label: '접수',    count: 7,  color: '#1a56db' },
-                  { label: '입찰평가', count: 28, color: '#16a34a' },
-                  { label: '검수',    count: 3,  color: '#d97706' },
-                  { label: '상환',    count: 3,  color: '#6c757d' },
-                ].map((item) => (
-                  <div
-                    key={item.label}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
+                {myWorkItems.map(({ label, count, Icon }) => (
+                  <button
+                    key={label}
+                    type="button"
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 8,
-                      padding: '0.75rem 0.5rem',
-                      background: '#fff',
+                      gap: 6,
+                      padding: '0.75rem 0.35rem',
+                      minHeight: 72,
+                      background: '#f8faff',
                       border: '1px solid #e2eaf5',
                       borderRadius: 8,
-                      textAlign: 'center',
+                      cursor: 'default',
+                      fontFamily: 'inherit',
                     }}
                   >
-                    <div style={{
-                      width: 40, height: 40, borderRadius: '50%',
-                      background: item.color,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontWeight: 700, fontSize: 14,
-                    }}>
-                      {item.count}
-                    </div>
-                    <span style={{ fontSize: 11, color: '#555', fontWeight: 600 }}>{item.label}</span>
-                  </div>
+                    <Icon size={18} color="#1a56db" aria-hidden />
+                    <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1a1a', lineHeight: 1 }}>
+                      {count}
+                    </span>
+                    <span style={{ fontSize: 11, color: '#333', fontWeight: 500 }}>{label}</span>
+                  </button>
                 ))}
               </div>
             </div>
