@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import DrawerPanel from '@/components/common/DrawerPanel';
 import StatusBadge from '@/components/common/StatusBadge';
 import DocumentViewer from '@/components/common/DocumentViewer';
@@ -26,9 +26,12 @@ function getContractStatusChipColors(status: string): { bg: string; text: string
   }
 }
 
-export default function ContractsPage() {
+function ContractsInner() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'AWARD' | 'ORDER'>('AWARD');
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+  const initialTab: 'AWARD' | 'ORDER' = tabParam === 'order' ? 'ORDER' : 'AWARD';
+  const [activeTab, setActiveTab] = useState<'AWARD' | 'ORDER'>(initialTab);
 
   // 수주계약 검색 필터
   const [awardFilterName, setAwardFilterName] = useState('');
@@ -417,5 +420,13 @@ export default function ContractsPage() {
         attachType="CONTRACT"
       />
     </div>
+  );
+}
+
+export default function ContractsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContractsInner />
+    </Suspense>
   );
 }

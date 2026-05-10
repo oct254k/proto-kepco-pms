@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useMemo, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ModalDialog from '@/components/common/ModalDialog';
 import StatusBadge from '@/components/common/StatusBadge';
 import { mockProjects } from '@/lib/mock-data/projects';
@@ -24,13 +24,22 @@ const MOCK_REQUESTS = [
   { id: 'REQ-003', projectId: 'PRJ-2024-002', projectName: '한국철강 ESS 설치', content: '착공일 변경 요청', status: 'PENDING' as const, createdAt: '2025-04-15' },
 ];
 
-export default function MyPage() {
-  const router = useRouter();
+type TabKey = 'projects' | 'profile' | 'request';
 
-  // 섹션 접힘/펼침
-  const [section1Open, setSection1Open] = useState(true);
-  const [section2Open, setSection2Open] = useState(false);
-  const [section3Open, setSection3Open] = useState(false);
+const TABS: { key: TabKey; label: string }[] = [
+  { key: 'projects', label: '나의 사업현황' },
+  { key: 'profile', label: '사용자정보 변경' },
+  { key: 'request', label: '데이터수정 요청' },
+];
+
+function MyPageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab') as TabKey | null;
+  const validTabs: TabKey[] = ['projects', 'profile', 'request'];
+  const initialTab: TabKey = tabParam && validTabs.includes(tabParam) ? tabParam : 'projects';
+
+  const [activeTab, setActiveTab] = useState<TabKey>(initialTab);
 
   // 나의 프로젝트 필터
   const [filterProjectName, setFilterProjectName] = useState('');
@@ -49,7 +58,7 @@ export default function MyPage() {
   const [reqContent, setReqContent] = useState('');
   const [reqError, setReqError] = useState('');
 
-  // 나의 담당 프로젝트 (Mock 현재 사용자 = '김민준')
+  // 나의 담당 프로젝트
   const myProjects = useMemo(() => {
     return mockProjects.filter(p => p.manager === MOCK_USER.name);
   }, []);
@@ -100,22 +109,25 @@ export default function MyPage() {
         <h2>마이페이지</h2>
       </div>
 
-      {/* 섹션1: 나의 사업현황 */}
+      {/* 탭 */}
       <div className="content-box-wrap type-02">
-        <button
-          style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: 0 }}
-          onClick={() => setSection1Open(v => !v)}
-        >
-          <div className="title-row-wrap" style={{ marginBottom: section1Open ? '0.75rem' : 0 }}>
-            <h3>{section1Open ? '▼' : '▶'} 나의 사업현황</h3>
-            <span style={{ fontSize: '12px', color: '#6c757d' }}>담당 프로젝트 {myProjects.length}<span className="title-unit">건</span></span>
-          </div>
-        </button>
+        <div className="tab-list">
+          {TABS.map(tab => (
+            <button
+              key={tab.key}
+              className={`tab-btn ${activeTab === tab.key ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-        {section1Open && (
-          <div>
+        {/* 탭 1: 나의 사업현황 */}
+        {activeTab === 'projects' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 상태별 카드 */}
-            <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               {[
                 { label: '접수', key: 'RECEPTION', color: '#084298', bg: '#cfe2ff' },
                 { label: '공사', key: 'CONSTRUCTION', color: '#856404', bg: '#fff3cd' },
@@ -145,7 +157,7 @@ export default function MyPage() {
             </div>
 
             {/* 검색 필터 */}
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <input
                 type="text"
                 value={filterProjectName}
@@ -158,6 +170,12 @@ export default function MyPage() {
 
             {/* 프로젝트 목록 */}
             <div className="table-wrap">
+              <div className="title-row-wrap">
+                <div className="title-with-count">
+                  <h3>담당 프로젝트</h3>
+                  <span className="title-count">{filteredProjects.length}<span className="title-unit">건</span></span>
+                </div>
+              </div>
               <table className="data-table">
                 <thead>
                   <tr>
@@ -197,26 +215,15 @@ export default function MyPage() {
             </div>
           </div>
         )}
-      </div>
 
-      {/* 섹션2: 사용자정보 변경 */}
-      <div className="content-box-wrap type-02">
-        <button
-          style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: 0 }}
-          onClick={() => setSection2Open(v => !v)}
-        >
-          <div className="title-row-wrap" style={{ marginBottom: section2Open ? '0.75rem' : 0 }}>
-            <h3>{section2Open ? '▼' : '▶'} 사용자정보 변경</h3>
-          </div>
-        </button>
-
-        {section2Open && (
-          <div>
+        {/* 탭 2: 사용자정보 변경 */}
+        {activeTab === 'profile' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 그룹웨어 연동 안내 */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
               background: '#e8f4fd', border: '1px solid #b8daff', borderRadius: '4px',
-              padding: '4px 10px', marginBottom: '0.75rem', fontSize: '11px', color: '#084298',
+              padding: '4px 10px', fontSize: '11px', color: '#084298',
             }}>
               ℹ 일부 정보는 그룹웨어에서 자동 동기화됩니다
             </div>
@@ -271,22 +278,11 @@ export default function MyPage() {
             </div>
           </div>
         )}
-      </div>
 
-      {/* 섹션3: 데이터 수정 요청 */}
-      <div className="content-box-wrap type-02">
-        <button
-          style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: 0 }}
-          onClick={() => setSection3Open(v => !v)}
-        >
-          <div className="title-row-wrap" style={{ marginBottom: section3Open ? '0.75rem' : 0 }}>
-            <h3>{section3Open ? '▼' : '▶'} 데이터 수정 요청</h3>
-          </div>
-        </button>
-
-        {section3Open && (
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.75rem' }}>
+        {/* 탭 3: 데이터수정 요청 */}
+        {activeTab === 'request' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <button className="btn" onClick={() => setIsRequestModalOpen(true)}>+ 신규 요청 등록</button>
             </div>
 
@@ -352,5 +348,13 @@ export default function MyPage() {
         </div>
       </ModalDialog>
     </div>
+  );
+}
+
+export default function MyPage() {
+  return (
+    <Suspense fallback={null}>
+      <MyPageInner />
+    </Suspense>
   );
 }

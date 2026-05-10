@@ -8,42 +8,60 @@ export interface MenuItem {
 
 export const menuTree: MenuItem[] = [
   {
-    id: 'business',
-    label: '사업관리',
+    id: 'dashboard',
+    label: '대시보드',
     children: [
-      { id: 'dashboard', label: '대시보드', href: '/dashboard' },
+      { id: 'dashboard-main', label: '경영실적', href: '/dashboard' },
+      { id: 'cashflow', label: '자금회수율', href: '/cashflow' },
     ],
   },
   {
-    id: 'opportunity',
-    label: '사업 기회관리',
+    id: 'reception',
+    label: '사업접수',
     children: [
-      { id: 'opportunity-list', label: '사업접수 현황', href: '/opportunity' },
-      { id: 'opportunity-new', label: '사업접수 등록', href: '/opportunity/new' },
-      { id: 'pipeline', label: '입찰현황', href: '/pipeline' },
+      { id: 'opportunity-new', label: '신규프로젝트 생성', href: '/opportunity/new' },
+      { id: 'pipeline', label: '사업접수 현황', href: '/pipeline' },
     ],
   },
   {
-    id: 'cp-project',
-    label: '프로젝트관리',
+    id: 'project-mgmt',
+    label: '프로젝트 관리',
     children: [
-      { id: 'cp', label: '투자 관리', href: '/cp' },
-      { id: 'projects', label: '프로젝트 관리', href: '/projects' },
+      { id: 'projects', label: '프로젝트별 진행 정보', href: '/projects' },
     ],
   },
   {
-    id: 'finance',
-    label: '재무관리',
+    id: 'contracts',
+    label: '계약',
     children: [
-      { id: 'contracts', label: '계약 통합조회', href: '/contracts' },
-      { id: 'settlement', label: '사업결산·IRR', href: '/settlement' },
+      { id: 'contracts-award', label: '수주계약현황', href: '/contracts?tab=award' },
+      { id: 'contracts-order', label: '발주계약현황', href: '/contracts?tab=order' },
     ],
   },
   {
-    id: 'personal',
+    id: 'funds',
+    label: '자금관리',
+    children: [
+      { id: 'funds-investment', label: '투자비 지급현황', href: '/funds/investment' },
+      { id: 'funds-tax-invoice', label: '세금계산서 발행회차', href: '/funds/tax-invoice' },
+      { id: 'funds-repayment', label: '상환현황', href: '/funds/repayment' },
+      { id: 'funds-uncollected', label: '미회수 사업현황', href: '/funds/uncollected' },
+    ],
+  },
+  {
+    id: 'settlement',
+    label: '사업결산',
+    children: [
+      { id: 'settlement-main', label: '사업결산현황', href: '/settlement' },
+    ],
+  },
+  {
+    id: 'mypage',
     label: '마이페이지',
     children: [
-      { id: 'mypage', label: '마이페이지', href: '/mypage' },
+      { id: 'mypage-projects', label: '나의 사업현황', href: '/mypage?tab=projects' },
+      { id: 'mypage-profile', label: '사용자정보 변경', href: '/mypage?tab=profile' },
+      { id: 'mypage-request', label: '데이터수정 요청', href: '/mypage?tab=request' },
     ],
   },
   {
