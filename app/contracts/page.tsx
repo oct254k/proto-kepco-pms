@@ -29,9 +29,7 @@ function getContractStatusChipColors(status: string): { bg: string; text: string
 function ContractsInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab');
-  const initialTab: 'AWARD' | 'ORDER' = tabParam === 'order' ? 'ORDER' : 'AWARD';
-  const [activeTab, setActiveTab] = useState<'AWARD' | 'ORDER'>(initialTab);
+  const activeTab: 'AWARD' | 'ORDER' = searchParams.get('tab') === 'order' ? 'ORDER' : 'AWARD';
 
   // 수주계약 검색 필터
   const [awardFilterName, setAwardFilterName] = useState('');
@@ -102,8 +100,8 @@ function ContractsInner() {
       {/* 탭 */}
       <div className="content-box-wrap type-02">
         <div className="tab-list">
-          <button className={`tab-btn ${activeTab === 'AWARD' ? 'active' : ''}`} onClick={() => { setActiveTab('AWARD'); setIsDrawerOpen(false); }}>수주계약</button>
-          <button className={`tab-btn ${activeTab === 'ORDER' ? 'active' : ''}`} onClick={() => { setActiveTab('ORDER'); setIsDrawerOpen(false); }}>발주계약</button>
+          <button className={`tab-btn ${activeTab === 'AWARD' ? 'active' : ''}`} onClick={() => { router.push('/contracts?tab=award'); setIsDrawerOpen(false); }}>수주계약</button>
+          <button className={`tab-btn ${activeTab === 'ORDER' ? 'active' : ''}`} onClick={() => { router.push('/contracts?tab=order'); setIsDrawerOpen(false); }}>발주계약</button>
         </div>
 
         {/* 수주계약 탭 */}
