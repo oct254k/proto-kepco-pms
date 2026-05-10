@@ -228,11 +228,6 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* ── 페이지 제목 ─────────────────────────────────────────────────── */}
-      <div className="content-title-wrap">
-        <h2>경영실적</h2>
-      </div>
-
       {/* ── 메인 2열 레이아웃 ─────────────────────────────────────────── */}
       <div className="content-wrap">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '1rem', alignItems: 'start' }}>
