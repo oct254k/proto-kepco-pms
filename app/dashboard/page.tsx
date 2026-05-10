@@ -266,10 +266,9 @@ export default function DashboardPage() {
                         <span style={{ color: '#555', fontWeight: 600 }}>{bar.label}</span>
                         <span style={{ color: '#333' }}>{bar.count} &nbsp; {bar.amount}</span>
                       </div>
-                      <div className="progress-bar" style={{ height: 8 }}>
+                      <div style={{ height: 8, background: '#e9ecef', borderRadius: 4, overflow: 'hidden' }}>
                         <div
-                          className="progress-fill"
-                          style={{ width: `${bar.pct}%`, background: bar.color }}
+                          style={{ height: '100%', width: `${bar.pct}%`, background: bar.color, borderRadius: 4, transition: 'width 0.3s ease' }}
                         />
                       </div>
                     </div>
@@ -415,8 +414,8 @@ export default function DashboardPage() {
                   <div style={{ fontSize: 11, color: '#6c757d', marginBottom: 6 }}>
                     목표 {g.target} &nbsp; 달성률 {g.pct}%
                   </div>
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: `${g.pct}%`, background: g.color }} />
+                  <div style={{ height: 8, background: '#e9ecef', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${g.pct}%`, background: g.color, borderRadius: 4, transition: 'width 0.3s ease' }} />
                   </div>
                 </div>
               ))}
@@ -427,8 +426,8 @@ export default function DashboardPage() {
               <div className="title-row-wrap">
                 <h3>월별 사업비 · 투자비 추이</h3>
               </div>
-              <div style={{ height: 200 }}>
-                <ResponsiveContainer width="100%" height="100%">
+              <div style={{ height: 220, width: '100%' }}>
+                <ResponsiveContainer width="100%" height={220}>
                   <ComposedChart data={monthlyPerformanceData} margin={{ top: 4, right: 20, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
                     <XAxis dataKey="month" tick={{ fontSize: 11 }} />
