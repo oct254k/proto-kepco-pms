@@ -42,8 +42,9 @@ export const mockUncollected = [
 ];
 
 export const mockNotices = [
-  { id: 1, title: '2026년 1분기 경영실적 보고서 제출 안내', date: '2026-04-01', isNew: true },
-  { id: 2, title: 'EERS 제도 변경 사항 공유 (산업부 고시)', date: '2026-03-25', isNew: false },
-  { id: 3, title: '협력업체 신용평가 갱신 요청 (3월 만료 업체)', date: '2026-03-15', isNew: false },
-  { id: 4, title: 'SRM 연동 점검 완료 보고', date: '2026-03-10', isNew: false },
+  { id: 1, title: 'PMS·SRM 통합시스템 오픈 안내드립니다.', date: '2026-05-02', isNew: true },
+  { id: 2, title: '2026년 1분기 경영실적 보고서 제출 안내', date: '2026-05-02', isNew: true },
+  { id: 3, title: 'EERS 제도 변경 사항 공유 (산업부 고시)', date: '2026-04-30', isNew: false },
+  { id: 4, title: '협력업체 신용평가 갱신 요청 (3월 만료 업체)', date: '2026-04-30', isNew: false },
+  { id: 5, title: 'SRM 연동 점검 완료 보고', date: '2026-03-10', isNew: false },
 ];
