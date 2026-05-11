@@ -32,10 +32,28 @@ import { mockDashboardKpi, mockNotices } from '@/lib/mock-data/dashboard';
 
 /** 월별 사업비·투자비 추이 카드 내부 패널과 동일 (다른 카드도 이 톤에 맞춤) */
 const trendCardInnerPanel: CSSProperties = {
-  border: '1px solid var(--card-border, #e6ebf0)',
-  borderRadius: 8,
-  padding: '0.75rem 0.875rem',
-  background: 'var(--bg-page, #f4f7f9)',
+  border: '1px solid #E5EBF3',
+  borderRadius: 12,
+  padding: '0.875rem 1rem',
+  background: '#FFFFFF',
+};
+const businessStatusSectionPanel: CSSProperties = {
+  background: '#F1F6FB',
+  border: '1px solid #E6EEF7',
+  borderRadius: 18,
+  padding: '1.5rem',
+};
+const businessStatusSummaryPanel: CSSProperties = {
+  border: '1px solid #DDE6F0',
+  borderRadius: 12,
+  padding: '1.25rem 1.5rem',
+  background: '#E8EEF5',
+};
+
+const businessStatusBodyPanel: CSSProperties = {
+  borderRadius: 12,
+  padding: '0.5rem 0',
+  background: 'transparent',
 };
 
 /** 일~토 그리드용: 해당 월의 앞빈칸(null) + 1..말일 */
@@ -287,10 +305,10 @@ const shortcuts = [
 ];
 
 const myWorkItems = [
-  { label: '접수', count: 7, Icon: Inbox },
-  { label: '입찰평가', count: 28, Icon: ClipboardList },
-  { label: '검수', count: 3, Icon: ShieldCheck },
-  { label: '상환', count: 3, Icon: Wallet },
+  { label: '접수', count: 7, Icon: Inbox, color: '#4967D8', iconBg: '#E7ECFF' },
+  { label: '입찰평가', count: 28, Icon: ClipboardList, color: '#F5B817', iconBg: '#FFF3C9' },
+  { label: '검수', count: 3, Icon: ShieldCheck, color: '#EF5A2A', iconBg: '#FFE4DA' },
+  { label: '상환', count: 3, Icon: Wallet, color: '#4967D8', iconBg: '#E7ECFF' },
 ] as const;
 
 // ── 진행중 입찰공고 funnel ──────────────────────────────────────────────────
@@ -476,7 +494,7 @@ export default function DashboardPage() {
           {/* ═══ 좌 패널 ═══════════════════════════════════════════════════ */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* ── 사업 현황 카드 ─────────────────────────────────────── */}
-            <div className="content-box-wrap type-02">
+            <div className="content-box-wrap type-02" style={businessStatusSectionPanel}>
               {/* 헤더 */}
               <div className="title-row-wrap">
                 <h3>사업 현황</h3>
@@ -505,7 +523,15 @@ export default function DashboardPage() {
               </div>
 
               {/* 가로 바 + KPI — 월별 추이 카드와 동일 내부 패널 */}
-              <div style={{ ...trendCardInnerPanel, marginBottom: '1rem' }}>
+              <div
+                style={{
+                  border: '1px solid #D6E0EC',
+                  borderRadius: 12,
+                  padding: '1rem',
+                  background: '#DDE7F2',
+                  marginBottom: '1rem',
+                }}
+              >
                 <div
                   style={{
                     display: 'grid',
@@ -622,7 +648,13 @@ export default function DashboardPage() {
 
               {/* 미니 달력 + 탭·그리드 — 동일 내부 패널 */}
 
-              <div style={trendCardInnerPanel}>
+              <div
+                style={{
+                  borderRadius: 12,
+                  padding: '0.5rem 0',
+                  background: 'transparent',
+                }}
+              >
                 <div
                   style={{
                     display: 'grid',
@@ -818,25 +850,40 @@ export default function DashboardPage() {
                       ))}
                     </div>
 
-                    <div className="table-wrap">
+                    <div
+                      className="table-wrap"
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }}
+                    >
                       <table
                         className="data-table"
                         style={{
                           width: '100%',
                           tableLayout: 'fixed',
                           fontSize: 12,
+                          background: 'transparent',
+                          borderCollapse: 'collapse',
                         }}
                       >
                         <colgroup>
                           <col style={{ width: '17%' }} />
                           <col style={{ width: '46%' }} />
                           <col style={{ width: '24%' }} />
-                          <col style={{ width: '13%' }} />
+                          <col style={{ width: '16%' }} />
                         </colgroup>
 
                         <tbody>
                           {filteredRows.map((row) => (
-                            <tr key={row.id}>
+                            <tr
+                              key={row.id}
+                              style={{
+                                background: 'transparent',
+                                borderBottom: '1px solid #D5DEE8',
+                              }}
+                            >
                               <td>
                                 <span style={statusBadgeStyle(row.status)}>{row.status}</span>
                               </td>
@@ -1038,14 +1085,26 @@ export default function DashboardPage() {
           {/* ═══ 우 패널 ═══════════════════════════════════════════════════ */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* ── 내 업무 (바로가기와 동일 버튼 톤, 1행 4열) ───────────── */}
-            <div className="content-box-wrap type-02">
+            <div
+              className="content-box-wrap type-02"
+              style={{
+                background: '#FFFFFF',
+                border: '1px solid #E8EDF3',
+                borderRadius: 16,
+                padding: '1.25rem',
+              }}
+            >
               <div className="title-row-wrap">
                 <h3>내 업무</h3>
               </div>
               <div
-                style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '0.5rem',
+                }}
               >
-                {myWorkItems.map(({ label, count, Icon }) => (
+                {myWorkItems.map(({ label, count, Icon, color, iconBg }) => (
                   <button
                     key={label}
                     type="button"
@@ -1054,30 +1113,69 @@ export default function DashboardPage() {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 6,
-                      padding: '0.75rem 0.35rem',
-                      minHeight: 72,
-                      background: '#f8faff',
-                      border: '1px solid #e2eaf5',
-                      borderRadius: 8,
-                      cursor: 'default',
+                      gap: 5,
+                      padding: '0.65rem 0.35rem',
+                      height: 68,
+                      background: '#E8EEF5',
+                      border: '1px solid #E8EDF3',
+                      borderRadius: 10,
+                      boxShadow: 'none',
+                      cursor: 'pointer',
                       fontFamily: 'inherit',
+                      transition: 'all .15s ease',
                     }}
                   >
-                    <Icon size={18} color="#1a56db" aria-hidden />
                     <span
-                      style={{ fontSize: 16, fontWeight: 700, color: '#1a1a1a', lineHeight: 1 }}
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: 6,
+                        background: iconBg,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
                     >
-                      {count}
+                      <Icon size={15} color={color} aria-hidden />
                     </span>
-                    <span style={{ fontSize: 11, color: '#333', fontWeight: 500 }}>{label}</span>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 4,
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: '#556070',
+                        lineHeight: 1,
+                      }}
+                    >
+                      <span>{label}</span>
+                      <span
+                        style={{
+                          color,
+                          fontWeight: 800,
+                          fontSize: 12,
+                        }}
+                      >
+                        {count}
+                      </span>
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* ── 바로가기 ─────────────────────────────────────────────── */}
-            <div className="content-box-wrap type-02">
+            <div
+              className="content-box-wrap type-02"
+              style={{
+                background: '#FFFFFF',
+                border: '1px solid #E8EDF3',
+                borderRadius: 16,
+                padding: '1.25rem',
+              }}
+            >
               <div className="title-row-wrap">
                 <h3>바로가기</h3>
                 <button
@@ -1106,18 +1204,42 @@ export default function DashboardPage() {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 6,
-                      padding: '0.75rem 0.5rem',
-                      minHeight: 72,
-                      background: '#f8faff',
-                      border: '1px solid #e2eaf5',
-                      borderRadius: 8,
+                      gap: 5,
+                      padding: '0.65rem 0.35rem',
+                      height: 68,
+                      background: '#E8EEF5',
+                      border: '1px solid #E8EDF3',
+                      borderRadius: 10,
+                      boxShadow: 'none',
                       cursor: 'pointer',
                       fontFamily: 'inherit',
+                      transition: 'all .15s ease',
                     }}
                   >
-                    <Icon size={18} color="#1a56db" />
-                    <span style={{ fontSize: 11, color: '#333', fontWeight: 500 }}>{label}</span>
+                    <span
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: 6,
+                        background: '#EAF1FF',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Icon size={14} color="#4F6FD8" />
+                    </span>
+
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: '#556070',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {label}
+                    </span>
                   </button>
                 ))}
               </div>
