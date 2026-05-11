@@ -57,16 +57,43 @@ const monthlyPerformanceData = [
 ];
 
 // ── TOP KPI BAR 데이터 ────────────────────────────────────────────────────────
-const topKpiItems = [
-  { label: '신규사업',     value: '3건',    sub: '심의대기 12' },
-  { label: '수주 계약',   value: '218건',  sub: '투자 205  물약·공사 120' },
-  { label: '공고평가',    value: '7건',    sub: '공고 7  평가 2' },
-  { label: '발주 계약',   value: '17건',   sub: '' },
-  { label: '상환 완료율', value: '87.1%',  sub: '전월대비 5.5% ↑ / 4.6 억원' },
-  { label: '미상환',      value: '3건',    sub: '' },
-  { label: '가상계좌 연결', value: '75.2%', sub: '미연결 12' },
-  { label: '세금계산서',  value: '104건',  sub: '오늘발행 26건 납부' },
+type TopKpiTrend = 'up' | 'down';
+type TopKpiSubSegment = { text: string; tone?: 'muted' | 'accent' | 'danger'; trend?: TopKpiTrend };
+type TopKpiItem = {
+  label: string;
+  value: string;
+  sub?: TopKpiSubSegment[];
+};
+
+const topKpiItems: TopKpiItem[] = [
+  { label: '신규사업', value: '3건', sub: [{ text: '심의대기 ' }, { text: '12', tone: 'accent' }] },
+  { label: '수주 계약', value: '218건', sub: [{ text: '투자 ' }, { text: '205', tone: 'accent' }, { text: '  용역·공사 ' }, { text: '120', tone: 'accent' }] },
+  { label: '공고평가', value: '7건', sub: [{ text: '공고 ' }, { text: '7', tone: 'accent' }, { text: '  평가 ' }, { text: '2', tone: 'accent' }] },
+  { label: '발주 계약', value: '17건' },
+  { label: '상환 완료율', value: '87.1%', sub: [{ text: '전월대비 ' }, { text: '5.5%', tone: 'accent', trend: 'up' }] },
+  { label: '미상환', value: '3건', sub: [{ text: '4.6 억원', tone: 'danger' }] },
+  { label: '가상계좌 연결', value: '75.2%', sub: [{ text: '미연결 ' }, { text: '12', tone: 'accent' }] },
+  { label: '세금계산서', value: '104건', sub: [{ text: '오늘발행 ' }, { text: '25', tone: 'accent' }, { text: '일 납부' }] },
 ];
+
+function TopKpiSub({ segments }: { segments?: TopKpiSubSegment[] }) {
+  if (!segments?.length) return null;
+
+  return (
+    <div className="top-kpi-sub">
+      {segments.map((segment, i) => (
+        <span key={`${segment.text}-${i}`} className={segment.tone ? `top-kpi-sub-${segment.tone}` : undefined}>
+          {segment.text}
+          {segment.trend && (
+            <span className={`top-kpi-trend top-kpi-trend-${segment.trend}`} aria-hidden>
+              {segment.trend === 'up' ? '▲' : '▼'}
+            </span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 // ── 사업 현황 progress bar 데이터 ────────────────────────────────────────────
 const statusBars = [
@@ -294,40 +321,12 @@ export default function DashboardPage() {
   return (
     <div>
       {/* ── TOP KPI BAR ──────────────────────────────────────────────────── */}
-      <div style={{
-        background: '#0F2044',
-        margin: '-1px -28px 1rem',
-        padding: '0.75rem 1.5rem',
-        display: 'flex',
-        alignItems: 'stretch',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}>
+      <div className="top-kpi-bar">
         {topKpiItems.map((item, idx) => (
-          <div
-            key={idx}
-            style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              paddingLeft: idx === 0 ? 0 : '1rem',
-              paddingRight: idx === topKpiItems.length - 1 ? 0 : '1rem',
-              borderRight: idx < topKpiItems.length - 1 ? '1px solid rgba(255,255,255,0.15)' : 'none',
-              minWidth: 0,
-            }}
-          >
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)', marginBottom: 2, whiteSpace: 'nowrap' }}>
-              {item.label}
-            </div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
-              {item.value}
-            </div>
-            {item.sub && (
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {item.sub}
-              </div>
-            )}
+          <div key={idx} className="top-kpi-item">
+            <div className="top-kpi-label">{item.label}</div>
+            <div className="top-kpi-value">{item.value}</div>
+            <TopKpiSub segments={item.sub} />
           </div>
         ))}
       </div>
@@ -470,141 +469,253 @@ export default function DashboardPage() {
               </div>
 
               {/* 미니 달력 + 탭·그리드 — 동일 내부 패널 */}
-              <div style={trendCardInnerPanel}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 13.5rem) minmax(0, 1fr)', gap: '1rem', alignItems: 'start' }}>
-                {/* 미니 달력 + 범례 */}
-                <div style={{ minWidth: 0, maxWidth: 216, justifySelf: 'start' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#1a56db', marginBottom: 6, textAlign: 'center' }}>
-                    {selectedYear}년 {selectedMonth}월
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px 2px', rowGap: 2 }}>
-                    {calendarDow.map((d) => (
-                      <div key={d} style={{ textAlign: 'center', fontSize: 9, fontWeight: 700, color: '#6c757d', paddingBottom: 2, lineHeight: 1.2 }}>
-                        {d}
-                      </div>
-                    ))}
-                    {calendarCells.map((day, i) => {
-                      const captions = day !== null ? getCalendarCaptions(selectedYear, selectedMonth, day) : [];
-                      return (
-                        <div
-                          key={i}
-                          style={{
-                            textAlign: 'center',
-                            fontSize: 10,
-                            minHeight: captions.length > 0 ? 34 : 26,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            paddingTop: 1,
-                          }}
-                        >
-                          {day !== null && (
-                            <>
-                              <span
-                                style={{
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  width: 20,
-                                  height: 20,
-                                  borderRadius: '50%',
-                                  fontSize: 10,
-                                  lineHeight: 1,
-                                  background: calendarHighlightDay !== null && day === calendarHighlightDay ? '#1a56db' : 'transparent',
-                                  color: calendarHighlightDay !== null && day === calendarHighlightDay ? '#fff' : '#333',
-                                  fontWeight: calendarHighlightDay !== null && day === calendarHighlightDay ? 700 : 500,
-                                }}
-                              >
-                                {day}
-                              </span>
-                              {captions.length > 0 && (
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                    gap: 2,
-                                    justifyContent: 'center',
-                                    maxWidth: 28,
-                                    marginTop: 2,
-                                    lineHeight: 0,
-                                  }}
-                                  aria-hidden
-                                >
-                                  {captions.map((c, j) => (
-                                    <span
-                                      key={`${c}-${j}`}
-                                      style={{
-                                        display: 'inline-block',
-                                        width: 4,
-                                        height: 4,
-                                        borderRadius: '50%',
-                                        background: CALENDAR_DOT_PALETTE[c],
-                                        flexShrink: 0,
-                                      }}
-                                    />
-                                  ))}
-                                </div>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div style={{ display: 'flex', gap: 8, marginTop: 8, fontSize: 9, color: '#555', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {[
-                      { label: '상환완료', color: '#1a56db' },
-                      { label: '상환예정', color: '#f97316' },
-                      { label: '미상환',   color: '#ef4444' },
-                      { label: '입찰',     color: '#6c757d' },
-                    ].map((l) => (
-                      <span key={l.label} style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-                        <span style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
-                        {l.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+            
+  <div style={trendCardInnerPanel}>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'minmax(330px, 42%) minmax(0, 58%)',
+      gap: '24px',
+      alignItems: 'start',
+    }}
+  >
+    {/* 미니 달력 + 범례 */}
+    <div
+      style={{
+        width: '100%',
+        minWidth: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      {/* 달력 헤더 */}
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: '#1a56db',
+          marginBottom: 12,
+          textAlign: 'center',
+          lineHeight: 1.2,
+        }}
+      >
+        {selectedYear}년 {selectedMonth}월
+      </div>
 
-                <div style={{ minWidth: 0 }}>
-                  <div className="tab-list" style={{ marginBottom: '0.75rem' }}>
-                    {tabs.map((tab) => (
-                      <button
-                        key={tab.key}
-                        type="button"
-                        className={`tab-btn ${activeTab === tab.key ? 'active' : ''}`}
-                        onClick={() => setActiveTab(tab.key)}
-                      >
-                        {tab.label} {tab.count}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="table-wrap">
-                    <table className="data-table" style={{ fontSize: 12, tableLayout: 'fixed', width: '100%' }}>
-                      <colgroup>
-                        <col style={{ width: '17%' }} />
-                        <col style={{ width: '46%' }} />
-                        <col style={{ width: '24%' }} />
-                        <col style={{ width: '13%' }} />
-                      </colgroup>
-                      <tbody>
-                        {filteredRows.map((row) => (
-                          <tr key={row.id}>
-                            <td><span style={statusBadgeStyle(row.status)}>{row.status}</span></td>
-                            <td className="text-left" style={{ color: '#1a1a1a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                              {row.name}
-                            </td>
-                            <td className="text-right">{row.amount}</td>
-                            <td className="text-center">{row.round}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                </div>
-              </div>
+      {/* 달력 */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 360,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(7, minmax(0, 1fr))',
+          columnGap: 10,
+          rowGap: 8,
+          alignItems: 'start',
+        }}
+      >
+        {/* 요일 */}
+        {calendarDow.map((d) => (
+          <div
+            key={d}
+            style={{
+              textAlign: 'center',
+              fontSize: 10,
+              fontWeight: 700,
+              color: '#6c757d',
+              paddingBottom: 4,
+              lineHeight: 1,
+            }}
+          >
+            {d}
+          </div>
+        ))}
+
+        {/* 날짜 */}
+        {calendarCells.map((day, i) => {
+          const captions =
+            day !== null
+              ? getCalendarCaptions(selectedYear, selectedMonth, day)
+              : [];
+
+          const isActive =
+            calendarHighlightDay !== null && day === calendarHighlightDay;
+
+          return (
+            <div
+              key={i}
+              style={{
+                minHeight: captions.length > 0 ? 44 : 36,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+              }}
+            >
+              {day !== null && (
+                <>
+                  {/* 날짜 */}
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 24,
+                      height: 24,
+                      borderRadius: '50%',
+                      fontSize: 11,
+                      lineHeight: 1,
+                      background: isActive ? '#1a56db' : 'transparent',
+                      color: isActive ? '#fff' : '#333',
+                      fontWeight: isActive ? 700 : 500,
+                    }}
+                  >
+                    {day}
+                  </span>
+
+                  {/* 상태 dot */}
+                  {captions.length > 0 && (
+                    <div
+                      aria-hidden
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        gap: 3,
+                        maxWidth: 42,
+                        marginTop: 4,
+                        lineHeight: 0,
+                      }}
+                    >
+                      {captions.map((c, j) => (
+                        <span
+                          key={`${c}-${j}`}
+                          style={{
+                            width: 5,
+                            height: 5,
+                            borderRadius: '50%',
+                            background: CALENDAR_DOT_PALETTE[c],
+                            flexShrink: 0,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 범례 */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 360,
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: '10px 14px',
+          marginTop: 14,
+          fontSize: 10,
+          color: '#555',
+        }}
+      >
+        {[
+          { label: '상환완료', color: '#1a56db' },
+          { label: '상환예정', color: '#f97316' },
+          { label: '미상환', color: '#ef4444' },
+          { label: '입찰', color: '#6c757d' },
+        ].map((l) => (
+          <span
+            key={l.label}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: l.color,
+                flexShrink: 0,
+              }}
+            />
+            {l.label}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    {/* 우측 테이블 */}
+    <div style={{ minWidth: 0 }}>
+      <div className="tab-list" style={{ marginBottom: '0.75rem' }}>
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            className={`tab-btn ${activeTab === tab.key ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            {tab.label} {tab.count}
+          </button>
+        ))}
+      </div>
+
+      <div className="table-wrap">
+        <table
+          className="data-table"
+          style={{
+            width: '100%',
+            tableLayout: 'fixed',
+            fontSize: 12,
+          }}
+        >
+          <colgroup>
+            <col style={{ width: '17%' }} />
+            <col style={{ width: '46%' }} />
+            <col style={{ width: '24%' }} />
+            <col style={{ width: '13%' }} />
+          </colgroup>
+
+          <tbody>
+            {filteredRows.map((row) => (
+              <tr key={row.id}>
+                <td>
+                  <span style={statusBadgeStyle(row.status)}>
+                    {row.status}
+                  </span>
+                </td>
+
+                <td
+                  className="text-left"
+                  style={{
+                    color: '#1a1a1a',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {row.name}
+                </td>
+
+                <td className="text-right">{row.amount}</td>
+
+                <td className="text-center">{row.round}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
             </div>
 
             {/* ── 사업비·투자비 목표 + 월별 추이 (단일 카드) ───────────── */}

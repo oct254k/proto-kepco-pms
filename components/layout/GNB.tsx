@@ -17,6 +17,7 @@ export default function GNB() {
             display: 'block',
           }}
         />
+        <span className="gnb-logo-subtitle">사업관리시스템</span>
       </div>
       <div className="gnb-spacer" />
       <div className="gnb-actions">

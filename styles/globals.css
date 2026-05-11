@@ -719,3 +719,109 @@ textarea { height: 80px; padding: 4px 10px; resize: none; line-height: 18px; }
 .mt-2 { margin-top: 0.5rem; }
 .mb-2 { margin-bottom: 0.5rem; }
 .w-full { width: 100%; }
+
+/* Dashboard reference: top logo subtitle and KPI status header */
+.gnb-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.gnb-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.gnb-logo-subtitle {
+  display: block;
+
+  margin-top: 3px;
+  padding:0;
+
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1;
+
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+
+  color: #111827;
+  white-space: nowrap;
+  transform: translateX(-5px);
+
+}
+
+.top-kpi-bar {
+  min-height: 132px;
+  margin: 0 -28px 30px;
+  padding: 0 34px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: 16px 16px 16px 16px;
+  background: #1f4368;
+  box-shadow: 0 6px 16px rgba(28, 57, 91, 0.06);
+}
+
+.top-kpi-item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 24px;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.top-kpi-item:first-child { padding-left: 14px; }
+.top-kpi-item:last-child { padding-right: 14px; border-right: 0; }
+
+.top-kpi-label {
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: nowrap;
+}
+
+.top-kpi-value {
+  font-size: 31px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.top-kpi-sub {
+  min-height: 17px;
+  margin-top: 9px;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: rgba(201, 213, 229, 0.9);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-kpi-sub-accent { color: #f8c23a; }
+.top-kpi-sub-danger { color: #ff624f; }
+.top-kpi-sub-muted { color: rgba(201, 213, 229, 0.9); }
+
+.top-kpi-trend {
+  display: inline-block;
+  margin-left: 3px;
+  transform: translateY(-1px);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.top-kpi-trend-up { color: #4f8df7; }
+.top-kpi-trend-down { color: #ff624f; }
