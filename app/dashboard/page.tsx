@@ -57,16 +57,43 @@ const monthlyPerformanceData = [
 ];
 
 // ── TOP KPI BAR 데이터 ────────────────────────────────────────────────────────
-const topKpiItems = [
-  { label: '신규사업',     value: '3건',    sub: '심의대기 12' },
-  { label: '수주 계약',   value: '218건',  sub: '투자 205  물약·공사 120' },
-  { label: '공고평가',    value: '7건',    sub: '공고 7  평가 2' },
-  { label: '발주 계약',   value: '17건',   sub: '' },
-  { label: '상환 완료율', value: '87.1%',  sub: '전월대비 5.5% ↑ / 4.6 억원' },
-  { label: '미상환',      value: '3건',    sub: '' },
-  { label: '가상계좌 연결', value: '75.2%', sub: '미연결 12' },
-  { label: '세금계산서',  value: '104건',  sub: '오늘발행 26건 납부' },
+type TopKpiTrend = 'up' | 'down';
+type TopKpiSubSegment = { text: string; tone?: 'muted' | 'accent' | 'danger'; trend?: TopKpiTrend };
+type TopKpiItem = {
+  label: string;
+  value: string;
+  sub?: TopKpiSubSegment[];
+};
+
+const topKpiItems: TopKpiItem[] = [
+  { label: '신규사업', value: '3건', sub: [{ text: '심의대기 ' }, { text: '12', tone: 'accent' }] },
+  { label: '수주 계약', value: '218건', sub: [{ text: '투자 ' }, { text: '205', tone: 'accent' }, { text: '  용역·공사 ' }, { text: '120', tone: 'accent' }] },
+  { label: '공고평가', value: '7건', sub: [{ text: '공고 ' }, { text: '7', tone: 'accent' }, { text: '  평가 ' }, { text: '2', tone: 'accent' }] },
+  { label: '발주 계약', value: '17건' },
+  { label: '상환 완료율', value: '87.1%', sub: [{ text: '전월대비 ' }, { text: '5.5%', tone: 'accent', trend: 'up' }] },
+  { label: '미상환', value: '3건', sub: [{ text: '4.6 억원', tone: 'danger' }] },
+  { label: '가상계좌 연결', value: '75.2%', sub: [{ text: '미연결 ' }, { text: '12', tone: 'accent' }] },
+  { label: '세금계산서', value: '104건', sub: [{ text: '오늘발행 ' }, { text: '25', tone: 'accent' }, { text: '일 납부' }] },
 ];
+
+function TopKpiSub({ segments }: { segments?: TopKpiSubSegment[] }) {
+  if (!segments?.length) return null;
+
+  return (
+    <div className="top-kpi-sub">
+      {segments.map((segment, i) => (
+        <span key={`${segment.text}-${i}`} className={segment.tone ? `top-kpi-sub-${segment.tone}` : undefined}>
+          {segment.text}
+          {segment.trend && (
+            <span className={`top-kpi-trend top-kpi-trend-${segment.trend}`} aria-hidden>
+              {segment.trend === 'up' ? '▲' : '▼'}
+            </span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 // ── 사업 현황 progress bar 데이터 ────────────────────────────────────────────
 const statusBars = [
@@ -294,40 +321,12 @@ export default function DashboardPage() {
   return (
     <div>
       {/* ── TOP KPI BAR ──────────────────────────────────────────────────── */}
-      <div style={{
-        background: '#0F2044',
-        margin: '-1px -28px 1rem',
-        padding: '0.75rem 1.5rem',
-        display: 'flex',
-        alignItems: 'stretch',
-        borderRadius: 12,
-        overflow: 'hidden',
-      }}>
+      <div className="top-kpi-bar">
         {topKpiItems.map((item, idx) => (
-          <div
-            key={idx}
-            style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              paddingLeft: idx === 0 ? 0 : '1rem',
-              paddingRight: idx === topKpiItems.length - 1 ? 0 : '1rem',
-              borderRight: idx < topKpiItems.length - 1 ? '1px solid rgba(255,255,255,0.15)' : 'none',
-              minWidth: 0,
-            }}
-          >
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)', marginBottom: 2, whiteSpace: 'nowrap' }}>
-              {item.label}
-            </div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: '#fff', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
-              {item.value}
-            </div>
-            {item.sub && (
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {item.sub}
-              </div>
-            )}
+          <div key={idx} className="top-kpi-item">
+            <div className="top-kpi-label">{item.label}</div>
+            <div className="top-kpi-value">{item.value}</div>
+            <TopKpiSub segments={item.sub} />
           </div>
         ))}
       </div>
