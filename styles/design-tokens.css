@@ -4,9 +4,9 @@
     "Malgun Gothic", "Segoe UI", "Noto Sans KR", "Nanum Gothic", "돋움", dotum, sans-serif;
 
   /* ── 브랜드 컬러 ── */
-  --color-primary:        #2563eb;
-  --color-primary-dark:   #1e3a8a;
-  --color-primary-active: #1e3a8a;
+  --color-primary:        #00a7ea;
+  --color-primary-dark:   #0b88c8;
+  --color-primary-active: #009bd8;
 
   /* ── 버튼 ── */
   --btn-primary-bg:        #304C6C;     /* back */
@@ -32,35 +32,35 @@
 
   /* ── 사이드바 — TalkToFigma Left / PMS (ardmcpmk 선택 시안) ── */
   --sidebar-bg:              #ffffff;
-  --sidebar-menu1-text:      #374151;       /* 1뎁스 기본 SemiBold 16 */
-  --sidebar-menu1-icon:      #374151;
+  --sidebar-menu1-text:      #3b414e;       /* 1뎁스 기본 SemiBold 16 */
+  --sidebar-menu1-icon:      #3b414e;
   --sidebar-menu1-expanded-bg:   #1c395b; /* 펼친 1뎁스 pill */
   --sidebar-menu1-expanded-text: #ffffff;
-  --sidebar-menu1-hover:     #f3f4f6;
-  --sidebar-menu2-text:      #374151;       /* 2뎁스 본문 Regular 14 */
-  --sidebar-menu2-hover:     #f3f4f6;
-  --sidebar-menu2-hover-text:#374151;
+  --sidebar-menu1-hover:     #f5f7fa;
+  --sidebar-menu2-text:      #1c395b;       /* 2뎁스 본문 Regular 14 */
+  --sidebar-menu2-hover:     #f9f9f9;
+  --sidebar-menu2-hover-text:#1c395b;
   --sidebar-menu2-active:    #1c395b;       /* 활성 2뎁스: Bold 17, 배경 없음 */
-  --sidebar-divider:         #e5e7eb;
-  --sidebar-border:          #e5e7eb;
-  --sidebar-search-bg:       #ffffff;
-  --sidebar-search-stroke:   #e5e7eb;
+  --sidebar-divider:         #e6ebf0;
+  --sidebar-border:          #e6ebf0;
+  --sidebar-search-bg:       #f9f9f9;
+  --sidebar-search-stroke:   #e6eaf1;
   --sidebar-search-placeholder: #8f95a9;
-  --sidebar-search-border:   #e5e7eb;
+  --sidebar-search-border:   #e6ebf0;
   --sidebar-chevron:         #8f95a9;
   --sidebar-chevron-on-expanded: rgba(255, 255, 255, 0.88);
   --sidebar-item-radius:     8px;
   --sidebar-menu-pill-radius: 9999px;
   /* TalkToFigma Left(52buympi) — 상·하 간격 */
-  --sidebar-lnb-width: 260px;
-  --gnb-height: 60px;
-  --sidebar-padding-inline: 24px;
+  --sidebar-lnb-width: 250px;
+  --gnb-height: 80px;
+  --sidebar-padding-inline: 31px;
   /* Left 패널 상단 ~ 메뉴검색 상단 */
-  --sidebar-padding-top: 20px;
+  --sidebar-padding-top: 28px;
   /* 메뉴검색 하단 ~ 1뎁스 메뉴 */
-  --sidebar-gap-search-to-menu: 16px;
-  --gnb-logo-height: 24px;
-  --gnb-logo-max-width: 164px;
+  --sidebar-gap-search-to-menu: 24px;
+  --gnb-logo-height: 27px;
+  --gnb-logo-max-width: 184px;
 
   /* ── 입력 요소 ── */
   --input-border:          #becacf;
@@ -79,10 +79,10 @@
   --status-none-bg:      #e2e3e5; --status-none-text:      #383d41;
 
   /* ── 시스템 피드백 ── */
-  --feedback-success: #16a34a;
-  --feedback-warning: #f59e0b;
+  --feedback-success: #198754;
+  --feedback-warning: #fd7e14;
   --feedback-danger:  #dc3545;
-  --feedback-info:    #2563eb;
+  --feedback-info:    #0d6efd;
   --feedback-neutral: #6c757d;
 
   /* ── 배경 및 구분선 ── */
@@ -90,24 +90,24 @@
   --bg-page:          #ffffff;
   --bg-content:       #ffffff;
   --bg-filter-box:    #ffffff;
-  --bg-table-header:  #f9fafb;  /* 테이블 헤더만 옅은 회색 강조 유지 */
-  --bg-table-hover:   #f8fafc;  /* 호버 인터랙션은 시각화 유지 */
+  --bg-table-header:  #f8f9fa;  /* 테이블 헤더만 옅은 회색 강조 유지 */
+  --bg-table-hover:   #f5f7fa;  /* 호버 인터랙션은 시각화 유지 */
   --bg-table-even:    #ffffff;  /* zebra 제거 */
-  --border-color:     #e5e7eb;
+  --border-color:     #dee2e6;
 
   /* ── 카드 ── */
-  --card-bg:      #ffffff;   /* 카드 본체 배경 (back) */
+  --card-bg:      #F2F6FA;   /* 카드 본체 배경 (back) */
   --card-fg-bg:   #ffffff;   /* 카드 안 강조/콘텐츠 영역 (fore) */
-  --card-border:  #e5e7eb;   /* 카드 보더 (stroke) */
+  --card-border:  #E8E8E8;   /* 카드 보더 (stroke) */
 
   /* ── 라운드(border-radius) ── */
-  --radius-sm: 4px;       /* 배지, 미세 요소 */
-  --radius-md: 6px;       /* 버튼, 입력 필드 */
+  --radius-sm: 2px;       /* 배지, 미세 요소 */
+  --radius-md: 4px;       /* 버튼, 입력 필드 */
   --radius-lg: 8px;       /* 카드, 콘텐츠 박스 */
   --radius-xl: 12px;      /* KPI 카드 등 강조 컨테이너 */
   --radius-full: 9999px;  /* 알약 형태 */
   /* Figma 메인 패널(흰 영역 r=18) */
-  --radius-panel: 12px;
+  --radius-panel: 18px;
 
   /* ── Figma 선택 프레임(main / 자금 / 사업접수) 악센트 ── */
   --figma-navy:         #1c395b;

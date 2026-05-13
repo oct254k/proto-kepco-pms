@@ -1,6 +1,6 @@
 'use client';
 
-import { Bell, Menu, User, Settings } from 'lucide-react';
+import { Bell, User, Settings } from 'lucide-react';
 
 export default function GNB() {
   return (
@@ -17,22 +17,11 @@ export default function GNB() {
             display: 'block',
           }}
         />
-        <button
-          type="button"
-          aria-label="메뉴"
-          onClick={() => {
-            if (typeof window !== 'undefined') {
-              window.dispatchEvent(new CustomEvent('pms:toggle-sidebar'));
-            }
-          }}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2c4a73', padding: 0, display: 'flex', alignItems: 'center' }}
-        >
-          <Menu size={16} strokeWidth={2.2} />
-        </button>
+        <span className="gnb-logo-subtitle">사업관리시스템</span>
       </div>
       <div className="gnb-spacer" />
       <div className="gnb-actions">
-        <button aria-label="알림" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666', position: 'relative' }}>
+        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666', position: 'relative' }}>
           <Bell size={18} />
           <span style={{
             position: 'absolute', top: -4, right: -4,
@@ -44,7 +33,7 @@ export default function GNB() {
           <User size={16} style={{ color: '#666' }} />
           <span className="gnb-user">김민준 (사업개발팀)</span>
         </div>
-        <button aria-label="설정" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666' }}>
+        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666' }}>
           <Settings size={16} />
         </button>
       </div>

@@ -127,7 +127,7 @@ function MyPageInner() {
         {activeTab === 'projects' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 상태별 카드 */}
-            <div className="status-summary-grid">
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               {[
                 { label: '접수', key: 'RECEPTION', color: '#084298', bg: '#cfe2ff' },
                 { label: '공사', key: 'CONSTRUCTION', color: '#856404', bg: '#fff3cd' },
@@ -138,34 +138,34 @@ function MyPageInner() {
                 return (
                   <div
                     key={s.key}
-                    className="status-summary-card"
                     style={{
                       border: `1px solid ${s.bg}`,
                       background: s.bg,
+                      borderRadius: '6px',
+                      padding: '0.5rem 1rem',
+                      textAlign: 'center',
+                      cursor: 'pointer',
+                      minWidth: '80px',
                     }}
                     onClick={() => setFilterProjectName('')}
                   >
-                    <strong style={{ color: s.color }}>{count}</strong>
-                    <span style={{ color: s.color }}>{s.label}</span>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: s.color }}>{count}</div>
+                    <div style={{ fontSize: '11px', color: s.color }}>{s.label}</div>
                   </div>
                 );
               })}
             </div>
 
             {/* 검색 필터 */}
-            <div className="page-inline-filter">
-              <div className="filter-item">
-                <label className="filter-label">프로젝트명</label>
-                <input
-                  type="text"
-                  value={filterProjectName}
-                  onChange={e => setFilterProjectName(e.target.value)}
-                  placeholder="프로젝트명 검색"
-                />
-              </div>
-              <div className="filter-actions" style={{ paddingTop: 0 }}>
-                <button className="btn type-03" onClick={() => {}}>조회</button>
-              </div>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <input
+                type="text"
+                value={filterProjectName}
+                onChange={e => setFilterProjectName(e.target.value)}
+                placeholder="프로젝트명 검색"
+                style={{ width: '200px' }}
+              />
+              <button className="btn type-03" onClick={() => {}}>조회</button>
             </div>
 
             {/* 프로젝트 목록 */}

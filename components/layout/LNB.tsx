@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, Suspense, useEffect } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { menuTree } from '@/lib/constants/menus';
@@ -45,29 +45,6 @@ function LNBInner() {
   const pathname   = usePathname();
   const searchParams = useSearchParams();
   const [menuQuery, setMenuQuery] = useState('');
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const onToggle = () => setIsMobileOpen((prev) => !prev);
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsMobileOpen(false);
-    };
-    const onResize = () => {
-      if (window.innerWidth > 1024) {
-        setIsMobileOpen(false);
-      }
-    };
-
-    window.addEventListener('pms:toggle-sidebar', onToggle as EventListener);
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', onResize);
-
-    return () => {
-      window.removeEventListener('pms:toggle-sidebar', onToggle as EventListener);
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
 
   const isActive = (href: string): boolean => {
     const p = hrefPath(href);
@@ -96,14 +73,7 @@ function LNBInner() {
     : null;
 
   return (
-    <>
-      <button
-        type="button"
-        className={`sidebar-overlay ${isMobileOpen ? 'is-visible' : ''}`}
-        aria-label="사이드바 닫기"
-        onClick={() => setIsMobileOpen(false)}
-      />
-      <nav className={`sidebar ${isMobileOpen ? 'is-mobile-open' : ''}`}>
+    <nav className="sidebar">
       <div className="sidebar-search">
         <input
           type="search"
@@ -148,24 +118,22 @@ function LNBInner() {
                   <span className="sidebar-menu1-text">{group.label}</span>
                 </div>
 
-                {isCurrentSection(group) ? (
-                  <div className="sidebar-group-items">
-                    {group.children?.map((item) => {
-                      const active = isActive(item.href || '');
-                      return (
-                        <Link
-                          key={item.id}
-                          href={item.href || '#'}
-                          className={`sidebar-menu2 ${active ? 'active' : ''}`}
-                          {...(active ? { 'aria-current': 'page' as const } : {})}
-                          onClick={() => setIsMobileOpen(false)}
-                        >
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                ) : null}
+                {/* 2depth: 항상 표시 */}
+                <div className="sidebar-group-items">
+                  {group.children?.map((item) => {
+                    const active = isActive(item.href || '');
+                    return (
+                      <Link
+                        key={item.id}
+                        href={item.href || '#'}
+                        className={`sidebar-menu2 ${active ? 'active' : ''}`}
+                        {...(active ? { 'aria-current': 'page' as const } : {})}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
 
                 {(() => {
                   const next = menuTree[gi + 1];
@@ -178,8 +146,7 @@ function LNBInner() {
           })
         )}
       </div>
-      </nav>
-    </>
+    </nav>
   );
 }
 
