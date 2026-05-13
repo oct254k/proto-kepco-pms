@@ -20,11 +20,6 @@ export default function GNB() {
         <button
           type="button"
           aria-label="메뉴"
-          onClick={() => {
-            if (typeof window !== 'undefined') {
-              window.dispatchEvent(new CustomEvent('pms:toggle-sidebar'));
-            }
-          }}
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2c4a73', padding: 0, display: 'flex', alignItems: 'center' }}
         >
           <Menu size={16} strokeWidth={2.2} />
