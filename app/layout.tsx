@@ -12,10 +12,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body>
+        <a href="#main-content" className="skip-link">본문 바로가기</a>
         <GNB />
         <div className="pms-container" style={{ paddingTop: 'var(--gnb-height)' }}>
           <LNB />
-          <main className="content-area">
+          <main id="main-content" className="content-area">
             {children}
           </main>
         </div>

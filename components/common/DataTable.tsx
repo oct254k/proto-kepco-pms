@@ -21,8 +21,22 @@ export default function DataTable<T extends Record<string, unknown>>({
     return (
       <div className="table-wrap">
         <table className="data-table">
-          <thead><tr>{columns.map(c => <th key={c.key}>{c.header}</th>)}</tr></thead>
-          <tbody><tr><td colSpan={columns.length} style={{ textAlign: 'center', padding: '2rem', color: '#6c757d' }}>데이터를 불러오는 중...</td></tr></tbody>
+          <thead>
+            <tr>
+              {columns.map(c => (
+                <th key={c.key} className={`text-${c.align || 'center'}`}>
+                  {c.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={columns.length} className="table-message-cell">
+                데이터를 불러오는 중...
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -32,14 +46,28 @@ export default function DataTable<T extends Record<string, unknown>>({
     <div className="table-wrap type-03">
       <table className="data-table">
         <thead>
-          <tr>{columns.map(c => <th key={c.key}>{c.header}</th>)}</tr>
+          <tr>
+            {columns.map(c => (
+              <th key={c.key} className={`text-${c.align || 'center'}`}>
+                {c.header}
+              </th>
+            ))}
+          </tr>
         </thead>
         <tbody>
           {data.length === 0 ? (
-            <tr><td colSpan={columns.length} style={{ textAlign: 'center', padding: '2rem', color: '#6c757d' }}>{emptyMessage}</td></tr>
+            <tr>
+              <td colSpan={columns.length} className="table-message-cell">
+                {emptyMessage}
+              </td>
+            </tr>
           ) : (
             data.map((row, i) => (
-              <tr key={String(row[keyField] ?? i)} onClick={() => onRowClick?.(row)} style={{ cursor: onRowClick ? 'pointer' : undefined }}>
+              <tr
+                key={String(row[keyField] ?? i)}
+                onClick={() => onRowClick?.(row)}
+                className={onRowClick ? 'is-clickable' : undefined}
+              >
                 {columns.map(c => (
                   <td key={c.key} className={`text-${c.align || 'center'}`}>
                     {c.render ? c.render(row, i) : String(row[c.key] ?? '')}
