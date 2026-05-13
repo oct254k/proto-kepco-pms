@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { PROJECT_STATUS, REPAYMENT_STATUS, OPPORTUNITY_STATUS, CP_INVESTMENT_REVISION_STATUS, ALERT_LEVEL } from '@/lib/constants/status';
 
 interface StatusBadgeProps {
@@ -32,8 +33,13 @@ export default function StatusBadge({ type, value, customLabel, customBg, custom
     label = customLabel || label;
   }
 
+  const style = {
+    '--status-badge-bg': bg,
+    '--status-badge-text': text,
+  } as CSSProperties;
+
   return (
-    <span className="status-badge" style={{ backgroundColor: bg, color: text }}>
+    <span className="status-badge" style={style}>
       {label}
     </span>
   );

@@ -158,7 +158,7 @@ export default function CpInvestmentListPage() {
                     <td className="text-center">{idx + 1}</td>
                     <td className="text-left">
                       <button
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', fontSize: '12px', padding: 0 }}
+                        className="table-link-button"
                         onClick={e => { e.stopPropagation(); router.push('/cp/' + cp.id); }}
                       >
                         {cp.projectName}
