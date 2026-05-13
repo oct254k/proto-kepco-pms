@@ -1,27 +1,36 @@
 'use client';
 
-import { Bell, User, Settings } from 'lucide-react';
+import { Bell, Menu, User, Settings } from 'lucide-react';
 
 export default function GNB() {
   return (
     <header className="gnb">
       <div className="gnb-logo">
-        <img
-          src="/logo.svg"
-          alt="KEPCO ES"
-          style={{
-            height: 'var(--gnb-logo-height)',
-            maxWidth: 'var(--gnb-logo-max-width)',
-            width: 'auto',
-            objectFit: 'contain',
-            display: 'block',
-          }}
-        />
-        <span className="gnb-logo-subtitle">사업관리시스템</span>
+        <div className="gnb-logo-mark">
+          <img
+            src="/logo.svg"
+            alt="KEPCO ES"
+            style={{
+              height: 'var(--gnb-logo-height)',
+              maxWidth: 'var(--gnb-logo-max-width)',
+              width: 'auto',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+          <span className="gnb-logo-subtitle">사업관리시스템</span>
+        </div>
+        <button
+          type="button"
+          aria-label="메뉴"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2c4a73', padding: 0, display: 'flex', alignItems: 'center' }}
+        >
+          <Menu size={16} strokeWidth={2.2} />
+        </button>
       </div>
       <div className="gnb-spacer" />
       <div className="gnb-actions">
-        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666', position: 'relative' }}>
+        <button aria-label="알림" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666', position: 'relative' }}>
           <Bell size={18} />
           <span style={{
             position: 'absolute', top: -4, right: -4,
@@ -33,7 +42,7 @@ export default function GNB() {
           <User size={16} style={{ color: '#666' }} />
           <span className="gnb-user">김민준 (사업개발팀)</span>
         </div>
-        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666' }}>
+        <button aria-label="설정" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#666' }}>
           <Settings size={16} />
         </button>
       </div>

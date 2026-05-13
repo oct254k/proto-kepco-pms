@@ -118,7 +118,6 @@ function LNBInner() {
                   <span className="sidebar-menu1-text">{group.label}</span>
                 </div>
 
-                {/* 2depth: 항상 표시 */}
                 <div className="sidebar-group-items">
                   {group.children?.map((item) => {
                     const active = isActive(item.href || '');
