@@ -1,6 +1,6 @@
 'use client';
 
-import { Bell, Menu, User, Settings } from 'lucide-react';
+import { Bell, User, Settings } from 'lucide-react';
 
 export default function GNB() {
   return (
@@ -20,13 +20,6 @@ export default function GNB() {
           />
           <span className="gnb-logo-subtitle">사업관리시스템</span>
         </div>
-        <button
-          type="button"
-          aria-label="메뉴"
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#2c4a73', padding: 0, display: 'flex', alignItems: 'center' }}
-        >
-          <Menu size={16} strokeWidth={2.2} />
-        </button>
       </div>
       <div className="gnb-spacer" />
       <div className="gnb-actions">
